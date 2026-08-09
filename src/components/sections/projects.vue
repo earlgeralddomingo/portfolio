@@ -5,7 +5,7 @@ import { Construction } from 'lucide-vue-next'
 import hrtsImage from '../../assets/image/hrts.svg'
 import climsImage from '../../assets/image/clims.svg'
 import arcguideImage from '../../assets/image/arcguide.svg'
-import rdsAutoworksImage from '../../assets/image/rds-autoworks.svg'
+import rdsAutoworkzImage from '../../assets/image/rdsLogo.jpg'
 
 
 const categories = [
@@ -89,15 +89,15 @@ const projects = [
 
 
     {
-        title: 'RDS Autoworks',
+        title: 'RDS Autoworkz',
         type: 'CLIENT PROJECT',
         category: 'Client Projects',
         status: 'Under Development',
 
-        image: rdsAutoworksImage,
+        image: rdsAutoworkzImage,
 
         description:
-            'A responsive automotive service website for RDS Autoworks, designed to showcase car repainting, car detailing, engine detailing, dent removal, and interior detailing services.',
+            'A responsive automotive service website for RDS Autoworkz, designed to showcase car repainting, car detailing, engine detailing, dent removal, and interior detailing services.',
 
         technologies: [
             'Vue.js',
