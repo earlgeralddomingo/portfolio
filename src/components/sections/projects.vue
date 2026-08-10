@@ -13,6 +13,7 @@ const categories = [
     'Academic',
     'Personal',
     'Client Projects',
+    'Under Development',
     'Videos'
 ]
 
@@ -111,63 +112,69 @@ const projects = [
 ]
 
 
+/* ================================================= */
+/* VIDEOS */
+/* ================================================= */
+
 const videos = [
-    {
-        id: '7074848203824221442',
-        title: 'Mobile Legends Gameplay',
-        type: 'TIKTOK CONTENT'
-    },
-
-
-    {
-        id: '7533561880401546503',
-        title: 'Mobile Legends Gameplay',
-        type: 'TIKTOK CONTENT'
-    },
-
-
-    {
-        id: '7386298811678838024',
-        title: 'Mobile Legends Gameplay',
-        type: 'TIKTOK CONTENT'
-    },
-
-
-    {
-        id: '7300951341390712065',
-        title: 'Mobile Legends Gameplay',
-        type: 'TIKTOK CONTENT'
-    },
-
-
-    {
-        id: '7107874158406569243',
-        title: 'Mobile Legends Gameplay',
-        type: 'TIKTOK CONTENT'
-    },
-
-
-    {
-        id: '7025125937498967322',
-        title: 'Mobile Legends Gameplay',
-        type: 'TIKTOK CONTENT'
-    }
+    // Add your videos here when available.
+    // Example:
+    //
+    // {
+    //     id: '123456789',
+    //     title: 'Mobile Legends Gameplay',
+    //     type: 'TIKTOK CONTENT'
+    // }
 ]
 
 
+/* ================================================= */
+/* FILTERED PROJECTS */
+/* ================================================= */
+
 const filteredProjects = computed(() => {
+
+    /* ========================= */
+    /* ALL */
+    /* ========================= */
+
     if (selectedCategory.value === 'All') {
         return projects
     }
 
+
+    /* ========================= */
+    /* UNDER DEVELOPMENT */
+    /* ========================= */
+
+    if (selectedCategory.value === 'Under Development') {
+
+        return projects.filter(
+            project => project.status === 'Under Development'
+        )
+
+    }
+
+
+    /* ========================= */
+    /* NORMAL CATEGORIES */
+    /* ========================= */
+
     return projects.filter(
         project => project.category === selectedCategory.value
     )
+
 })
 
 
+/* ================================================= */
+/* SHOW VIDEOS */
+/* ================================================= */
+
 const showVideos = computed(() => {
+
     return selectedCategory.value === 'Videos'
+
 })
 </script>
 
@@ -249,6 +256,10 @@ const showVideos = computed(() => {
 
             <div v-if="!showVideos" class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 
+                <!-- ========================= -->
+                <!-- PROJECT CARD -->
+                <!-- ========================= -->
+
                 <article v-for="(project, index) in filteredProjects" :key="project.title"
                     class="group flex h-full flex-col rounded-xl border border-slate-200 bg-white/70 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/40">
 
@@ -273,12 +284,16 @@ const showVideos = computed(() => {
                         <div>
 
                             <p class="font-mono text-[10px] font-semibold tracking-[0.15em] text-violet-400">
+
                                 {{ project.type }}
+
                             </p>
 
 
                             <h3 class="mt-2 font-mono text-base font-semibold leading-6 text-slate-900">
+
                                 {{ project.title }}
+
                             </h3>
 
                         </div>
@@ -389,12 +404,24 @@ const showVideos = computed(() => {
                 </article>
 
 
-                <!-- ========================= -->
-                <!-- No Projects -->
-                <!-- ========================= -->
+                <!-- ================================================= -->
+                <!-- NO PROJECTS -->
+                <!-- ================================================= -->
 
                 <div v-if="filteredProjects.length === 0"
                     class="col-span-full flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-white/50 py-16 text-center">
+
+                    <!-- Empty Indicator -->
+
+                    <div
+                        class="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white">
+
+                        <span class="h-2 w-2 rounded-full bg-slate-300"></span>
+
+                    </div>
+
+
+                    <!-- Empty Title -->
 
                     <p class="font-mono text-sm font-semibold text-slate-600">
 
@@ -402,9 +429,15 @@ const showVideos = computed(() => {
 
                     </p>
 
-                    <p class="mt-2 font-mono text-xs text-slate-400">
 
-                        Projects under this category will appear here.
+                    <!-- Empty Description -->
+
+                    <p class="mt-2 max-w-sm font-mono text-xs leading-5 text-slate-400">
+
+                        There are currently no projects available under
+                        <span class="font-semibold text-slate-500">
+                            {{ selectedCategory }}
+                        </span>.
 
                     </p>
 
@@ -414,12 +447,16 @@ const showVideos = computed(() => {
 
 
             <!-- ================================================= -->
-            <!-- TIKTOK VIDEOS -->
+            <!-- VIDEOS -->
             <!-- ================================================= -->
 
             <div v-else class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 
-                <article v-for="(video, index) in videos" :key="video.url"
+                <!-- ========================= -->
+                <!-- VIDEO CARDS -->
+                <!-- ========================= -->
+
+                <article v-for="(video, index) in videos" :key="video.id"
                     class="group flex h-full flex-col rounded-xl border border-slate-200 bg-white/70 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/40">
 
                     <!-- ========================= -->
@@ -466,21 +503,58 @@ const showVideos = computed(() => {
 
                         <span class="font-mono text-[10px] text-slate-400">
 
-                            TIKTOK
+                            VIDEO
 
                         </span>
 
 
-                        <a :href="video.url" target="_blank" rel="noopener noreferrer"
-                            class="font-mono text-[10px] font-medium text-indigo-500 transition-colors duration-300 hover:text-violet-500">
+                        <span class="font-mono text-[10px] font-medium text-indigo-500">
 
-                            VIEW ON TIKTOK →
+                            CONTENT
 
-                        </a>
+                        </span>
 
                     </div>
 
                 </article>
+
+
+                <!-- ================================================= -->
+                <!-- NO VIDEOS -->
+                <!-- ================================================= -->
+
+                <div v-if="videos.length === 0"
+                    class="col-span-full flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-white/50 py-16 text-center">
+
+                    <!-- Empty Indicator -->
+
+                    <div
+                        class="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white">
+
+                        <span class="h-2 w-2 rounded-full bg-slate-300"></span>
+
+                    </div>
+
+
+                    <!-- Empty Title -->
+
+                    <p class="font-mono text-sm font-semibold text-slate-600">
+
+                        No videos yet
+
+                    </p>
+
+
+                    <!-- Empty Description -->
+
+                    <p class="mt-2 max-w-sm font-mono text-xs leading-5 text-slate-400">
+
+                        Video content will appear here once
+                        it becomes available.
+
+                    </p>
+
+                </div>
 
             </div>
 
