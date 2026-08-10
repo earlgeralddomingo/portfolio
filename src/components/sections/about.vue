@@ -17,7 +17,7 @@ const stats = [
     {
         value: '3+',
         label: 'YEARS',
-        description: 'Experience',
+        description: 'Hands-on Experience',
         icon: 'person',
     },
     {
