@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { ArrowUp } from 'lucide-vue-next'
+import { ArrowUp, Expand } from 'lucide-vue-next'
 
 import Navbar from './components/layout/navbar.vue'
 import Home from './components/sections/home.vue'
 import About from './components/sections/about.vue'
+import Experience from './components/sections/experience.vue'
 import TechStack from './components/sections/techstack.vue'
 import Projects from './components/sections/projects.vue'
 import Contact from './components/sections/contact.vue'
@@ -46,6 +47,7 @@ onUnmounted(() => {
   <main>
     <Home />
     <About />
+    <Experience />
     <TechStack />
     <Projects />
     <Contact />
