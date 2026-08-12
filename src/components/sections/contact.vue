@@ -250,36 +250,6 @@ const callPhone = () => {
 
                     </div>
 
-
-                    <!-- Location -->
-
-                    <div class="
-                            mt-6
-                            flex
-                            items-center
-                            justify-center
-                            gap-2
-                            font-mono
-                            text-xs
-                            text-slate-500
-                            dark:text-gray-500
-                            lg:justify-start
-                        ">
-
-                        <MapPin class="
-                                h-4
-                                w-4
-                                shrink-0
-                                text-indigo-400
-                            " />
-
-                        <span>
-                            {{ location }}
-                        </span>
-
-                    </div>
-
-
                     <!-- Bottom Statement -->
 
                     <div class="
