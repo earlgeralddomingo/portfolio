@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import {
     BriefcaseBusiness,
     GraduationCap,
-    ChevronDown
+    ChevronDown,
+    ArrowUpRight,
 } from 'lucide-vue-next'
-
 
 const experiences = [
     {
@@ -25,7 +25,7 @@ const experiences = [
             'Troubleshot common hardware, software, and system problems.',
             'Assisted with computer setup, configuration, and maintenance.',
             'Performed digital and administrative tasks for clients.',
-            'Used remote support tools such as AnyDesk and TeamViewer.'
+            'Used remote support tools such as AnyDesk and TeamViewer.',
         ],
 
         technologies: [
@@ -37,10 +37,9 @@ const experiences = [
             'Networking',
             'Printer Setup',
             'VS Code',
-            'Microsoft Office'
-        ]
+            'Microsoft Office',
+        ],
     },
-
 
     {
         title: 'IT Staff',
@@ -59,7 +58,7 @@ const experiences = [
             'Troubleshot hardware and software-related issues.',
             'Assisted with computer setup and configuration.',
             'Supported general IT operations and maintenance.',
-            'Performed troubleshooting and technical tasks as needed.'
+            'Performed troubleshooting and technical tasks as needed.',
         ],
 
         technologies: [
@@ -67,10 +66,9 @@ const experiences = [
             'Hardware',
             'Software Support',
             'Networking',
-            'Microsoft Office'
-        ]
+            'Microsoft Office',
+        ],
     },
-
 
     {
         title: 'IT Staff Intern',
@@ -89,7 +87,7 @@ const experiences = [
             'Installed and configured desktop computers and printers.',
             'Assisted with network devices, CCTV, and wireless access points.',
             'Troubleshot hardware, software, and LAN-related issues.',
-            'Created technical documentation and a system manual for the HRTS.'
+            'Created technical documentation and a system manual for the HRTS.',
         ],
 
         technologies: [
@@ -101,14 +99,12 @@ const experiences = [
             'Software Support',
             'Hardware',
             'Printer Setup',
-            'CCTV'
-        ]
-    }
+            'CCTV',
+        ],
+    },
 ]
 
-
 const expandedExperience = ref(null)
-
 
 const toggleExperience = (index) => {
     expandedExperience.value =
@@ -116,264 +112,404 @@ const toggleExperience = (index) => {
 }
 </script>
 
-
 <template>
     <section id="experience" class="
+            relative
+            overflow-hidden
             bg-white
-            px-6 py-20
-            dark:bg-gray-950
+            px-5
+            py-20
+            text-zinc-900
+            transition-colors
+            duration-500
+
+            dark:bg-[#0D1210]
+            dark:text-white
+
             sm:px-8
-            lg:px-12
-            lg:py-24
+            sm:py-24
+
+            lg:px-10
+            lg:py-28
+
+            xl:px-14
         ">
-        <div class="mx-auto max-w-7xl">
-
-
-            <!-- ======================================== -->
-            <!-- Section Label -->
-            <!-- ======================================== -->
-
+        <!-- Background -->
+        <div class="
+                pointer-events-none
+                absolute
+                inset-0
+                overflow-hidden
+            " aria-hidden="true">
+            <!-- Teal glow -->
             <div class="
-                    mb-8
+                    absolute
+                    -right-40
+                    top-20
+                    h-96
+                    w-96
+                    rounded-full
+                    bg-teal-200/15
+                    blur-[120px]
+
+                    dark:bg-teal-900/10
+                "></div>
+
+            <!-- Amber glow -->
+            <div class="
+                    absolute
+                    -left-40
+                    bottom-0
+                    h-96
+                    w-96
+                    rounded-full
+                    bg-amber-200/10
+                    blur-[120px]
+
+                    dark:bg-amber-900/10
+                "></div>
+
+            <!-- Grid -->
+            <div class="
+                    absolute
+                    inset-0
+                    opacity-[0.025]
+
+                    dark:opacity-[0.035]
+                " style="
+                    background-image:
+                        linear-gradient(
+                            to right,
+                            currentColor 1px,
+                            transparent 1px
+                        ),
+                        linear-gradient(
+                            to bottom,
+                            currentColor 1px,
+                            transparent 1px
+                        );
+                    background-size: 46px 46px;
+                "></div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="
+                relative
+                z-10
+                mx-auto
+                w-full
+                max-w-[1280px]
+            ">
+            <!-- Header -->
+            <div class="
+                    mb-12
                     flex
-                    items-center
-                    gap-3
-                    font-mono
-                    text-base
-                    font-semibold
-                    tracking-wide
-                    text-indigo-500
-                    sm:text-lg
+                    flex-col
+                    gap-5
+
+                    lg:mb-16
+                    lg:flex-row
+                    lg:items-end
+                    lg:justify-between
                 ">
-                <span class="
-                        h-2
-                        w-2
-                        rounded-full
-                        bg-indigo-500
-                    "></span>
+                <div>
+                    <!-- Label -->
+                    <div class="
+                            mb-4
+                            flex
+                            items-center
+                            gap-3
+                            font-mono
+                            text-[9px]
+                            font-semibold
+                            uppercase
+                            tracking-[0.25em]
+                            text-teal-700
 
-                <span>EXPERIENCE</span>
-            </div>
+                            dark:text-teal-400
+                        ">
+                        <span class="
+                                h-1.5
+                                w-1.5
+                                rounded-full
+                                bg-teal-500
+                            "></span>
 
+                        Experience
 
+                        <span class="text-zinc-300 dark:text-zinc-700">
+                            /
+                        </span>
 
-            <!-- ======================================== -->
-            <!-- Heading -->
-            <!-- ======================================== -->
+                        02
+                    </div>
 
-            <div class="max-w-3xl">
+                    <!-- Heading -->
+                    <h2 class="
+                            text-4xl
+                            font-black
+                            leading-[0.9]
+                            tracking-[-0.055em]
+                            text-zinc-950
 
-                <h2 class="
-                        text-3xl
-                        font-bold
-                        leading-none
-                        tracking-tight
-                        text-slate-950
-                        dark:text-white
-                        sm:text-4xl
-                        md:text-5xl
-                        lg:text-6xl
-                    ">
-                    PROFESSIONAL
+                            dark:text-white
 
-                    <span class="text-indigo-500">
-                        JOURNEY
-                    </span>
-                </h2>
+                            sm:text-5xl
 
+                            lg:text-6xl
+                        ">
+                        PROFESSIONAL
 
+                        <span class="block text-teal-700 dark:text-teal-400">
+                            JOURNEY.
+                        </span>
+                    </h2>
+                </div>
+
+                <!-- Description -->
                 <p class="
-                        mt-5
-                        max-w-2xl
+                        max-w-md
                         font-mono
-                        text-xs
-                        leading-6
-                        text-slate-600
-                        dark:text-gray-400
-                        sm:text-sm
-                        sm:leading-7
-                    ">
-                    A timeline of my professional, freelance, and hands-on
-                    IT experience, including technical support and system
-                    development.
-                </p>
+                        text-[10px]
+                        leading-5
+                        text-zinc-500
 
+                        dark:text-zinc-500
+
+                        sm:text-xs
+                    ">
+                    A timeline of my freelance, professional, and hands-on IT
+                    experience — from technical support and infrastructure to
+                    practical system development.
+                </p>
             </div>
 
-
-
-            <!-- ======================================== -->
-            <!-- Experience Timeline -->
-            <!-- ======================================== -->
-
-            <div class="relative mt-12">
-
-
-                <!-- Timeline Line -->
-
+            <!-- Experience -->
+            <div class="relative">
+                <!-- Desktop Timeline -->
                 <div class="
                         absolute
-                        left-[19px]
-                        top-2
+                        bottom-5
+                        left-[7px]
+                        top-5
                         hidden
-                        h-[calc(100%-8px)]
                         w-px
-                        bg-slate-200
-                        dark:bg-gray-800
+                        bg-zinc-200
+
+                        dark:bg-zinc-800
+
                         sm:block
                     "></div>
 
-
-
-                <!-- Experience Items -->
-
-                <div class="space-y-6">
-
+                <div class="space-y-5 sm:space-y-7">
                     <article v-for="(experience, index) in experiences" :key="experience.title" class="
+                            group
                             relative
-                            sm:pl-14
+                            sm:pl-12
                         ">
-
-
-                        <!-- Timeline Icon -->
-
+                        <!-- Timeline Dot -->
                         <div class="
                                 absolute
                                 left-0
                                 top-6
                                 hidden
-                                h-10
-                                w-10
+                                h-[15px]
+                                w-[15px]
                                 items-center
                                 justify-center
                                 rounded-full
                                 border
-                                border-indigo-200
-                                bg-indigo-50
-                                text-indigo-500
-                                shadow-sm
-                                dark:border-indigo-900
-                                dark:bg-indigo-950
-                                dark:text-indigo-400
+                                border-teal-300
+                                bg-[#F7F7F5]
                                 sm:flex
+
+                                dark:border-teal-800
+                                dark:bg-[#0D1210]
                             ">
-                            <component :is="experience.icon" class="h-4 w-4" />
+                            <span class="
+                                    h-1.5
+                                    w-1.5
+                                    rounded-full
+                                    bg-teal-500
+                                "></span>
                         </div>
 
-
-
-                        <!-- Experience Card -->
-
+                        <!-- Experience Container -->
                         <div class="
-                                group
-                                rounded-xl
+                                overflow-hidden
+                                rounded-2xl
                                 border
-                                border-slate-200
-                                bg-slate-50/70
-                                p-5
+                                border-zinc-200
+                                bg-[#F7F7F5]/70
                                 backdrop-blur-sm
                                 transition-all
                                 duration-300
-                                hover:-translate-y-1
-                                hover:border-indigo-200
+
+                                hover:border-teal-200
                                 hover:bg-white
-                                hover:shadow-lg
-                                hover:shadow-indigo-100/40
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-gray-900
-                                dark:hover:shadow-indigo-950/30
+                                hover:shadow-xl
+                                hover:shadow-teal-900/5
+
+                                dark:border-zinc-800
+                                dark:bg-zinc-900/40
+
+                                dark:hover:border-teal-900
+                                dark:hover:bg-zinc-900
                             ">
-
-
-                            <!-- Card Header -->
-
-                            <button type="button" class="
+                            <!-- Main Row -->
+                            <button type="button" @click="toggleExperience(index)" class="
                                     flex
                                     w-full
                                     items-start
-                                    justify-between
-                                    gap-5
+                                    gap-4
+                                    p-5
                                     text-left
-                                " @click="toggleExperience(index)">
 
-                                <div class="min-w-0">
+                                    sm:p-6
+                                ">
+                                <!-- Mobile Icon -->
+                                <div class="
+                                        flex
+                                        h-9
+                                        w-9
+                                        shrink-0
+                                        items-center
+                                        justify-center
+                                        rounded-lg
+                                        bg-teal-50
+                                        text-teal-700
 
+                                        dark:bg-teal-950/60
+                                        dark:text-teal-400
 
-                                    <!-- Mobile Icon -->
+                                        sm:hidden
+                                    ">
+                                    <component :is="experience.icon" class="h-4 w-4" :stroke-width="1.5" />
+                                </div>
 
+                                <!-- Index -->
+                                <div class="
+                                        hidden
+                                        pt-1
+                                        font-mono
+                                        text-[9px]
+                                        text-zinc-300
+
+                                        dark:text-zinc-700
+
+                                        sm:block
+                                    ">
+                                    0{{ index + 1 }}
+                                </div>
+
+                                <!-- Main Information -->
+                                <div class="min-w-0 flex-1">
+                                    <!-- Type -->
                                     <div class="
-                                            mb-4
                                             flex
-                                            h-9
-                                            w-9
+                                            flex-wrap
                                             items-center
-                                            justify-center
-                                            rounded-full
-                                            border
-                                            border-indigo-200
-                                            bg-indigo-50
-                                            text-indigo-500
-                                            dark:border-indigo-900
-                                            dark:bg-indigo-950
-                                            dark:text-indigo-400
-                                            sm:hidden
+                                            gap-2
                                         ">
-                                        <component :is="experience.icon" class="h-4 w-4" />
+                                        <span class="
+                                                font-mono
+                                                text-[8px]
+                                                font-semibold
+                                                uppercase
+                                                tracking-[0.2em]
+                                                text-teal-700
+
+                                                dark:text-teal-400
+                                            ">
+                                            {{ experience.type }}
+                                        </span>
+
+                                        <span class="
+                                                h-1
+                                                w-1
+                                                rounded-full
+                                                bg-zinc-300
+
+                                                dark:bg-zinc-700
+                                            "></span>
+
+                                        <span class="
+                                                font-mono
+                                                text-[8px]
+                                                text-zinc-400
+                                            ">
+                                            {{ experience.location }}
+                                        </span>
                                     </div>
 
-
-
-                                    <!-- Type -->
-
-                                    <p class="
-                                            font-mono
-                                            text-[10px]
-                                            font-semibold
-                                            tracking-[0.15em]
-                                            text-violet-400
-                                        ">
-                                        {{ experience.type }}
-                                    </p>
-
-
-
-                                    <!-- Job Title -->
-
+                                    <!-- Title -->
                                     <h3 class="
                                             mt-2
-                                            font-mono
                                             text-base
-                                            font-semibold
-                                            leading-6
-                                            text-slate-900
+                                            font-bold
+                                            tracking-tight
+                                            text-zinc-900
+
                                             dark:text-white
+
                                             sm:text-lg
                                         ">
                                         {{ experience.title }}
                                     </h3>
 
-
-
                                     <!-- Company -->
-
                                     <p class="
                                             mt-1
                                             font-mono
-                                            text-xs
+                                            text-[10px]
                                             font-medium
-                                            text-indigo-500
+                                            text-amber-600
+
+                                            dark:text-amber-400
                                         ">
                                         {{ experience.company }}
                                     </p>
 
+                                    <!-- Tags -->
+                                    <div class="
+                                            mt-3
+                                            flex
+                                            flex-wrap
+                                            items-center
+                                            gap-2
+                                        ">
+                                        <!-- Status -->
+                                        <span class="
+                                                inline-flex
+                                                items-center
+                                                gap-1.5
+                                                rounded-full
+                                                border
+                                                border-emerald-200
+                                                bg-emerald-50
+                                                px-2
+                                                py-1
+                                                font-mono
+                                                text-[8px]
+                                                text-emerald-700
+
+                                                dark:border-emerald-900
+                                                dark:bg-emerald-950/40
+                                                dark:text-emerald-400
+                                            ">
+                                            <span class="
+                                                    h-1.5
+                                                    w-1.5
+                                                    rounded-full
+                                                    bg-emerald-500
+                                                "></span>
+
+                                            {{ experience.status }}
+                                        </span>
+                                    </div>
                                 </div>
 
-
-
                                 <!-- Date / Expand -->
-
                                 <div class="
                                         flex
                                         shrink-0
@@ -381,278 +517,275 @@ const toggleExperience = (index) => {
                                         items-end
                                         gap-3
                                     ">
-
                                     <span class="
                                             font-mono
-                                            text-[10px]
-                                            text-slate-400
-                                            dark:text-gray-500
-                                            sm:text-xs
+                                            text-[8px]
+                                            font-medium
+                                            text-zinc-400
+
+                                            sm:text-[9px]
                                         ">
                                         {{ experience.date }}
                                     </span>
 
-
-                                    <ChevronDown class="
-                                            h-4
-                                            w-4
-                                            text-slate-400
-                                            transition-transform
+                                    <span class="
+                                            flex
+                                            h-7
+                                            w-7
+                                            items-center
+                                            justify-center
+                                            rounded-full
+                                            border
+                                            border-zinc-200
+                                            text-zinc-400
+                                            transition-all
                                             duration-300
-                                        " :class="{
-                                            'rotate-180':
-                                                expandedExperience === index
-                                        }" />
 
+                                            group-hover:border-teal-200
+                                            group-hover:text-teal-600
+
+                                            dark:border-zinc-800
+                                            dark:group-hover:border-teal-900
+                                            dark:group-hover:text-teal-400
+                                        ">
+                                        <ChevronDown class="
+                                                h-3.5
+                                                w-3.5
+                                                transition-transform
+                                                duration-300
+                                            " :class="{
+                                                'rotate-180':
+                                                    expandedExperience === index,
+                                            }" />
+                                    </span>
                                 </div>
-
                             </button>
 
-
-
-                            <!-- Basic Information -->
-
-                            <div class="
-                                    mt-4
-                                    flex
-                                    flex-wrap
-                                    items-center
-                                    gap-2
-                                ">
-
-
-                                <!-- Status -->
-
-                                <span class="
-                                        inline-flex
-                                        items-center
-                                        gap-2
-                                        rounded-full
-                                        border
-                                        border-indigo-200
-                                        bg-indigo-50
-                                        px-2.5
-                                        py-1
+                            <!-- Description -->
+                            <div class="px-5 pb-5 sm:px-6">
+                                <p class="
+                                        max-w-3xl
+                                        border-l
+                                        border-zinc-200
+                                        pl-4
                                         font-mono
                                         text-[10px]
-                                        text-indigo-600
-                                        dark:border-indigo-900
-                                        dark:bg-indigo-950/40
-                                        dark:text-indigo-400
+                                        leading-5
+                                        text-zinc-500
+
+                                        dark:border-zinc-800
+                                        dark:text-zinc-400
+
+                                        sm:text-xs
                                     ">
-                                    <span class="
-                                            h-1.5
-                                            w-1.5
-                                            rounded-full
-                                            bg-indigo-400
-                                        "></span>
-
-                                    {{ experience.status }}
-                                </span>
-
-
-
-                                <!-- Location -->
-
-                                <span class="
-                                        rounded-full
-                                        border
-                                        border-slate-200
-                                        bg-white
-                                        px-2.5
-                                        py-1
-                                        font-mono
-                                        text-[10px]
-                                        text-slate-500
-                                        dark:border-gray-700
-                                        dark:bg-gray-950
-                                        dark:text-gray-400
-                                    ">
-                                    {{ experience.location }}
-                                </span>
-
+                                    {{ experience.description }}
+                                </p>
                             </div>
 
-
-
-                            <!-- Description -->
-
-                            <p class="
-                                    mt-4
-                                    max-w-3xl
-                                    font-mono
-                                    text-xs
-                                    leading-6
-                                    text-slate-500
-                                    dark:text-gray-400
-                                ">
-                                {{ experience.description }}
-                            </p>
-
-
-
-                            <!-- Expanded Content -->
-
+                            <!-- Expanded -->
                             <Transition enter-active-class="transition-all duration-300 ease-out"
-                                enter-from-class="max-h-0 opacity-0" enter-to-class="max-h-[600px] opacity-100"
+                                enter-from-class="max-h-0 opacity-0" enter-to-class="max-h-[700px] opacity-100"
                                 leave-active-class="transition-all duration-200 ease-in"
-                                leave-from-class="max-h-[600px] opacity-100" leave-to-class="max-h-0 opacity-0">
-
+                                leave-from-class="max-h-[700px] opacity-100" leave-to-class="max-h-0 opacity-0">
                                 <div v-if="expandedExperience === index" class="
-                                        mt-5
                                         overflow-hidden
                                         border-t
-                                        border-slate-200
-                                        pt-5
-                                        dark:border-gray-800
+                                        border-zinc-200
+                                        bg-white/40
+                                        px-5
+                                        py-5
+
+                                        dark:border-zinc-800
+                                        dark:bg-black/10
+
+                                        sm:px-6
+                                        sm:py-6
                                     ">
+                                    <div class="
+                                            grid
+                                            gap-8
 
-
-                                    <!-- Responsibilities -->
-
-                                    <div>
-
-                                        <p class="
-                                                font-mono
-                                                text-[10px]
-                                                font-semibold
-                                                tracking-[0.15em]
-                                                text-slate-400
-                                                dark:text-gray-500
-                                            ">
-                                            RESPONSIBILITIES
-                                        </p>
-
-
-                                        <ul class="
-                                                mt-3
-                                                space-y-2
-                                            ">
-
-                                            <li v-for="responsibility in experience.responsibilities"
-                                                :key="responsibility" class="
+                                            lg:grid-cols-[1fr_0.8fr]
+                                        ">
+                                        <!-- Responsibilities -->
+                                        <div>
+                                            <div class="
+                                                    mb-3
                                                     flex
-                                                    items-start
+                                                    items-center
                                                     gap-3
                                                     font-mono
-                                                    text-xs
-                                                    leading-5
-                                                    text-slate-500
-                                                    dark:text-gray-400
+                                                    text-[8px]
+                                                    font-semibold
+                                                    uppercase
+                                                    tracking-[0.2em]
+                                                    text-zinc-400
                                                 ">
-
                                                 <span class="
-                                                        mt-2
-                                                        h-1
-                                                        w-1
-                                                        shrink-0
-                                                        rounded-full
-                                                        bg-indigo-400
+                                                        h-px
+                                                        w-6
+                                                        bg-zinc-300
+
+                                                        dark:bg-zinc-700
                                                     "></span>
 
+                                                Responsibilities
+                                            </div>
 
-                                                <span>
-                                                    {{ responsibility }}
-                                                </span>
+                                            <ul class="space-y-2.5">
+                                                <li v-for="responsibility in experience.responsibilities"
+                                                    :key="responsibility" class="
+                                                        flex
+                                                        items-start
+                                                        gap-3
+                                                        font-mono
+                                                        text-[10px]
+                                                        leading-5
+                                                        text-zinc-500
 
-                                            </li>
+                                                        dark:text-zinc-400
 
-                                        </ul>
+                                                        sm:text-xs
+                                                    ">
+                                                    <span class="
+                                                            mt-2
+                                                            h-1
+                                                            w-1
+                                                            shrink-0
+                                                            rounded-full
+                                                            bg-teal-500
+                                                        "></span>
 
-                                    </div>
-
-
-
-                                    <!-- Technologies -->
-
-                                    <div class="mt-6">
-
-                                        <p class="
-                                                font-mono
-                                                text-[10px]
-                                                font-semibold
-                                                tracking-[0.15em]
-                                                text-slate-400
-                                                dark:text-gray-500
-                                            ">
-                                            TOOLS & TECHNOLOGIES
-                                        </p>
-
-
-                                        <div class="
-                                                mt-3
-                                                flex
-                                                flex-wrap
-                                                gap-2
-                                            ">
-
-                                            <span v-for="technology in experience.technologies" :key="technology" class="
-                                                    rounded-full
-                                                    border
-                                                    border-slate-200
-                                                    bg-slate-50
-                                                    px-2.5
-                                                    py-1
-                                                    font-mono
-                                                    text-[10px]
-                                                    text-slate-600
-                                                    dark:border-gray-700
-                                                    dark:bg-gray-950
-                                                    dark:text-gray-400
-                                                ">
-                                                {{ technology }}
-                                            </span>
-
+                                                    <span>
+                                                        {{ responsibility }}
+                                                    </span>
+                                                </li>
+                                            </ul>
                                         </div>
 
+                                        <!-- Technologies -->
+                                        <div>
+                                            <div class="
+                                                    mb-3
+                                                    flex
+                                                    items-center
+                                                    gap-3
+                                                    font-mono
+                                                    text-[8px]
+                                                    font-semibold
+                                                    uppercase
+                                                    tracking-[0.2em]
+                                                    text-zinc-400
+                                                ">
+                                                <span class="
+                                                        h-px
+                                                        w-6
+                                                        bg-zinc-300
+
+                                                        dark:bg-zinc-700
+                                                    "></span>
+
+                                                Tools & Technologies
+                                            </div>
+
+                                            <div class="
+                                                    flex
+                                                    flex-wrap
+                                                    gap-1.5
+                                                ">
+                                                <span v-for="technology in experience.technologies" :key="technology"
+                                                    class="
+                                                        rounded-full
+                                                        border
+                                                        border-zinc-200
+                                                        bg-[#F7F7F5]
+                                                        px-2.5
+                                                        py-1.5
+                                                        font-mono
+                                                        text-[9px]
+                                                        text-zinc-500
+
+                                                        dark:border-zinc-800
+                                                        dark:bg-zinc-950
+                                                        dark:text-zinc-400
+                                                    ">
+                                                    {{ technology }}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
 
+                                    <!-- View Details -->
+                                    <a href="#projects" class="
+                                            group/link
+                                            mt-6
+                                            inline-flex
+                                            items-center
+                                            gap-2
+                                            font-mono
+                                            text-[9px]
+                                            font-semibold
+                                            uppercase
+                                            tracking-[0.15em]
+                                            text-teal-700
 
+                                            dark:text-teal-400
+                                        ">
+                                        Related Work
+
+                                        <ArrowUpRight class="
+                                                h-3
+                                                w-3
+                                                transition-transform
+                                                duration-300
+
+                                                group-hover/link:-translate-y-0.5
+                                                group-hover/link:translate-x-0.5
+                                            " />
+                                    </a>
                                 </div>
-
                             </Transition>
-
-
                         </div>
-
                     </article>
-
                 </div>
-
             </div>
 
-
-
-            <!-- ======================================== -->
-            <!-- Bottom Statement -->
-            <!-- ======================================== -->
-
+            <!-- Bottom -->
             <div class="
-                    mt-10
+                    mt-12
                     flex
-                    items-center
-                    justify-center
-                    gap-2
-                    text-center
+                    flex-col
+                    gap-3
+                    border-t
+                    border-zinc-200
+                    pt-5
                     font-mono
-                    text-[10px]
-                    text-slate-500
-                    dark:text-gray-400
-                    sm:text-xs
+                    text-[8px]
+                    uppercase
+                    tracking-[0.2em]
+                    text-zinc-400
+
+                    dark:border-zinc-800
+
+                    sm:flex-row
+                    sm:items-center
+                    sm:justify-between
                 ">
+                <span>
+                    EXPERIENCE / SUPPORT / DEVELOPMENT
+                </span>
 
-                <span class="
-                        h-2
-                        w-2
-                        rounded-full
-                        bg-violet-400
-                    "></span>
+                <span class="flex items-center gap-2">
+                    <span class="
+                            h-1.5
+                            w-1.5
+                            rounded-full
+                            bg-emerald-500
+                        "></span>
 
-                Growing through hands-on experience and continuous learning.
-
+                    Continuously learning
+                </span>
             </div>
-
-
         </div>
     </section>
 </template>

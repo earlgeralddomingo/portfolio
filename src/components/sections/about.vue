@@ -1,4 +1,16 @@
 <script setup>
+import {
+    BriefcaseBusiness,
+    Code2,
+    GraduationCap,
+    Headphones,
+    Laptop,
+    Network,
+    ServerCog,
+    Wrench,
+    ArrowUpRight,
+} from 'lucide-vue-next'
+
 const skills = [
     'IT Support',
     'Windows',
@@ -12,716 +24,657 @@ const skills = [
     'Tailwind CSS',
 ]
 
+const opportunities = [
+    {
+        title: 'IT Support',
+        description: 'Hardware & Software',
+        icon: Wrench,
+    },
+    {
+        title: 'Technical Support',
+        description: 'Troubleshooting',
+        icon: Headphones,
+    },
+    {
+        title: 'Help Desk',
+        description: 'User Support',
+        icon: Laptop,
+    },
+    {
+        title: 'System Administration',
+        description: 'Windows & Maintenance',
+        icon: ServerCog,
+    },
+    {
+        title: 'Network Support',
+        description: 'LAN & Connectivity',
+        icon: Network,
+    },
+    {
+        title: 'Web Development',
+        description: 'PHP, MySQL & Vue.js',
+        icon: Code2,
+    },
+]
+
 const stats = [
     {
         value: '3+',
         label: 'YEARS',
-        description: 'Hands-on Experience',
-        icon: 'person',
+        description: 'Hands-on experience',
+        icon: BriefcaseBusiness,
     },
     {
         value: 'BSIT',
         label: 'DEGREE',
-        description: 'Graduate',
-        icon: 'education',
+        description: 'Information Technology',
+        icon: GraduationCap,
     },
     {
         value: 'IT',
-        label: 'SUPPORT',
-        description: 'Specialist',
-        icon: 'headset',
+        label: 'PRIMARY',
+        description: 'Support specialist',
+        icon: Headphones,
     },
     {
         value: 'WEB',
-        label: 'DEVELOPMENT',
-        description: 'PHP • MySQL',
-        icon: 'laptop',
+        label: 'SECONDARY',
+        description: 'Application development',
+        icon: Code2,
     },
 ]
 </script>
 
 <template>
     <section id="about" class="
-            bg-slate-50
-            px-6 py-20
+            relative
+            overflow-hidden
+            bg-[#F7F7F5]
+            px-5
+            py-20
+            text-zinc-900
+            transition-colors
+            duration-500
+
+            dark:bg-[#0D1210]
+            dark:text-white
+
             sm:px-8
-            lg:px-12 lg:py-24
+            sm:py-24
 
-            dark:bg-gray-950
+            lg:px-10
+            lg:py-28
+
+            xl:px-14
         ">
-        <div class="relative mx-auto max-w-7xl">
-
-            <!-- Section Label -->
+        <!-- Background -->
+        <div class="
+                pointer-events-none
+                absolute
+                inset-0
+                overflow-hidden
+            " aria-hidden="true">
+            <!-- Teal glow -->
             <div class="
-                    mb-8
+                    absolute
+                    -left-40
+                    top-20
+                    h-96
+                    w-96
+                    rounded-full
+                    bg-teal-200/20
+                    blur-[120px]
+
+                    dark:bg-teal-900/15
+                "></div>
+
+            <!-- Amber glow -->
+            <div class="
+                    absolute
+                    -right-40
+                    bottom-0
+                    h-96
+                    w-96
+                    rounded-full
+                    bg-amber-200/15
+                    blur-[120px]
+
+                    dark:bg-amber-900/10
+                "></div>
+
+            <!-- Grid -->
+            <div class="
+                    absolute
+                    inset-0
+                    opacity-[0.025]
+
+                    dark:opacity-[0.035]
+                " style="
+                    background-image:
+                        linear-gradient(
+                            to right,
+                            currentColor 1px,
+                            transparent 1px
+                        ),
+                        linear-gradient(
+                            to bottom,
+                            currentColor 1px,
+                            transparent 1px
+                        );
+                    background-size: 46px 46px;
+                "></div>
+        </div>
+
+        <!-- Main Container -->
+        <div class="
+                relative
+                z-10
+                mx-auto
+                w-full
+                max-w-[1280px]
+            ">
+            <!-- Section Header -->
+            <div class="
+                    mb-12
                     flex
-                    items-center
-                    gap-3
-                    font-mono
-                    text-base
-                    font-semibold
-                    tracking-wide
-                    text-indigo-500
+                    flex-col
+                    gap-4
 
-                    sm:text-lg
+                    lg:mb-16
+                    lg:flex-row
+                    lg:items-end
+                    lg:justify-between
                 ">
-                <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
-
-                <span>ABOUT ME</span>
-            </div>
-
-            <!-- Two Column Layout -->
-            <div class="
-                    grid
-                    gap-12
-
-                    lg:grid-cols-[1.5fr_1fr]
-                    lg:items-start
-                ">
-
-                <!-- Left Column -->
-                <div class="max-w-4xl">
-
-                    <!-- Heading -->
-                    <h2 class="
-                            max-w-3xl
-                            text-3xl
-                            font-bold
-                            leading-none
-                            tracking-tight
-                            text-slate-950
-
-                            dark:text-white
-
-                            sm:text-4xl
-                            md:text-5xl
-                            lg:text-6xl
-                        ">
-                        IT SUPPORT
-
-                        <span class="block">
-                            <span class="text-indigo-500">&</span>
-                            WEB DEVELOPER
-                        </span>
-                    </h2>
-
-                    <!-- Description -->
-                    <p class="
-                            mt-5
-                            max-w-2xl
-                            font-mono
-                            text-xs
-                            leading-6
-                            text-slate-600
-
-                            dark:text-gray-400
-
-                            sm:text-sm
-                            sm:leading-7
-                        ">
-                        IT professional with a strong foundation in technical support,
-                        troubleshooting, networking, and web development. I enjoy solving
-                        problems, optimizing systems, and building clean, functional web
-                        applications that deliver real value.
-                    </p>
-
-                    <!-- Skills -->
+                <div>
                     <div class="
-                            mt-5
-                            flex
-                            max-w-2xl
-                            flex-wrap
-                            items-center
-                            gap-x-3
-                            gap-y-2
-                        ">
-                        <template v-for="(skill, index) in skills" :key="skill">
-                            <span class="
-                                    font-mono
-                                    text-[11px]
-                                    text-slate-700
-
-                                    dark:text-gray-300
-
-                                    sm:text-xs
-                                ">
-                                {{ skill }}
-                            </span>
-
-                            <span v-if="index !== skills.length - 1" class="text-xs text-violet-400">
-                                •
-                            </span>
-                        </template>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="
-                            mt-7
-                            grid
-                            max-w-3xl
-                            grid-cols-2
-                            overflow-hidden
-                            rounded-xl
-                            border
-                            border-slate-200
-                            bg-white/70
-                            backdrop-blur-sm
-
-                            dark:border-gray-800
-                            dark:bg-gray-900/70
-
-                            sm:grid-cols-4
-                        ">
-                        <div v-for="(stat, index) in stats" :key="stat.label" class="relative p-4 sm:p-5" :class="{
-                            'border-b border-slate-200 dark:border-gray-800 sm:border-b-0':
-                                index < 2,
-
-                            'border-r border-slate-200 dark:border-gray-800':
-                                index % 2 === 0,
-
-                            'sm:border-r':
-                                index < 3,
-
-                            'sm:border-r-0':
-                                index === 3,
-                        }">
-
-                            <!-- Icon -->
-                            <div class="mb-3 text-indigo-500">
-
-                                <!-- Person -->
-                                <svg v-if="stat.icon === 'person'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <circle cx="12" cy="7" r="4" />
-                                    <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-                                </svg>
-
-                                <!-- Laptop -->
-                                <svg v-if="stat.icon === 'laptop'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <rect x="4" y="4" width="16" height="11" rx="1" />
-
-                                    <path d="M2 19h20" />
-                                    <path d="M8 19l1-2h6l1 2" />
-                                </svg>
-
-                                <!-- Headset -->
-                                <svg v-if="stat.icon === 'headset'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
-                                    <path d="M4 14h3v5H5a1 1 0 0 1-1-1v-4Z" />
-                                    <path d="M20 14h-3v5h2a1 1 0 0 1-1-1v-4Z" />
-                                    <path d="M17 19c0 1.1-.9 2-2 2h-2" />
-                                </svg>
-
-                                <!-- Education -->
-                                <svg v-if="stat.icon === 'education'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path d="m3 9 9-5 9 5-9 5-9-5Z" />
-                                    <path d="M7 11v5c3 2 7 2 10 0v-5" />
-                                    <path d="M21 10v6" />
-                                </svg>
-
-                            </div>
-
-                            <!-- Value -->
-                            <div class="
-                                    font-mono
-                                    text-xl
-                                    font-bold
-                                    tracking-tight
-                                    text-slate-950
-
-                                    dark:text-white
-
-                                    sm:text-2xl
-                                ">
-                                {{ stat.value }}
-                            </div>
-
-                            <!-- Label -->
-                            <div class="
-                                    mt-0.5
-                                    font-mono
-                                    text-[10px]
-                                    font-semibold
-                                    text-slate-900
-
-                                    dark:text-gray-200
-
-                                    sm:text-xs
-                                ">
-                                {{ stat.label }}
-                            </div>
-
-                            <!-- Description -->
-                            <div class="
-                                    mt-1
-                                    font-mono
-                                    text-[10px]
-                                    text-slate-500
-
-                                    dark:text-gray-400
-
-                                    sm:text-xs
-                                ">
-                                {{ stat.description }}
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="lg:pt-8">
-
-                    <!-- Section Label -->
-                    <div class="
-                            mb-5
+                            mb-4
                             flex
                             items-center
                             gap-3
                             font-mono
-                            text-base
+                            text-[9px]
                             font-semibold
-                            tracking-wide
-                            text-violet-400
+                            uppercase
+                            tracking-[0.25em]
+                            text-teal-700
 
-                            sm:text-lg
+                            dark:text-teal-400
                         ">
-                        <span class="h-2 w-2 rounded-full bg-violet-400"></span>
+                        <span class="
+                                h-1.5
+                                w-1.5
+                                rounded-full
+                                bg-teal-500
+                            "></span>
 
-                        <span>OPEN TO</span>
+                        About Me
+
+                        <span class="text-zinc-300 dark:text-zinc-700">
+                            /
+                        </span>
+
+                        01
+                    </div>
+
+                    <h2 class="
+                            max-w-3xl
+                            text-4xl
+                            font-black
+                            leading-[0.9]
+                            tracking-[-0.055em]
+                            text-zinc-950
+
+                            dark:text-white
+
+                            sm:text-5xl
+
+                            lg:text-6xl
+                        ">
+                        PEOPLE.
+                        <span class="text-teal-700 dark:text-teal-400">
+                            SYSTEMS.
+                        </span>
+
+                        <span class="block text-zinc-400 dark:text-zinc-600">
+                            SOLUTIONS.
+                        </span>
+                    </h2>
+                </div>
+
+                <div class="
+                        max-w-md
+                        font-mono
+                        text-[10px]
+                        leading-5
+                        text-zinc-500
+
+                        dark:text-zinc-500
+
+                        sm:text-xs
+                    ">
+                    I work where technology meets people — keeping systems
+                    reliable, supporting users, and building practical
+                    applications that solve real problems.
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="
+                    grid
+                    gap-10
+
+                    lg:grid-cols-[1.15fr_0.85fr]
+                    lg:gap-14
+                ">
+                <!-- LEFT -->
+                <div>
+                    <!-- Intro -->
+                    <div class="
+                            border-l-2
+                            border-teal-500
+                            pl-5
+
+                            sm:pl-6
+                        ">
+                        <p class="
+                                max-w-3xl
+                                text-lg
+                                font-semibold
+                                leading-7
+                                text-zinc-800
+
+                                dark:text-zinc-200
+
+                                sm:text-xl
+                                sm:leading-8
+                            ">
+                            IT professional focused on
+                            <span class="text-teal-700 dark:text-teal-400">
+                                technical support
+                            </span>,
+                            troubleshooting, networking, and web development.
+                        </p>
+
+                        <p class="
+                                mt-4
+                                max-w-2xl
+                                text-xs
+                                leading-6
+                                text-zinc-500
+
+                                dark:text-zinc-400
+
+                                sm:text-sm
+                                sm:leading-7
+                            ">
+                            I enjoy figuring out why something isn't working,
+                            fixing it properly, and improving the process
+                            afterward. My experience spans hardware,
+                            Windows systems, networks, user support, and
+                            practical web applications.
+                        </p>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="mt-10">
+                        <div class="
+                                mb-4
+                                flex
+                                items-center
+                                gap-3
+                                font-mono
+                                text-[9px]
+                                font-semibold
+                                uppercase
+                                tracking-[0.22em]
+                                text-zinc-400
+                            ">
+                            <span class="
+                                    h-px
+                                    w-7
+                                    bg-zinc-300
+
+                                    dark:bg-zinc-700
+                                "></span>
+
+                            Core Skills
+                        </div>
+
+                        <div class="
+                                flex
+                                flex-wrap
+                                gap-2
+                            ">
+                            <span v-for="skill in skills" :key="skill" class="
+                                    rounded-full
+                                    border
+                                    border-zinc-200
+                                    bg-white/60
+                                    px-3
+                                    py-1.5
+                                    font-mono
+                                    text-[10px]
+                                    font-medium
+                                    text-zinc-600
+                                    backdrop-blur-sm
+                                    transition-all
+                                    duration-300
+
+                                    hover:border-teal-200
+                                    hover:bg-teal-50
+                                    hover:text-teal-700
+
+                                    dark:border-zinc-800
+                                    dark:bg-zinc-900/50
+                                    dark:text-zinc-400
+
+                                    dark:hover:border-teal-900
+                                    dark:hover:bg-teal-950/40
+                                    dark:hover:text-teal-400
+                                ">
+                                {{ skill }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="
+                            mt-10
+                            grid
+                            grid-cols-2
+                            border-y
+                            border-zinc-200
+
+                            dark:border-zinc-800
+
+                            sm:grid-cols-4
+                        ">
+                        <div v-for="(stat, index) in stats" :key="stat.label" class="
+                                relative
+                                px-4
+                                py-5
+
+                                sm:px-5
+                                sm:py-6
+                            " :class="[
+                                index < 3
+                                    ? 'sm:border-r sm:border-zinc-200 dark:sm:border-zinc-800'
+                                    : '',
+                                index < 2
+                                    ? 'border-b border-zinc-200 dark:border-zinc-800 sm:border-b-0'
+                                    : '',
+                                index % 2 === 0
+                                    ? 'border-r border-zinc-200 dark:border-zinc-800 sm:border-r'
+                                    : '',
+                            ]">
+                            <component :is="stat.icon" class="
+                                    mb-3
+                                    h-4
+                                    w-4
+                                    text-teal-600
+
+                                    dark:text-teal-400
+                                " :stroke-width="1.5" />
+
+                            <div class="
+                                    font-mono
+                                    text-2xl
+                                    font-bold
+                                    tracking-tight
+                                    text-zinc-900
+
+                                    dark:text-white
+                                ">
+                                {{ stat.value }}
+                            </div>
+
+                            <div class="
+                                    mt-1
+                                    font-mono
+                                    text-[8px]
+                                    font-semibold
+                                    tracking-[0.12em]
+                                    text-zinc-700
+
+                                    dark:text-zinc-300
+                                ">
+                                {{ stat.label }}
+                            </div>
+
+                            <div class="
+                                    mt-1
+                                    font-mono
+                                    text-[9px]
+                                    leading-4
+                                    text-zinc-400
+                                ">
+                                {{ stat.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT -->
+                <div>
+                    <!-- Open To Header -->
+                    <div class="
+                            mb-5
+                            flex
+                            items-center
+                            justify-between
+                        ">
+                        <div class="
+                                flex
+                                items-center
+                                gap-3
+                                font-mono
+                                text-[9px]
+                                font-semibold
+                                uppercase
+                                tracking-[0.22em]
+                                text-amber-600
+
+                                dark:text-amber-400
+                            ">
+                            <span class="
+                                    h-1.5
+                                    w-1.5
+                                    rounded-full
+                                    bg-amber-500
+                                "></span>
+
+                            Open To
+                        </div>
+
+                        <span class="
+                                font-mono
+                                text-[8px]
+                                uppercase
+                                tracking-[0.18em]
+                                text-zinc-400
+                            ">
+                            Opportunities
+                        </span>
                     </div>
 
                     <!-- Opportunity List -->
-                    <div class="
-                            grid
-                            grid-cols-1
-                            gap-2.5
-
-                            sm:grid-cols-2
-                            lg:grid-cols-2
-                        ">
-
-                        <!-- IT Support -->
-                        <a href="#contact" class="
+                    <div class="space-y-2">
+                        <a v-for="(item, index) in opportunities" :key="item.title" href="#contact" class="
                                 group
                                 flex
                                 items-center
-                                justify-between
-                                rounded-lg
+                                gap-4
+                                rounded-xl
                                 border
-                                border-slate-200
-                                bg-white/70
-                                px-4 py-3
+                                border-zinc-200
+                                bg-white/50
+                                px-4
+                                py-3.5
                                 backdrop-blur-sm
                                 transition-all
                                 duration-300
 
                                 hover:-translate-y-0.5
-                                hover:border-indigo-200
-                                hover:bg-indigo-50/50
+                                hover:border-teal-200
+                                hover:bg-white
+                                hover:shadow-lg
+                                hover:shadow-teal-900/5
 
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-indigo-950/40
+                                dark:border-zinc-800
+                                dark:bg-zinc-900/40
+
+                                dark:hover:border-teal-900
+                                dark:hover:bg-zinc-900
                             ">
-                            <div>
+                            <!-- Number -->
+                            <span class="
+                                    w-5
+                                    shrink-0
+                                    font-mono
+                                    text-[8px]
+                                    text-zinc-300
+
+                                    dark:text-zinc-700
+                                ">
+                                0{{ index + 1 }}
+                            </span>
+
+                            <!-- Icon -->
+                            <div class="
+                                    flex
+                                    h-9
+                                    w-9
+                                    shrink-0
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    bg-teal-50
+                                    text-teal-700
+                                    transition-all
+                                    duration-300
+
+                                    group-hover:bg-teal-600
+                                    group-hover:text-white
+
+                                    dark:bg-teal-950/60
+                                    dark:text-teal-400
+
+                                    dark:group-hover:bg-teal-500
+                                    dark:group-hover:text-zinc-950
+                                ">
+                                <component :is="item.icon" class="h-4 w-4" :stroke-width="1.5" />
+                            </div>
+
+                            <!-- Text -->
+                            <div class="min-w-0 flex-1">
                                 <p class="
-                                        font-mono
                                         text-xs
                                         font-semibold
-                                        text-slate-900
+                                        text-zinc-800
 
-                                        dark:text-white
+                                        dark:text-zinc-200
                                     ">
-                                    IT Support
+                                    {{ item.title }}
                                 </p>
 
                                 <p class="
                                         mt-0.5
                                         font-mono
-                                        text-[10px]
-                                        text-slate-500
-
-                                        dark:text-gray-400
+                                        text-[9px]
+                                        text-zinc-400
                                     ">
-                                    Hardware & Software
+                                    {{ item.description }}
                                 </p>
                             </div>
 
-                            <span class="
-                                    ml-2
-                                    text-sm
-                                    text-indigo-400
-                                    transition-transform
+                            <!-- Arrow -->
+                            <ArrowUpRight class="
+                                    h-3.5
+                                    w-3.5
+                                    shrink-0
+                                    text-zinc-300
+                                    transition-all
                                     duration-300
-                                    group-hover:translate-x-1
-                                ">
-                                →
-                            </span>
+
+                                    group-hover:-translate-y-0.5
+                                    group-hover:translate-x-0.5
+                                    group-hover:text-teal-600
+
+                                    dark:text-zinc-700
+                                    dark:group-hover:text-teal-400
+                                " />
                         </a>
-
-                        <!-- Technical Support -->
-                        <a href="#contact" class="
-                                group
-                                flex
-                                items-center
-                                justify-between
-                                rounded-lg
-                                border
-                                border-slate-200
-                                bg-white/70
-                                px-4 py-3
-                                backdrop-blur-sm
-                                transition-all
-                                duration-300
-
-                                hover:-translate-y-0.5
-                                hover:border-indigo-200
-                                hover:bg-indigo-50/50
-
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-indigo-950/40
-                            ">
-                            <div>
-                                <p class="
-                                        font-mono
-                                        text-xs
-                                        font-semibold
-                                        text-slate-900
-
-                                        dark:text-white
-                                    ">
-                                    Technical Support
-                                </p>
-
-                                <p class="
-                                        mt-0.5
-                                        font-mono
-                                        text-[10px]
-                                        text-slate-500
-
-                                        dark:text-gray-400
-                                    ">
-                                    Troubleshooting
-                                </p>
-                            </div>
-
-                            <span class="
-                                    ml-2
-                                    text-sm
-                                    text-indigo-400
-                                    transition-transform
-                                    duration-300
-                                    group-hover:translate-x-1
-                                ">
-                                →
-                            </span>
-                        </a>
-
-                        <!-- Help Desk -->
-                        <a href="#contact" class="
-                                group
-                                flex
-                                items-center
-                                justify-between
-                                rounded-lg
-                                border
-                                border-slate-200
-                                bg-white/70
-                                px-4 py-3
-                                backdrop-blur-sm
-                                transition-all
-                                duration-300
-
-                                hover:-translate-y-0.5
-                                hover:border-indigo-200
-                                hover:bg-indigo-50/50
-
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-indigo-950/40
-                            ">
-                            <div>
-                                <p class="
-                                        font-mono
-                                        text-xs
-                                        font-semibold
-                                        text-slate-900
-
-                                        dark:text-white
-                                    ">
-                                    Help Desk
-                                </p>
-
-                                <p class="
-                                        mt-0.5
-                                        font-mono
-                                        text-[10px]
-                                        text-slate-500
-
-                                        dark:text-gray-400
-                                    ">
-                                    User Support
-                                </p>
-                            </div>
-
-                            <span class="
-                                    ml-2
-                                    text-sm
-                                    text-indigo-400
-                                    transition-transform
-                                    duration-300
-                                    group-hover:translate-x-1
-                                ">
-                                →
-                            </span>
-                        </a>
-
-                        <!-- System Administration -->
-                        <a href="#contact" class="
-                                group
-                                flex
-                                items-center
-                                justify-between
-                                rounded-lg
-                                border
-                                border-slate-200
-                                bg-white/70
-                                px-4 py-3
-                                backdrop-blur-sm
-                                transition-all
-                                duration-300
-
-                                hover:-translate-y-0.5
-                                hover:border-indigo-200
-                                hover:bg-indigo-50/50
-
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-indigo-950/40
-                            ">
-                            <div>
-                                <p class="
-                                        font-mono
-                                        text-xs
-                                        font-semibold
-                                        text-slate-900
-
-                                        dark:text-white
-                                    ">
-                                    System Admin
-                                </p>
-
-                                <p class="
-                                        mt-0.5
-                                        font-mono
-                                        text-[10px]
-                                        text-slate-500
-
-                                        dark:text-gray-400
-                                    ">
-                                    Windows & Maintenance
-                                </p>
-                            </div>
-
-                            <span class="
-                                    ml-2
-                                    text-sm
-                                    text-indigo-400
-                                    transition-transform
-                                    duration-300
-                                    group-hover:translate-x-1
-                                ">
-                                →
-                            </span>
-                        </a>
-
-                        <!-- Network Support -->
-                        <a href="#contact" class="
-                                group
-                                flex
-                                items-center
-                                justify-between
-                                rounded-lg
-                                border
-                                border-slate-200
-                                bg-white/70
-                                px-4 py-3
-                                backdrop-blur-sm
-                                transition-all
-                                duration-300
-
-                                hover:-translate-y-0.5
-                                hover:border-indigo-200
-                                hover:bg-indigo-50/50
-
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-indigo-950/40
-                            ">
-                            <div>
-                                <p class="
-                                        font-mono
-                                        text-xs
-                                        font-semibold
-                                        text-slate-900
-
-                                        dark:text-white
-                                    ">
-                                    Network Support
-                                </p>
-
-                                <p class="
-                                        mt-0.5
-                                        font-mono
-                                        text-[10px]
-                                        text-slate-500
-
-                                        dark:text-gray-400
-                                    ">
-                                    LAN & Connectivity
-                                </p>
-                            </div>
-
-                            <span class="
-                                    ml-2
-                                    text-sm
-                                    text-indigo-400
-                                    transition-transform
-                                    duration-300
-                                    group-hover:translate-x-1
-                                ">
-                                →
-                            </span>
-                        </a>
-
-                        <!-- Web Development -->
-                        <a href="#contact" class="
-                                group
-                                flex
-                                items-center
-                                justify-between
-                                rounded-lg
-                                border
-                                border-slate-200
-                                bg-white/70
-                                px-4 py-3
-                                backdrop-blur-sm
-                                transition-all
-                                duration-300
-
-                                hover:-translate-y-0.5
-                                hover:border-indigo-200
-                                hover:bg-indigo-50/50
-
-                                dark:border-gray-800
-                                dark:bg-gray-900/70
-                                dark:hover:border-indigo-800
-                                dark:hover:bg-indigo-950/40
-                            ">
-                            <div>
-                                <p class="
-                                        font-mono
-                                        text-xs
-                                        font-semibold
-                                        text-slate-900
-
-                                        dark:text-white
-                                    ">
-                                    Web Development
-                                </p>
-
-                                <p class="
-                                        mt-0.5
-                                        font-mono
-                                        text-[10px]
-                                        text-slate-500
-
-                                        dark:text-gray-400
-                                    ">
-                                    PHP, MySQL & Vue.js
-                                </p>
-                            </div>
-
-                            <span class="
-                                    ml-2
-                                    text-sm
-                                    text-violet-400
-                                    transition-transform
-                                    duration-300
-                                    group-hover:translate-x-1
-                                ">
-                                →
-                            </span>
-                        </a>
-
                     </div>
 
                     <!-- Availability -->
                     <div class="
-                            mt-4
+                            mt-5
                             flex
                             items-center
                             gap-2
+                            rounded-lg
+                            border
+                            border-zinc-200
+                            bg-white/40
+                            px-3
+                            py-2.5
                             font-mono
-                            text-[10px]
-                            text-slate-500
+                            text-[9px]
+                            text-zinc-500
 
-                            dark:text-gray-400
-
-                            sm:text-xs
+                            dark:border-zinc-800
+                            dark:bg-zinc-900/40
+                            dark:text-zinc-400
                         ">
                         <span class="relative flex h-2 w-2">
-
-                            <span class="ripple absolute inset-0 rounded-full bg-green-400"></span>
-
-                            <span class="ripple ripple-delay absolute inset-0 rounded-full bg-green-400"></span>
+                            <span class="
+                                    absolute
+                                    inset-0
+                                    animate-ping
+                                    rounded-full
+                                    bg-emerald-400
+                                    opacity-50
+                                "></span>
 
                             <span class="
                                     relative
-                                    h-2 w-2
+                                    h-2
+                                    w-2
                                     rounded-full
-                                    bg-green-500
+                                    bg-emerald-500
                                 "></span>
-
                         </span>
 
-                        Open to remote & on-site opportunities
+                        Available for remote & on-site opportunities
                     </div>
-
                 </div>
+            </div>
+
+            <!-- Bottom Label -->
+            <div class="
+                    mt-14
+                    flex
+                    items-center
+                    justify-between
+                    border-t
+                    border-zinc-200
+                    pt-5
+                    font-mono
+                    text-[8px]
+                    uppercase
+                    tracking-[0.2em]
+                    text-zinc-400
+
+                    dark:border-zinc-800
+                ">
+                <span>
+                    IT / WEB / SYSTEMS
+                </span>
+
+                <span>
+                    EGD / ABOUT / 2026
+                </span>
             </div>
         </div>
     </section>
 </template>
-
-<style scoped>
-.ripple {
-    animation: ripple 2s ease-out infinite;
-}
-
-.ripple-delay {
-    animation-delay: 1s;
-}
-
-@keyframes ripple {
-    0% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
-
-    100% {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-</style>

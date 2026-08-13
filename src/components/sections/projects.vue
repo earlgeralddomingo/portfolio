@@ -1,11 +1,15 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+
 import {
+    ArrowUpRight,
+    Check,
     Construction,
-    X,
     ExternalLink,
     Github,
-    ArrowUpRight
+    X,
+    Layers3,
+    Sparkles,
 } from 'lucide-vue-next'
 
 import hrtsImage from '../../assets/image/hrts.svg'
@@ -21,17 +25,21 @@ const categories = [
     'Client Projects',
     'Graphic Design',
     'Videos',
-    'Under Development'
+    'Under Development',
 ]
 
 const selectedCategory = ref('All')
+const selectedProject = ref(null)
 
 const projects = [
     {
         title: 'Human Resources Ticketing System',
+        shortTitle: 'HR Ticketing System',
         type: 'ACADEMIC PROJECT',
         category: 'Academic',
         status: 'Completed',
+        availability: 'ONLINE',
+        appType: 'WEB APP',
         image: hrtsImage,
         description:
             'A web-based Human Resources ticketing system developed to streamline employee support requests, improve request tracking, and organize IT-related concerns.',
@@ -41,7 +49,7 @@ const projects = [
             'PHP',
             'MySQL',
             'Bootstrap',
-            'JavaScript'
+            'JavaScript',
         ],
         role: 'FULL-STACK DEVELOPER',
         features: [
@@ -49,23 +57,26 @@ const projects = [
             'Ticket tracking and management',
             'IT-related concern organization',
             'Request status monitoring',
-            'Database-driven ticket records'
+            'Database-driven ticket records',
         ],
         highlights: [
             'Designed and developed the system architecture',
             'Implemented the backend using PHP and MySQL',
             'Created the user interface using Bootstrap and JavaScript',
-            'Worked on database structure and ticket management logic'
+            'Worked on database structure and ticket management logic',
         ],
         github: '',
-        liveDemo: ''
+        liveDemo: '',
     },
 
     {
         title: 'Cooperative Loan Management System',
+        shortTitle: 'Loan Management System',
         type: 'ACADEMIC PROJECT',
         category: 'Academic',
         status: 'Completed',
+        availability: 'ONLINE',
+        appType: 'WEB APP',
         image: climsImage,
         description:
             'A cooperative loan management system developed to manage member records, share capital, loan applications, and loan calculations.',
@@ -75,7 +86,7 @@ const projects = [
             'PHP',
             'MySQL',
             'Bootstrap',
-            'JavaScript'
+            'JavaScript',
         ],
         role: 'FULL-STACK DEVELOPER',
         features: [
@@ -83,23 +94,26 @@ const projects = [
             'Share capital management',
             'Loan application processing',
             'Loan calculation',
-            'Cooperative member tracking'
+            'Cooperative member tracking',
         ],
         highlights: [
             'Developed the system using PHP and MySQL',
             'Implemented loan calculation logic',
             'Created database-driven member management',
-            'Designed the application interface using Bootstrap'
+            'Designed the application interface using Bootstrap',
         ],
         github: '',
-        liveDemo: ''
+        liveDemo: '',
     },
 
     {
         title: 'ArcGuide Tourism Hub',
+        shortTitle: 'ArcGuide Tourism Hub',
         type: 'PERSONAL PROJECT',
         category: 'Personal',
         status: 'Under Development',
+        availability: 'ONLINE',
+        appType: 'WEB PLATFORM',
         image: arcguideImage,
         description:
             'A tourism platform focused on showcasing destinations, travel information, and useful resources through a modern web interface.',
@@ -108,7 +122,7 @@ const projects = [
             'CSS',
             'JavaScript',
             'PHP',
-            'MySQL'
+            'MySQL',
         ],
         role: 'WEB DEVELOPER',
         features: [
@@ -116,31 +130,34 @@ const projects = [
             'Travel information',
             'Destination resources',
             'Responsive web interface',
-            'Database integration'
+            'Database integration',
         ],
         highlights: [
             'Designed the overall website structure',
             'Developing a modern and responsive interface',
             'Implementing tourism-related content management',
-            'Working on the backend and database integration'
+            'Working on the backend and database integration',
         ],
         github: '',
-        liveDemo: ''
+        liveDemo: '',
     },
 
     {
         title: 'RDS Autoworkz',
+        shortTitle: 'RDS Autoworkz',
         type: 'CLIENT PROJECT',
         category: 'Client Projects',
         status: 'Under Development',
+        availability: 'ONLINE',
+        appType: 'BUSINESS WEBSITE',
         image: rdsAutoworkzImage,
         description:
-            'A responsive automotive service website for RDS Autoworkz, designed to showcase car repainting, car detailing, engine detailing, dent removal, and interior detailing services.',
+            'A responsive automotive service website for RDS Autoworkz, designed to showcase car repainting, detailing, engine detailing, dent removal, and interior detailing services.',
         technologies: [
             'Vue.js',
             'Tailwind CSS',
             'JavaScript',
-            'HTML'
+            'HTML',
         ],
         role: 'WEB DEVELOPER',
         features: [
@@ -149,24 +166,27 @@ const projects = [
             'Service information sections',
             'Gallery presentation',
             'Contact section',
-            'Mobile navigation'
+            'Mobile navigation',
         ],
         highlights: [
             'Designed the website structure and user interface',
             'Developed the site using Vue.js',
             'Implemented responsive layouts with Tailwind CSS',
             'Created interactive navigation and visual effects',
-            'Focused on a modern automotive-oriented visual style'
+            'Focused on a modern automotive-oriented visual style',
         ],
         github: '',
-        liveDemo: ''
+        liveDemo: '',
     },
 
     {
         title: 'CSS Grid Generator',
+        shortTitle: 'CSS Grid Generator',
         type: 'PERSONAL PROJECT',
         category: 'Personal',
         status: 'Under Development',
+        availability: 'ONLINE',
+        appType: 'DEVELOPER TOOL',
         image: cssGeneratorImage,
         description:
             'A browser-based CSS Grid generator that allows users to visually configure grid layouts and instantly generate the corresponding CSS code.',
@@ -174,7 +194,7 @@ const projects = [
             'Vue.js',
             'Tailwind CSS',
             'JavaScript',
-            'CSS'
+            'CSS',
         ],
         role: 'FRONT-END DEVELOPER',
         features: [
@@ -183,23 +203,21 @@ const projects = [
             'Custom column and row gaps',
             'Live grid preview',
             'Generated CSS output',
-            'Copy generated CSS'
+            'Copy generated CSS',
         ],
         highlights: [
             'Designed and developed the interface using Vue.js',
             'Implemented reactive grid configuration controls',
             'Created a real-time visual grid preview',
             'Implemented automatic CSS generation',
-            'Added clipboard functionality for generated CSS'
+            'Added clipboard functionality for generated CSS',
         ],
         github: '',
-        liveDemo: ''
-    }
+        liveDemo: '',
+    },
 ]
 
 const videos = []
-
-const selectedProject = ref(null)
 
 const filteredProjects = computed(() => {
     if (selectedCategory.value === 'All') {
@@ -208,18 +226,18 @@ const filteredProjects = computed(() => {
 
     if (selectedCategory.value === 'Under Development') {
         return projects.filter(
-            project => project.status === 'Under Development'
+            project => project.status === 'Under Development',
         )
     }
 
     return projects.filter(
-        project => project.category === selectedCategory.value
+        project => project.category === selectedCategory.value,
     )
 })
 
-const showVideos = computed(() => {
-    return selectedCategory.value === 'Videos'
-})
+const showVideos = computed(
+    () => selectedCategory.value === 'Videos',
+)
 
 const openProject = project => {
     selectedProject.value = project
@@ -248,207 +266,845 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <section id="projects" class="bg-slate-50 px-6 py-20 dark:bg-gray-950 sm:px-8 lg:px-12 lg:py-24">
-        <div class="mx-auto max-w-7xl">
+    <section id="projects" class="
+            relative
+            overflow-hidden
+            bg-[#F7F7F5]
+            px-5
+            py-24
+            text-zinc-900
+            transition-colors
+            duration-500
+            dark:bg-[#0D1210]
+            dark:text-white
+            sm:px-8
+            lg:px-10
+            lg:py-32
+            xl:px-14
+        ">
+        <div class="
+                pointer-events-none
+                absolute
+                inset-0
+                overflow-hidden
+            " aria-hidden="true">
+            <div class="
+                    absolute
+                    -left-32
+                    top-0
+                    h-96
+                    w-96
+                    rounded-full
+                    bg-teal-200/15
+                    blur-[100px]
+                    dark:bg-teal-900/10
+                "></div>
 
-            <div
-                class="mb-8 flex items-center gap-3 font-mono text-base font-semibold tracking-wide text-indigo-500 sm:text-lg">
-                <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
-                <span>PROJECTS</span>
-            </div>
+            <div class="
+                    absolute
+                    -right-32
+                    bottom-0
+                    h-96
+                    w-96
+                    rounded-full
+                    bg-amber-200/10
+                    blur-[100px]
+                    dark:bg-amber-900/10
+                "></div>
 
-            <div class="max-w-3xl">
-                <h2
-                    class="text-3xl font-bold leading-none tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                    PROJECT
-                    <span class="text-indigo-500">HIGHLIGHTS</span>
-                </h2>
+            <div class="
+                    absolute
+                    inset-0
+                    opacity-[0.025]
+                    dark:opacity-[0.035]
+                " style="
+                    background-image:
+                        linear-gradient(
+                            to right,
+                            currentColor 1px,
+                            transparent 1px
+                        ),
+                        linear-gradient(
+                            to bottom,
+                            currentColor 1px,
+                            transparent 1px
+                        );
+                    background-size: 46px 46px;
+                "></div>
+        </div>
 
-                <p
-                    class="mt-5 max-w-2xl font-mono text-xs leading-6 text-slate-600 dark:text-gray-400 sm:text-sm sm:leading-7">
-                    A selection of academic, personal, and client projects
-                    focused on solving real-world problems through technology.
-                </p>
-            </div>
-
-            <div class="mt-8 flex flex-wrap gap-2">
-                <button v-for="category in categories" :key="category" type="button"
-                    @click="selectedCategory = category"
-                    class="rounded-full border px-3 py-1.5 font-mono text-[10px] transition-all duration-300 sm:px-4 sm:py-2 sm:text-xs"
-                    :class="selectedCategory === category
-                            ? 'border-indigo-300 bg-indigo-500 text-white shadow-md shadow-indigo-200/40 dark:border-indigo-500 dark:shadow-indigo-950/40'
-                            : 'border-slate-200 bg-white/70 text-slate-500 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-800 dark:bg-gray-900/70 dark:text-gray-400 dark:hover:border-indigo-800 dark:hover:bg-indigo-950 dark:hover:text-indigo-400'
+        <div class="
+                relative
+                z-10
+                mx-auto
+                max-w-[1120px]
+            ">
+            <div class="
+                    grid
+                    gap-8
+                    lg:grid-cols-[1fr_auto]
+                    lg:items-end
+                ">
+                <div>
+                    <div class="
+                            mb-5
+                            flex
+                            items-center
+                            gap-3
+                            font-mono
+                            text-[9px]
+                            font-semibold
+                            uppercase
+                            tracking-[0.22em]
+                            text-teal-700
+                            dark:text-teal-400
                         ">
-                    {{ category }}
-                </button>
-            </div>
+                        <span class="
+                                h-1.5
+                                w-1.5
+                                rounded-full
+                                bg-teal-500
+                                shadow-[0_0_0_4px_rgba(20,184,166,0.08)]
+                            "></span>
 
-            <div v-if="!showVideos" class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                <article v-for="(project, index) in filteredProjects" :key="project.title"
-                    class="group flex h-full flex-col rounded-xl border border-slate-200 bg-white/70 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/40 dark:border-gray-800 dark:bg-gray-900/70 dark:hover:border-indigo-800 dark:hover:shadow-indigo-950/30">
-                    <div
-                        class="mb-5 h-40 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 dark:border-gray-800 dark:bg-gray-950">
-                        <img :src="project.image" :alt="`${project.title} project preview`"
-                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        Selected Work
+
+                        <span class="
+                                h-px
+                                w-8
+                                bg-teal-300
+                                dark:bg-teal-900
+                            "></span>
                     </div>
 
-                    <div class="flex items-start justify-between gap-4">
-                        <div class="min-w-0">
-                            <p class="font-mono text-[10px] font-semibold tracking-[0.15em] text-violet-400">
-                                {{ project.type }}
-                            </p>
+                    <h2 class="
+                            max-w-3xl
+                            text-4xl
+                            font-black
+                            leading-[0.95]
+                            tracking-[-0.055em]
+                            text-zinc-950
+                            dark:text-white
+                            sm:text-5xl
+                            lg:text-6xl
+                        ">
+                        Things I've
+                        <span class="text-teal-700 dark:text-teal-400">
+                            built.
+                        </span>
+                    </h2>
 
-                            <h3 class="mt-2 font-mono text-base font-semibold leading-6 text-slate-900 dark:text-white">
-                                {{ project.title }}
-                            </h3>
+                    <p class="
+                            mt-5
+                            max-w-2xl
+                            text-sm
+                            leading-6
+                            text-zinc-500
+                            dark:text-zinc-400
+                            sm:text-base
+                            sm:leading-7
+                        ">
+                        A collection of systems, websites, and tools built
+                        around practical problems, useful interfaces, and
+                        hands-on technology.
+                    </p>
+                </div>
+
+                <div class="
+                        hidden
+                        items-center
+                        gap-3
+                        font-mono
+                        text-[8px]
+                        uppercase
+                        tracking-[0.2em]
+                        text-zinc-400
+                        dark:text-zinc-600
+                        lg:flex
+                    ">
+                    <span class="text-teal-600 dark:text-teal-400">
+                        05
+                    </span>
+
+                    <span>/</span>
+
+                    PROJECTS
+                </div>
+            </div>
+
+            <div class="
+                    mt-10
+                    overflow-x-auto
+                    pb-2
+                    scrollbar-none
+                ">
+                <div class="
+                        inline-flex
+                        min-w-max
+                        items-center
+                        gap-1
+                        rounded-xl
+                        border
+                        border-zinc-200
+                        bg-white/60
+                        p-1
+                        backdrop-blur-sm
+                        dark:border-zinc-800
+                        dark:bg-zinc-900/40
+                    ">
+                    <button v-for="category in categories" :key="category" type="button"
+                        @click="selectedCategory = category" class="
+                            rounded-lg
+                            px-3
+                            py-2
+                            font-mono
+                            text-[9px]
+                            font-medium
+                            transition-all
+                            duration-300
+                            sm:px-4
+                            sm:text-[10px]
+                        " :class="selectedCategory === category
+                            ? `
+                                    bg-teal-700
+                                    text-white
+                                    shadow-sm
+                                    dark:bg-teal-500
+                                    dark:text-zinc-950
+                                `
+                            : `
+                                    text-zinc-500
+                                    hover:bg-zinc-100
+                                    hover:text-zinc-900
+                                    dark:text-zinc-500
+                                    dark:hover:bg-zinc-800
+                                    dark:hover:text-zinc-200
+                                `
+                            ">
+                        {{ category }}
+                    </button>
+                </div>
+            </div>
+
+            <div v-if="!showVideos" class="
+                    mt-10
+                    grid
+                    gap-5
+                    md:grid-cols-2
+                ">
+                <article v-for="(project, index) in filteredProjects" :key="project.title" class="
+                        group
+                        relative
+                        flex
+                        flex-col
+                        overflow-hidden
+                        rounded-2xl
+                        border
+                        border-zinc-200
+                        bg-white/70
+                        backdrop-blur-sm
+                        transition-all
+                        duration-500
+                        hover:-translate-y-1
+                        hover:border-teal-200
+                        hover:shadow-[0_20px_60px_rgba(15,118,110,0.08)]
+                        dark:border-zinc-800
+                        dark:bg-zinc-900/50
+                        dark:hover:border-teal-900
+                        dark:hover:shadow-[0_20px_60px_rgba(20,184,166,0.05)]
+                    ">
+                    <div class="
+                            relative
+                            h-48
+                            overflow-hidden
+                            border-b
+                            border-zinc-200
+                            bg-zinc-100
+                            dark:border-zinc-800
+                            dark:bg-zinc-950
+                            sm:h-52
+                        ">
+                        <img :src="project.image" :alt="`${project.title} project preview`" class="
+                                h-full
+                                w-full
+                                object-cover
+                                transition-transform
+                                duration-700
+                                group-hover:scale-[1.04]
+                            " />
+
+                        <div class="
+                                absolute
+                                inset-0
+                                bg-gradient-to-t
+                                from-black/50
+                                via-transparent
+                                to-black/5
+                            "></div>
+
+                        <div class="
+                                absolute
+                                left-5
+                                top-5
+                                flex
+                                items-center
+                                gap-2
+                            ">
+                            <span class="
+                                    rounded-full
+                                    border
+                                    border-white/20
+                                    bg-black/25
+                                    px-3
+                                    py-1.5
+                                    font-mono
+                                    text-[8px]
+                                    font-semibold
+                                    uppercase
+                                    tracking-[0.14em]
+                                    text-white
+                                    backdrop-blur-md
+                                ">
+                                {{ project.type }}
+                            </span>
                         </div>
 
-                        <span class="shrink-0 font-mono text-xs text-slate-300 dark:text-gray-600">
+                        <div class="
+                                absolute
+                                right-5
+                                top-5
+                                flex
+                                h-8
+                                w-8
+                                items-center
+                                justify-center
+                                rounded-full
+                                border
+                                border-white/20
+                                bg-black/25
+                                font-mono
+                                text-[9px]
+                                text-white
+                                backdrop-blur-md
+                            ">
                             {{ String(index + 1).padStart(2, '0') }}
-                        </span>
-                    </div>
+                        </div>
 
-                    <div class="mt-4 flex flex-wrap items-center gap-2">
-                        <span
-                            class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[10px] font-medium text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-400">
-                            <span class="relative flex h-2 w-2">
-                                <span
-                                    class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                                <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                        <div class="
+                                absolute
+                                bottom-5
+                                left-5
+                            ">
+                            <span v-if="project.status === 'Completed'" class="
+                                    inline-flex
+                                    items-center
+                                    gap-2
+                                    rounded-full
+                                    border
+                                    border-emerald-300/20
+                                    bg-emerald-500/15
+                                    px-3
+                                    py-1.5
+                                    font-mono
+                                    text-[8px]
+                                    font-medium
+                                    text-emerald-100
+                                    backdrop-blur-md
+                                ">
+                                <span class="
+                                        h-1.5
+                                        w-1.5
+                                        rounded-full
+                                        bg-emerald-400
+                                    "></span>
+
+                                COMPLETED
                             </span>
 
-                            ONLINE
-                        </span>
+                            <span v-else class="
+                                    inline-flex
+                                    items-center
+                                    gap-2
+                                    rounded-full
+                                    border
+                                    border-amber-300/20
+                                    bg-amber-500/15
+                                    px-3
+                                    py-1.5
+                                    font-mono
+                                    text-[8px]
+                                    font-medium
+                                    text-amber-100
+                                    backdrop-blur-md
+                                ">
+                                <Construction class="h-3 w-3" />
 
-                        <span v-if="project.status === 'Under Development'"
-                            class="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 font-mono text-[10px] text-amber-600 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-400">
-                            <Construction class="h-3 w-3 animate-pulse" />
-                            <span class="animate-pulse">
-                                {{ project.status }}
+                                IN DEVELOPMENT
                             </span>
-                        </span>
-
-                        <span v-else
-                            class="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 font-mono text-[10px] text-indigo-600 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-400">
-                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-                            {{ project.status }}
-                        </span>
+                        </div>
                     </div>
 
-                    <div class="my-4 h-px bg-slate-200 dark:bg-gray-800"></div>
+                    <div class="
+                            flex
+                            flex-1
+                            flex-col
+                            p-5
+                            sm:p-6
+                        ">
+                        <div>
+                            <div class="
+                                    mb-3
+                                    flex
+                                    flex-wrap
+                                    items-center
+                                    gap-2
+                                ">
+                                <span class="
+                                        flex
+                                        items-center
+                                        gap-2
+                                        font-mono
+                                        text-[8px]
+                                        uppercase
+                                        tracking-[0.16em]
+                                        text-zinc-400
+                                        dark:text-zinc-500
+                                    ">
+                                    <span class="
+                                            h-1
+                                            w-1
+                                            rounded-full
+                                            bg-teal-500
+                                        "></span>
 
-                    <p class="font-mono text-xs leading-6 text-slate-500 dark:text-gray-400">
-                        {{ project.description }}
-                    </p>
-
-                    <div class="mt-5 flex flex-wrap gap-2">
-                        <span v-for="technology in project.technologies" :key="technology"
-                            class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-[10px] text-slate-600 transition-all duration-300 group-hover:border-indigo-100 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-400 dark:group-hover:border-indigo-900">
-                            {{ technology }}
-                        </span>
-                    </div>
-
-                    <div class="mt-auto pt-5">
-                        <div class="mb-4 h-px bg-slate-200 dark:bg-gray-800"></div>
-
-                        <div class="flex items-center justify-between gap-4">
-                            <div class="min-w-0">
-                                <span class="block font-mono text-[10px] text-slate-400 dark:text-gray-500">
-                                    ROLE
+                                    {{ project.category }}
                                 </span>
 
-                                <span class="mt-1 block truncate font-mono text-[10px] font-medium text-indigo-500">
+                                <span class="
+                                        h-3
+                                        w-px
+                                        bg-zinc-200
+                                        dark:bg-zinc-800
+                                    "></span>
+
+                                <span class="
+                                        inline-flex
+                                        items-center
+                                        gap-1.5
+                                        rounded-full
+                                        px-2
+                                        py-1
+                                        font-mono
+                                        text-[7px]
+                                        font-semibold
+                                        uppercase
+                                        tracking-[0.1em]
+                                    " :class="project.availability === 'ONLINE'
+                                        ? `
+                                                bg-emerald-50
+                                                text-emerald-600
+                                                dark:bg-emerald-950/40
+                                                dark:text-emerald-400
+                                            `
+                                        : `
+                                                bg-zinc-100
+                                                text-zinc-500
+                                                dark:bg-zinc-800
+                                                dark:text-zinc-400
+                                            `
+                                        ">
+                                    <span class="h-1.5 w-1.5 rounded-full" :class="project.availability === 'ONLINE'
+                                        ? 'bg-emerald-500'
+                                        : 'bg-zinc-400'
+                                        "></span>
+
+                                    {{ project.availability }}
+                                </span>
+
+                                <span class="
+                                        inline-flex
+                                        items-center
+                                        rounded-full
+                                        border
+                                        border-zinc-200
+                                        bg-zinc-50
+                                        px-2
+                                        py-1
+                                        font-mono
+                                        text-[7px]
+                                        font-medium
+                                        uppercase
+                                        tracking-[0.1em]
+                                        text-zinc-500
+                                        dark:border-zinc-800
+                                        dark:bg-zinc-950
+                                        dark:text-zinc-500
+                                    ">
+                                    {{ project.appType }}
+                                </span>
+                            </div>
+
+                            <h3 class="
+                                    text-xl
+                                    font-bold
+                                    leading-tight
+                                    tracking-[-0.03em]
+                                    text-zinc-950
+                                    transition-colors
+                                    duration-300
+                                    group-hover:text-teal-700
+                                    dark:text-white
+                                    dark:group-hover:text-teal-400
+                                    sm:text-2xl
+                                ">
+                                {{ project.title }}
+                            </h3>
+
+                            <p class="
+                                    mt-3
+                                    text-[11px]
+                                    leading-5
+                                    text-zinc-500
+                                    dark:text-zinc-400
+                                    sm:text-xs
+                                ">
+                                {{ project.description }}
+                            </p>
+                        </div>
+
+                        <div class="
+                                mt-5
+                                flex
+                                flex-wrap
+                                gap-1.5
+                            ">
+                            <span v-for="technology in project.technologies" :key="technology" class="
+                                    rounded-md
+                                    border
+                                    border-zinc-200
+                                    bg-zinc-50
+                                    px-2
+                                    py-1.5
+                                    font-mono
+                                    text-[8px]
+                                    text-zinc-500
+                                    transition-colors
+                                    duration-300
+                                    group-hover:border-teal-100
+                                    dark:border-zinc-800
+                                    dark:bg-zinc-950
+                                    dark:text-zinc-500
+                                    dark:group-hover:border-teal-950
+                                ">
+                                {{ technology }}
+                            </span>
+                        </div>
+
+                        <div class="
+                                mt-5
+                                flex
+                                items-end
+                                justify-between
+                                gap-4
+                                border-t
+                                border-zinc-200
+                                pt-5
+                                dark:border-zinc-800
+                            ">
+                            <div>
+                                <span class="
+                                        block
+                                        font-mono
+                                        text-[8px]
+                                        uppercase
+                                        tracking-[0.15em]
+                                        text-zinc-400
+                                        dark:text-zinc-600
+                                    ">
+                                    Role
+                                </span>
+
+                                <span class="
+                                        mt-1.5
+                                        block
+                                        font-mono
+                                        text-[9px]
+                                        font-semibold
+                                        text-teal-700
+                                        dark:text-teal-400
+                                    ">
                                     {{ project.role }}
                                 </span>
                             </div>
 
-                            <button type="button" @click="openProject(project)"
-                                class="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 font-mono text-[10px] font-semibold text-indigo-600 transition-all duration-300 hover:border-indigo-300 hover:bg-indigo-500 hover:text-white hover:shadow-md hover:shadow-indigo-200/40 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-400 dark:hover:border-indigo-500 dark:hover:bg-indigo-500 dark:hover:text-white">
-                                See More
+                            <button type="button" @click="openProject(project)" class="
+                                    group/button
+                                    inline-flex
+                                    items-center
+                                    gap-1.5
+                                    rounded-lg
+                                    bg-zinc-950
+                                    px-3.5
+                                    py-2
+                                    font-mono
+                                    text-[8px]
+                                    font-semibold
+                                    text-white
+                                    transition-all
+                                    duration-300
+                                    hover:bg-teal-700
+                                    dark:bg-white
+                                    dark:text-zinc-950
+                                    dark:hover:bg-teal-400
+                                ">
+                                View Project
 
-                                <ArrowUpRight
-                                    class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                <ArrowUpRight class="
+                                        h-3
+                                        w-3
+                                        transition-transform
+                                        duration-300
+                                        group-hover/button:-translate-y-0.5
+                                        group-hover/button:translate-x-0.5
+                                    " />
                             </button>
                         </div>
                     </div>
                 </article>
 
-                <div v-if="filteredProjects.length === 0"
-                    class="col-span-full flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-white/50 py-16 text-center dark:border-gray-800 dark:bg-gray-900/50">
-                    <div
-                        class="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white dark:border-gray-800 dark:bg-gray-950">
-                        <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-gray-600"></span>
+                <div v-if="filteredProjects.length === 0" class="md:col-span-2">
+                    <div class="
+                            flex
+                            min-h-72
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-2xl
+                            border
+                            border-dashed
+                            border-zinc-200
+                            bg-white/40
+                            text-center
+                            dark:border-zinc-800
+                            dark:bg-zinc-900/30
+                        ">
+                        <div class="
+                                mb-5
+                                flex
+                                h-12
+                                w-12
+                                items-center
+                                justify-center
+                                rounded-full
+                                border
+                                border-zinc-200
+                                bg-white
+                                dark:border-zinc-800
+                                dark:bg-zinc-950
+                            ">
+                            <Layers3 class="
+                                    h-4
+                                    w-4
+                                    text-zinc-300
+                                    dark:text-zinc-700
+                                " />
+                        </div>
+
+                        <h3 class="
+                                font-mono
+                                text-sm
+                                font-semibold
+                                text-zinc-700
+                                dark:text-zinc-300
+                            ">
+                            No projects found
+                        </h3>
+
+                        <p class="
+                                mt-2
+                                max-w-sm
+                                font-mono
+                                text-[10px]
+                                leading-5
+                                text-zinc-400
+                            ">
+                            Nothing is currently available under
+                            <span class="text-teal-600 dark:text-teal-400">
+                                {{ selectedCategory }}
+                            </span>.
+                        </p>
                     </div>
-
-                    <p class="font-mono text-sm font-semibold text-slate-600 dark:text-gray-300">
-                        No projects yet
-                    </p>
-
-                    <p class="mt-2 max-w-sm font-mono text-xs leading-5 text-slate-400">
-                        There are currently no projects available under
-                        <span class="font-semibold text-slate-500 dark:text-gray-300">
-                            {{ selectedCategory }}
-                        </span>.
-                    </p>
                 </div>
             </div>
 
-            <div v-else class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                <article v-for="(video, index) in videos" :key="video.id"
-                    class="group flex h-full flex-col rounded-xl border border-slate-200 bg-white/70 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/40 dark:border-gray-800 dark:bg-gray-900/70 dark:hover:border-indigo-800 dark:hover:shadow-indigo-950/30">
-                    <div
-                        class="relative h-80 overflow-hidden rounded-lg border border-slate-200 bg-slate-950 dark:border-gray-800">
+            <div v-else class="
+                    mt-10
+                    grid
+                    gap-6
+                    md:grid-cols-2
+                ">
+                <article v-for="video in videos" :key="video.id" class="
+                        overflow-hidden
+                        rounded-2xl
+                        border
+                        border-zinc-200
+                        bg-white/70
+                        p-5
+                        dark:border-zinc-800
+                        dark:bg-zinc-900/50
+                    ">
+                    <div class="
+                            relative
+                            aspect-[9/16]
+                            max-h-[600px]
+                            overflow-hidden
+                            rounded-xl
+                            bg-black
+                        ">
                         <iframe
                             :src="`https://www.tiktok.com/player/v1/${video.id}?autoplay=1&loop=1&muted=1&controls=1&description=0&music_info=0`"
-                            class="absolute inset-0 h-full w-full" frameborder="0" allow="autoplay; fullscreen"
-                            allowfullscreen loading="lazy" :title="video.title"></iframe>
+                            class="
+                                absolute
+                                inset-0
+                                h-full
+                                w-full
+                            " frameborder="0" allow="autoplay; fullscreen" allowfullscreen loading="lazy"
+                            :title="video.title"></iframe>
                     </div>
 
                     <div class="mt-5">
-                        <p class="font-mono text-[10px] font-semibold tracking-[0.15em] text-violet-400">
+                        <p class="
+                                font-mono
+                                text-[8px]
+                                font-semibold
+                                uppercase
+                                tracking-[0.15em]
+                                text-teal-600
+                                dark:text-teal-400
+                            ">
                             {{ video.type }}
                         </p>
 
-                        <h3 class="mt-2 font-mono text-base font-semibold leading-6 text-slate-900 dark:text-white">
+                        <h3 class="
+                                mt-2
+                                text-lg
+                                font-semibold
+                                text-zinc-900
+                                dark:text-white
+                            ">
                             {{ video.title }}
                         </h3>
                     </div>
-
-                    <div
-                        class="mt-auto flex items-center justify-between border-t border-slate-200 pt-4 dark:border-gray-800">
-                        <span class="font-mono text-[10px] text-slate-400 dark:text-gray-500">
-                            VIDEO
-                        </span>
-
-                        <span class="font-mono text-[10px] font-medium text-indigo-500">
-                            CONTENT
-                        </span>
-                    </div>
                 </article>
 
-                <div v-if="videos.length === 0"
-                    class="col-span-full flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-white/50 py-16 text-center dark:border-gray-800 dark:bg-gray-900/50">
-                    <div
-                        class="mb-4 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white dark:border-gray-800 dark:bg-gray-950">
-                        <span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-gray-600"></span>
+                <div v-if="videos.length === 0" class="md:col-span-2">
+                    <div class="
+                            flex
+                            min-h-72
+                            flex-col
+                            items-center
+                            justify-center
+                            rounded-2xl
+                            border
+                            border-dashed
+                            border-zinc-200
+                            bg-white/40
+                            text-center
+                            dark:border-zinc-800
+                            dark:bg-zinc-900/30
+                        ">
+                        <div class="
+                                mb-5
+                                flex
+                                h-12
+                                w-12
+                                items-center
+                                justify-center
+                                rounded-full
+                                border
+                                border-zinc-200
+                                bg-white
+                                dark:border-zinc-800
+                                dark:bg-zinc-950
+                            ">
+                            <Sparkles class="
+                                    h-4
+                                    w-4
+                                    text-zinc-300
+                                    dark:text-zinc-700
+                                " />
+                        </div>
+
+                        <h3 class="
+                                font-mono
+                                text-sm
+                                font-semibold
+                                text-zinc-700
+                                dark:text-zinc-300
+                            ">
+                            No videos yet
+                        </h3>
+
+                        <p class="
+                                mt-2
+                                max-w-sm
+                                font-mono
+                                text-[10px]
+                                leading-5
+                                text-zinc-400
+                            ">
+                            Video content will appear here once it becomes
+                            available.
+                        </p>
                     </div>
-
-                    <p class="font-mono text-sm font-semibold text-slate-600 dark:text-gray-300">
-                        No videos yet
-                    </p>
-
-                    <p class="mt-2 max-w-sm font-mono text-xs leading-5 text-slate-400">
-                        Video content will appear here once it becomes
-                        available.
-                    </p>
                 </div>
             </div>
 
-            <div
-                class="mt-8 flex items-center justify-center gap-2 text-center font-mono text-[10px] text-slate-500 dark:text-gray-400 sm:text-xs">
-                <span class="h-2 w-2 rounded-full bg-violet-400"></span>
+            <div class="
+                    mt-14
+                    flex
+                    flex-col
+                    items-center
+                    justify-between
+                    gap-4
+                    border-t
+                    border-zinc-200
+                    pt-8
+                    dark:border-zinc-800
+                    sm:flex-row
+                ">
+                <div class="
+                        flex
+                        items-center
+                        gap-3
+                        font-mono
+                        text-[9px]
+                        uppercase
+                        tracking-[0.15em]
+                        text-zinc-400
+                        dark:text-zinc-600
+                    ">
+                    <span class="
+                            h-1.5
+                            w-1.5
+                            rounded-full
+                            bg-teal-500
+                        "></span>
 
-                Building practical solutions through technology.
+                    Building practical solutions
+                </div>
+
+                <div class="
+                        font-mono
+                        text-[9px]
+                        text-zinc-400
+                        dark:text-zinc-600
+                    ">
+                    {{ filteredProjects.length }} PROJECT{{
+                        filteredProjects.length === 1 ? '' : 'S'
+                    }}
+                    DISPLAYED
+                </div>
             </div>
         </div>
     </section>
@@ -457,171 +1113,617 @@ onUnmounted(() => {
         <Transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0"
             enter-to-class="opacity-100" leave-active-class="transition duration-200 ease-in"
             leave-from-class="opacity-100" leave-to-class="opacity-0">
-            <div v-if="selectedProject"
-                class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm sm:p-6"
-                @click.self="closeProject">
+            <div v-if="selectedProject" class="
+                    fixed
+                    inset-0
+                    z-[100]
+                    flex
+                    items-center
+                    justify-center
+                    bg-[#0D1210]/85
+                    p-4
+                    backdrop-blur-md
+                    sm:p-6
+                " @click.self="closeProject">
                 <Transition appear enter-active-class="transition duration-300 ease-out"
-                    enter-from-class="translate-y-4 scale-95 opacity-0"
+                    enter-from-class="translate-y-6 scale-[0.97] opacity-0"
                     enter-to-class="translate-y-0 scale-100 opacity-100"
                     leave-active-class="transition duration-200 ease-in"
                     leave-from-class="translate-y-0 scale-100 opacity-100"
-                    leave-to-class="translate-y-4 scale-95 opacity-0">
-                    <div v-if="selectedProject"
-                        class="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-950">
-                        <button type="button" aria-label="Close project details" @click="closeProject"
-                            class="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white/90 text-slate-500 shadow-sm backdrop-blur transition-all duration-300 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900/90 dark:text-gray-400 dark:hover:border-indigo-800 dark:hover:bg-indigo-950 dark:hover:text-indigo-400">
+                    leave-to-class="translate-y-6 scale-[0.97] opacity-0">
+                    <div v-if="selectedProject" class="
+                            relative
+                            max-h-[90vh]
+                            w-full
+                            max-w-5xl
+                            overflow-y-auto
+                            rounded-2xl
+                            border
+                            border-zinc-200
+                            bg-[#F7F7F5]
+                            shadow-2xl
+                            dark:border-zinc-800
+                            dark:bg-[#0D1210]
+                        ">
+                        <button type="button" aria-label="Close project details" @click="closeProject" class="
+                                absolute
+                                right-5
+                                top-5
+                                z-20
+                                flex
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                border
+                                border-white/20
+                                bg-black/30
+                                text-white
+                                backdrop-blur-md
+                                transition-all
+                                duration-300
+                                hover:bg-teal-600
+                            ">
                             <X class="h-4 w-4" />
                         </button>
 
-                        <div
-                            class="h-56 overflow-hidden border-b border-slate-200 bg-slate-50 sm:h-72 dark:border-gray-800 dark:bg-gray-900">
-                            <img :src="selectedProject.image" :alt="`${selectedProject.title} project preview`"
-                                class="h-full w-full object-cover" />
+                        <div class="
+                                relative
+                                h-64
+                                overflow-hidden
+                                bg-zinc-100
+                                dark:bg-zinc-900
+                                sm:h-80
+                            ">
+                            <img :src="selectedProject.image" :alt="`${selectedProject.title} project preview`" class="
+                                    h-full
+                                    w-full
+                                    object-cover
+                                " />
+
+                            <div class="
+                                    absolute
+                                    inset-0
+                                    bg-gradient-to-t
+                                    from-black/70
+                                    via-black/10
+                                    to-transparent
+                                "></div>
+
+                            <div class="
+                                    absolute
+                                    bottom-6
+                                    left-6
+                                    right-16
+                                    sm:bottom-8
+                                    sm:left-8
+                                ">
+                                <div class="
+                                        mb-3
+                                        flex
+                                        flex-wrap
+                                        gap-2
+                                    ">
+                                    <span class="
+                                            rounded-full
+                                            border
+                                            border-white/20
+                                            bg-black/30
+                                            px-3
+                                            py-1.5
+                                            font-mono
+                                            text-[8px]
+                                            font-semibold
+                                            uppercase
+                                            tracking-[0.15em]
+                                            text-white
+                                            backdrop-blur-md
+                                        ">
+                                        {{ selectedProject.type }}
+                                    </span>
+
+                                    <span v-if="
+                                        selectedProject.status ===
+                                        'Completed'
+                                    " class="
+                                            inline-flex
+                                            items-center
+                                            gap-2
+                                            rounded-full
+                                            border
+                                            border-emerald-300/30
+                                            bg-emerald-500/15
+                                            px-3
+                                            py-1.5
+                                            font-mono
+                                            text-[8px]
+                                            text-emerald-100
+                                            backdrop-blur-md
+                                        ">
+                                        <Check class="h-3 w-3" />
+
+                                        COMPLETED
+                                    </span>
+
+                                    <span v-else class="
+                                            inline-flex
+                                            items-center
+                                            gap-2
+                                            rounded-full
+                                            border
+                                            border-amber-300/30
+                                            bg-amber-500/15
+                                            px-3
+                                            py-1.5
+                                            font-mono
+                                            text-[8px]
+                                            text-amber-100
+                                            backdrop-blur-md
+                                        ">
+                                        <Construction class="h-3 w-3" />
+
+                                        IN DEVELOPMENT
+                                    </span>
+                                </div>
+
+                                <h2 class="
+                                        max-w-3xl
+                                        text-2xl
+                                        font-black
+                                        leading-tight
+                                        tracking-[-0.04em]
+                                        text-white
+                                        sm:text-4xl
+                                    ">
+                                    {{ selectedProject.title }}
+                                </h2>
+                            </div>
                         </div>
 
-                        <div class="p-6 sm:p-8">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span
-                                    class="rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-[0.12em] text-violet-500 dark:border-violet-900 dark:bg-violet-950/40 dark:text-violet-400">
-                                    {{ selectedProject.type }}
-                                </span>
-
-                                <span
-                                    class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 font-mono text-[10px] font-medium text-emerald-600 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-400">
-                                    <span class="relative flex h-2 w-2">
-                                        <span
-                                            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-
-                                        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                                    </span>
-
-                                    ONLINE
-                                </span>
-
-                                <span v-if="
-                                    selectedProject.status ===
-                                    'Under Development'
-                                "
-                                    class="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 font-mono text-[10px] text-amber-600 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-400">
-                                    <Construction class="h-3 w-3 animate-pulse" />
-
-                                    {{ selectedProject.status }}
-                                </span>
-
-                                <span v-else
-                                    class="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 font-mono text-[10px] text-indigo-600 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-400">
-                                    <span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-
-                                    {{ selectedProject.status }}
-                                </span>
-                            </div>
-
-                            <h2
-                                class="mt-4 max-w-3xl font-mono text-2xl font-bold leading-tight text-slate-950 dark:text-white sm:text-3xl md:text-4xl">
-                                {{ selectedProject.title }}
-                            </h2>
-
-                            <p class="mt-5 max-w-3xl font-mono text-sm leading-7 text-slate-600 dark:text-gray-400">
-                                {{ selectedProject.description }}
-                            </p>
-
-                            <div class="mt-8 grid gap-6 sm:grid-cols-2">
+                        <div class="
+                                p-6
+                                sm:p-8
+                                lg:p-10
+                            ">
+                            <div class="
+                                    grid
+                                    gap-10
+                                    lg:grid-cols-[1fr_260px]
+                                ">
                                 <div>
-                                    <p
-                                        class="font-mono text-[10px] font-semibold tracking-[0.15em] text-slate-400 dark:text-gray-500">
-                                        ROLE
+                                    <p class="
+                                            text-sm
+                                            leading-7
+                                            text-zinc-600
+                                            dark:text-zinc-400
+                                            sm:text-base
+                                        ">
+                                        {{ selectedProject.description }}
                                     </p>
 
-                                    <p class="mt-2 font-mono text-sm font-semibold text-indigo-500">
-                                        {{ selectedProject.role }}
-                                    </p>
+                                    <div v-if="
+                                        selectedProject.features?.length
+                                    " class="mt-10">
+                                        <div class="
+                                                mb-5
+                                                flex
+                                                items-center
+                                                gap-3
+                                            ">
+                                            <span class="
+                                                    h-px
+                                                    w-6
+                                                    bg-teal-500
+                                                "></span>
+
+                                            <h3 class="
+                                                    font-mono
+                                                    text-[9px]
+                                                    font-semibold
+                                                    uppercase
+                                                    tracking-[0.2em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-500
+                                                ">
+                                                Key Features
+                                            </h3>
+                                        </div>
+
+                                        <div class="
+                                                grid
+                                                gap-3
+                                                sm:grid-cols-2
+                                            ">
+                                            <div v-for="feature in selectedProject.features" :key="feature" class="
+                                                    flex
+                                                    items-start
+                                                    gap-3
+                                                    rounded-xl
+                                                    border
+                                                    border-zinc-200
+                                                    bg-white/70
+                                                    p-4
+                                                    dark:border-zinc-800
+                                                    dark:bg-zinc-900/50
+                                                ">
+                                                <span class="
+                                                        mt-1
+                                                        flex
+                                                        h-5
+                                                        w-5
+                                                        shrink-0
+                                                        items-center
+                                                        justify-center
+                                                        rounded-full
+                                                        bg-teal-500/10
+                                                        text-teal-600
+                                                        dark:text-teal-400
+                                                    ">
+                                                    <Check class="h-3 w-3" />
+                                                </span>
+
+                                                <span class="
+                                                        text-xs
+                                                        leading-5
+                                                        text-zinc-600
+                                                        dark:text-zinc-400
+                                                    ">
+                                                    {{ feature }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="
+                                        selectedProject.highlights?.length
+                                    " class="mt-10">
+                                        <div class="
+                                                mb-5
+                                                flex
+                                                items-center
+                                                gap-3
+                                            ">
+                                            <span class="
+                                                    h-px
+                                                    w-6
+                                                    bg-amber-500
+                                                "></span>
+
+                                            <h3 class="
+                                                    font-mono
+                                                    text-[9px]
+                                                    font-semibold
+                                                    uppercase
+                                                    tracking-[0.2em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-500
+                                                ">
+                                                Development Highlights
+                                            </h3>
+                                        </div>
+
+                                        <ul class="space-y-3">
+                                            <li v-for="highlight in selectedProject.highlights" :key="highlight" class="
+                                                    flex
+                                                    items-start
+                                                    gap-3
+                                                    text-xs
+                                                    leading-6
+                                                    text-zinc-600
+                                                    dark:text-zinc-400
+                                                ">
+                                                <span class="
+                                                        mt-2
+                                                        h-1.5
+                                                        w-1.5
+                                                        shrink-0
+                                                        rounded-full
+                                                        bg-amber-500
+                                                    "></span>
+
+                                                {{ highlight }}
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <p
-                                        class="font-mono text-[10px] font-semibold tracking-[0.15em] text-slate-400 dark:text-gray-500">
-                                        CATEGORY
-                                    </p>
+                                <aside>
+                                    <div class="
+                                            rounded-2xl
+                                            border
+                                            border-zinc-200
+                                            bg-white/70
+                                            p-5
+                                            dark:border-zinc-800
+                                            dark:bg-zinc-900/50
+                                        ">
+                                        <div>
+                                            <span class="
+                                                    font-mono
+                                                    text-[8px]
+                                                    uppercase
+                                                    tracking-[0.15em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-600
+                                                ">
+                                                Role
+                                            </span>
 
-                                    <p class="mt-2 font-mono text-sm font-semibold text-slate-700 dark:text-gray-300">
-                                        {{ selectedProject.category }}
-                                    </p>
-                                </div>
+                                            <p class="
+                                                    mt-2
+                                                    font-mono
+                                                    text-[9px]
+                                                    font-semibold
+                                                    text-teal-700
+                                                    dark:text-teal-400
+                                                ">
+                                                {{ selectedProject.role }}
+                                            </p>
+                                        </div>
+
+                                        <div class="
+                                                my-5
+                                                h-px
+                                                bg-zinc-200
+                                                dark:bg-zinc-800
+                                            "></div>
+
+                                        <div>
+                                            <span class="
+                                                    font-mono
+                                                    text-[8px]
+                                                    uppercase
+                                                    tracking-[0.15em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-600
+                                                ">
+                                                Category
+                                            </span>
+
+                                            <p class="
+                                                    mt-2
+                                                    text-xs
+                                                    font-medium
+                                                    text-zinc-700
+                                                    dark:text-zinc-300
+                                                ">
+                                                {{ selectedProject.category }}
+                                            </p>
+                                        </div>
+
+                                        <div class="
+                                                my-5
+                                                h-px
+                                                bg-zinc-200
+                                                dark:bg-zinc-800
+                                            "></div>
+
+                                        <div>
+                                            <span class="
+                                                    font-mono
+                                                    text-[8px]
+                                                    uppercase
+                                                    tracking-[0.15em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-600
+                                                ">
+                                                Availability
+                                            </span>
+
+                                            <div class="
+                                                    mt-2
+                                                    inline-flex
+                                                    items-center
+                                                    gap-2
+                                                    rounded-full
+                                                    px-2.5
+                                                    py-1.5
+                                                    font-mono
+                                                    text-[8px]
+                                                    font-semibold
+                                                " :class="selectedProject.availability ===
+                                                    'ONLINE'
+                                                    ? `
+                                                            bg-emerald-50
+                                                            text-emerald-600
+                                                            dark:bg-emerald-950/40
+                                                            dark:text-emerald-400
+                                                        `
+                                                    : `
+                                                            bg-zinc-100
+                                                            text-zinc-500
+                                                            dark:bg-zinc-800
+                                                            dark:text-zinc-400
+                                                        `
+                                                    ">
+                                                <span class="h-1.5 w-1.5 rounded-full" :class="selectedProject.availability ===
+                                                    'ONLINE'
+                                                    ? 'bg-emerald-500'
+                                                    : 'bg-zinc-400'
+                                                    "></span>
+
+                                                {{ selectedProject.availability }}
+                                            </div>
+                                        </div>
+
+                                        <div class="
+                                                my-5
+                                                h-px
+                                                bg-zinc-200
+                                                dark:bg-zinc-800
+                                            "></div>
+
+                                        <div>
+                                            <span class="
+                                                    font-mono
+                                                    text-[8px]
+                                                    uppercase
+                                                    tracking-[0.15em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-600
+                                                ">
+                                                Application Type
+                                            </span>
+
+                                            <p class="
+                                                    mt-2
+                                                    text-xs
+                                                    font-medium
+                                                    text-zinc-700
+                                                    dark:text-zinc-300
+                                                ">
+                                                {{ selectedProject.appType }}
+                                            </p>
+                                        </div>
+
+                                        <div class="
+                                                my-5
+                                                h-px
+                                                bg-zinc-200
+                                                dark:bg-zinc-800
+                                            "></div>
+
+                                        <div>
+                                            <span class="
+                                                    font-mono
+                                                    text-[8px]
+                                                    uppercase
+                                                    tracking-[0.15em]
+                                                    text-zinc-400
+                                                    dark:text-zinc-600
+                                                ">
+                                                Technologies
+                                            </span>
+
+                                            <div class="
+                                                    mt-3
+                                                    flex
+                                                    flex-wrap
+                                                    gap-1.5
+                                                ">
+                                                <span v-for="technology in selectedProject.technologies"
+                                                    :key="technology" class="
+                                                        rounded-md
+                                                        border
+                                                        border-zinc-200
+                                                        bg-white
+                                                        px-2
+                                                        py-1.5
+                                                        font-mono
+                                                        text-[8px]
+                                                        text-zinc-500
+                                                        dark:border-zinc-700
+                                                        dark:bg-zinc-950
+                                                        dark:text-zinc-400
+                                                    ">
+                                                    {{ technology }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="
+                                        selectedProject.github ||
+                                        selectedProject.liveDemo
+                                    " class="
+                                            mt-4
+                                            flex
+                                            flex-col
+                                            gap-2
+                                        ">
+                                        <a v-if="selectedProject.github" :href="selectedProject.github" target="_blank"
+                                            rel="noopener noreferrer" class="
+                                                inline-flex
+                                                items-center
+                                                justify-center
+                                                gap-2
+                                                rounded-lg
+                                                border
+                                                border-zinc-200
+                                                px-4
+                                                py-3
+                                                font-mono
+                                                text-[9px]
+                                                font-semibold
+                                                text-zinc-600
+                                                transition-all
+                                                duration-300
+                                                hover:border-teal-200
+                                                hover:bg-teal-50
+                                                hover:text-teal-700
+                                                dark:border-zinc-800
+                                                dark:text-zinc-400
+                                                dark:hover:border-teal-900
+                                                dark:hover:bg-teal-950
+                                                dark:hover:text-teal-400
+                                            ">
+                                            <Github class="h-4 w-4" />
+
+                                            View Source
+
+                                            <ExternalLink class="h-3 w-3" />
+                                        </a>
+
+                                        <a v-if="selectedProject.liveDemo" :href="selectedProject.liveDemo"
+                                            target="_blank" rel="noopener noreferrer" class="
+                                                inline-flex
+                                                items-center
+                                                justify-center
+                                                gap-2
+                                                rounded-lg
+                                                bg-teal-700
+                                                px-4
+                                                py-3
+                                                font-mono
+                                                text-[9px]
+                                                font-semibold
+                                                text-white
+                                                transition-all
+                                                duration-300
+                                                hover:bg-teal-800
+                                                dark:bg-teal-500
+                                                dark:text-zinc-950
+                                                dark:hover:bg-teal-400
+                                            ">
+                                            Live Demo
+
+                                            <ExternalLink class="h-3 w-3" />
+                                        </a>
+                                    </div>
+                                </aside>
                             </div>
 
-                            <div class="my-8 h-px bg-slate-200 dark:bg-gray-800"></div>
-
-                            <div v-if="
-                                selectedProject.features?.length ||
-                                selectedProject.highlights?.length
-                            " class="grid gap-8 sm:grid-cols-2">
-                                <div v-if="selectedProject.features?.length">
-                                    <h3 class="font-mono text-sm font-semibold text-slate-900 dark:text-white">
-                                        Key Features
-                                    </h3>
-
-                                    <ul class="mt-4 space-y-3">
-                                        <li v-for="feature in selectedProject.features" :key="feature"
-                                            class="flex items-start gap-3 font-mono text-xs leading-5 text-slate-600 dark:text-gray-400">
-                                            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400"></span>
-
-                                            {{ feature }}
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div v-if="selectedProject.highlights?.length">
-                                    <h3 class="font-mono text-sm font-semibold text-slate-900 dark:text-white">
-                                        Development Highlights
-                                    </h3>
-
-                                    <ul class="mt-4 space-y-3">
-                                        <li v-for="highlight in selectedProject.highlights" :key="highlight"
-                                            class="flex items-start gap-3 font-mono text-xs leading-5 text-slate-600 dark:text-gray-400">
-                                            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400"></span>
-
-                                            {{ highlight }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="mt-8">
-                                <h3 class="font-mono text-sm font-semibold text-slate-900 dark:text-white">
-                                    Technologies
-                                </h3>
-
-                                <div class="mt-4 flex flex-wrap gap-2">
-                                    <span v-for="technology in selectedProject.technologies" :key="technology"
-                                        class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 font-mono text-[10px] text-slate-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                                        {{ technology }}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div v-if="
-                                selectedProject.github ||
-                                selectedProject.liveDemo
-                            " class="mt-8 flex flex-wrap gap-3">
-                                <a v-if="selectedProject.github" :href="selectedProject.github" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 font-mono text-xs font-semibold text-slate-700 transition-all duration-300 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-indigo-800 dark:hover:bg-indigo-950 dark:hover:text-indigo-400">
-                                    <Github class="h-4 w-4" />
-                                    View Source
-                                    <ExternalLink class="h-3.5 w-3.5" />
-                                </a>
-
-                                <a v-if="selectedProject.liveDemo" :href="selectedProject.liveDemo" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="inline-flex items-center gap-2 rounded-lg bg-indigo-500 px-4 py-2.5 font-mono text-xs font-semibold text-white transition-all duration-300 hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-200/40 dark:hover:bg-indigo-400">
-                                    <ExternalLink class="h-4 w-4" />
-                                    Live Demo
-                                </a>
-                            </div>
-
-                            <div class="mt-8 flex justify-end border-t border-slate-200 pt-6 dark:border-gray-800">
-                                <button type="button" @click="closeProject"
-                                    class="rounded-lg border border-slate-200 px-4 py-2.5 font-mono text-xs font-semibold text-slate-600 transition-all duration-300 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-700 dark:text-gray-400 dark:hover:border-indigo-800 dark:hover:bg-indigo-950 dark:hover:text-indigo-400">
+                            <div class="
+                                    mt-10
+                                    flex
+                                    justify-end
+                                    border-t
+                                    border-zinc-200
+                                    pt-6
+                                    dark:border-zinc-800
+                                ">
+                                <button type="button" @click="closeProject" class="
+                                        rounded-lg
+                                        border
+                                        border-zinc-200
+                                        px-4
+                                        py-2.5
+                                        font-mono
+                                        text-[9px]
+                                        font-semibold
+                                        text-zinc-500
+                                        transition-all
+                                        duration-300
+                                        hover:border-teal-200
+                                        hover:bg-teal-50
+                                        hover:text-teal-700
+                                        dark:border-zinc-800
+                                        dark:text-zinc-400
+                                        dark:hover:border-teal-900
+                                        dark:hover:bg-teal-950
+                                        dark:hover:text-teal-400
+                                    ">
                                     Close
                                 </button>
                             </div>
