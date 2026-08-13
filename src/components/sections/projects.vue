@@ -12,6 +12,7 @@ import hrtsImage from '../../assets/image/hrts.svg'
 import climsImage from '../../assets/image/clims.svg'
 import arcguideImage from '../../assets/image/arcguide.svg'
 import rdsAutoworkzImage from '../../assets/image/rdsLogo.jpg'
+import cssGeneratorImage from '../../assets/image/cssGenerator.gif'
 
 // ========================================
 // Categories
@@ -95,8 +96,6 @@ const projects = [
         technologies: [
             'HTML',
             'CSS',
-            'PHP',
-            'PHP',
             'PHP',
             'MySQL',
             'Bootstrap',
@@ -209,6 +208,50 @@ const projects = [
 
         github: '',
         liveDemo: ''
+    },
+
+    {
+        title: 'CSS Grid Generator',
+
+        type: 'PERSONAL PROJECT',
+
+        category: 'Personal',
+
+        status: 'Under Development',
+
+        image: cssGeneratorImage,
+
+        description:
+            'A browser-based CSS Grid generator that allows users to visually configure grid layouts and instantly generate the corresponding CSS code.',
+
+        technologies: [
+            'Vue.js',
+            'Tailwind CSS',
+            'JavaScript',
+            'CSS'
+        ],
+
+        role: 'FRONT-END DEVELOPER',
+
+        features: [
+            'Visual CSS Grid configuration',
+            'Column and row controls',
+            'Custom column and row gaps',
+            'Live grid preview',
+            'Generated CSS output',
+            'Copy generated CSS'
+        ],
+
+        highlights: [
+            'Designed and developed the interface using Vue.js',
+            'Implemented reactive grid configuration controls',
+            'Created a real-time visual grid preview',
+            'Implemented automatic CSS generation',
+            'Added clipboard functionality for generated CSS'
+        ],
+
+        github: '',
+        liveDemo: ''
     }
 ]
 
@@ -255,14 +298,12 @@ const showVideos = computed(() => {
 const openProject = (project) => {
     selectedProject.value = project
 
-    // Prevent background scrolling
     document.body.style.overflow = 'hidden'
 }
 
 const closeProject = () => {
     selectedProject.value = null
 
-    // Restore background scrolling
     document.body.style.overflow = ''
 }
 
@@ -296,9 +337,7 @@ onUnmounted(() => {
             bg-slate-50
             px-6
             py-20
-
             dark:bg-gray-950
-
             sm:px-8
             lg:px-12
             lg:py-24
@@ -320,7 +359,6 @@ onUnmounted(() => {
                     font-semibold
                     tracking-wide
                     text-indigo-500
-
                     sm:text-lg
                 ">
 
@@ -347,9 +385,7 @@ onUnmounted(() => {
                         leading-none
                         tracking-tight
                         text-slate-950
-
                         dark:text-white
-
                         sm:text-4xl
                         md:text-5xl
                         lg:text-6xl
@@ -370,9 +406,7 @@ onUnmounted(() => {
                         text-xs
                         leading-6
                         text-slate-600
-
                         dark:text-gray-400
-
                         sm:text-sm
                         sm:leading-7
                     ">
@@ -398,7 +432,6 @@ onUnmounted(() => {
                         text-[10px]
                         transition-all
                         duration-300
-
                         sm:px-4
                         sm:py-2
                         sm:text-xs
@@ -419,7 +452,6 @@ onUnmounted(() => {
                     mt-8
                     grid
                     gap-5
-
                     md:grid-cols-2
                     lg:grid-cols-3
                 ">
@@ -437,12 +469,10 @@ onUnmounted(() => {
                         backdrop-blur-sm
                         transition-all
                         duration-300
-
                         hover:-translate-y-1
                         hover:border-indigo-200
                         hover:shadow-lg
                         hover:shadow-indigo-100/40
-
                         dark:border-gray-800
                         dark:bg-gray-900/70
                         dark:hover:border-indigo-800
@@ -461,7 +491,6 @@ onUnmounted(() => {
                             border
                             border-slate-200
                             bg-slate-50
-
                             dark:border-gray-800
                             dark:bg-gray-950
                         ">
@@ -472,7 +501,6 @@ onUnmounted(() => {
                                 object-cover
                                 transition-transform
                                 duration-500
-
                                 group-hover:scale-105
                             " />
 
@@ -489,7 +517,7 @@ onUnmounted(() => {
                             gap-4
                         ">
 
-                        <div>
+                        <div class="min-w-0">
 
                             <p class="
                                     font-mono
@@ -508,7 +536,6 @@ onUnmounted(() => {
                                     font-semibold
                                     leading-6
                                     text-slate-900
-
                                     dark:text-white
                                 ">
                                 {{ project.title }}
@@ -517,10 +544,10 @@ onUnmounted(() => {
                         </div>
 
                         <span class="
+                                shrink-0
                                 font-mono
                                 text-xs
                                 text-slate-300
-
                                 dark:text-gray-600
                             ">
                             {{ String(index + 1).padStart(2, '0') }}
@@ -529,10 +556,65 @@ onUnmounted(() => {
                     </div>
 
                     <!-- ======================================== -->
-                    <!-- Status -->
+                    <!-- Online + Status -->
                     <!-- ======================================== -->
 
-                    <div class="mt-4">
+                    <div class="
+                            mt-4
+                            flex
+                            flex-wrap
+                            items-center
+                            gap-2
+                        ">
+
+                        <!-- Online -->
+
+                        <span class="
+                                inline-flex
+                                items-center
+                                gap-2
+                                rounded-full
+                                border
+                                border-emerald-200
+                                bg-emerald-50
+                                px-2.5
+                                py-1
+                                font-mono
+                                text-[10px]
+                                font-medium
+                                text-emerald-600
+                                dark:border-emerald-900
+                                dark:bg-emerald-950/40
+                                dark:text-emerald-400
+                            ">
+
+                            <span class="relative flex h-2 w-2">
+
+                                <span class="
+                                        absolute
+                                        inline-flex
+                                        h-full
+                                        w-full
+                                        animate-ping
+                                        rounded-full
+                                        bg-emerald-400
+                                        opacity-75
+                                    "></span>
+
+                                <span class="
+                                        relative
+                                        inline-flex
+                                        h-2
+                                        w-2
+                                        rounded-full
+                                        bg-emerald-500
+                                    "></span>
+
+                            </span>
+
+                            ONLINE
+
+                        </span>
 
                         <!-- Under Development -->
 
@@ -549,7 +631,6 @@ onUnmounted(() => {
                                 font-mono
                                 text-[10px]
                                 text-amber-600
-
                                 dark:border-amber-900
                                 dark:bg-amber-950/40
                                 dark:text-amber-400
@@ -582,7 +663,6 @@ onUnmounted(() => {
                                 font-mono
                                 text-[10px]
                                 text-indigo-600
-
                                 dark:border-indigo-900
                                 dark:bg-indigo-950/40
                                 dark:text-indigo-400
@@ -609,7 +689,6 @@ onUnmounted(() => {
                             my-4
                             h-px
                             bg-slate-200
-
                             dark:bg-gray-800
                         "></div>
 
@@ -622,7 +701,6 @@ onUnmounted(() => {
                             text-xs
                             leading-6
                             text-slate-500
-
                             dark:text-gray-400
                         ">
                         {{ project.description }}
@@ -646,9 +724,7 @@ onUnmounted(() => {
                                 text-slate-600
                                 transition-all
                                 duration-300
-
                                 group-hover:border-indigo-100
-
                                 dark:border-gray-700
                                 dark:bg-gray-950
                                 dark:text-gray-400
@@ -663,16 +739,12 @@ onUnmounted(() => {
                     <!-- Bottom -->
                     <!-- ======================================== -->
 
-                    <div class="
-                            mt-auto
-                            pt-5
-                        ">
+                    <div class="mt-auto pt-5">
 
                         <div class="
                                 mb-4
                                 h-px
                                 bg-slate-200
-
                                 dark:bg-gray-800
                             "></div>
 
@@ -683,6 +755,8 @@ onUnmounted(() => {
                                 gap-4
                             ">
 
+                            <!-- Role -->
+
                             <div class="min-w-0">
 
                                 <span class="
@@ -690,7 +764,6 @@ onUnmounted(() => {
                                         font-mono
                                         text-[10px]
                                         text-slate-400
-
                                         dark:text-gray-500
                                     ">
                                     ROLE
@@ -729,13 +802,11 @@ onUnmounted(() => {
                                     text-indigo-600
                                     transition-all
                                     duration-300
-
                                     hover:border-indigo-300
                                     hover:bg-indigo-500
                                     hover:text-white
                                     hover:shadow-md
                                     hover:shadow-indigo-200/40
-
                                     dark:border-indigo-900
                                     dark:bg-indigo-950/40
                                     dark:text-indigo-400
@@ -751,7 +822,6 @@ onUnmounted(() => {
                                         w-3.5
                                         transition-transform
                                         duration-300
-
                                         group-hover:translate-x-0.5
                                         group-hover:-translate-y-0.5
                                     " />
@@ -781,7 +851,6 @@ onUnmounted(() => {
                         bg-white/50
                         py-16
                         text-center
-
                         dark:border-gray-800
                         dark:bg-gray-900/50
                     ">
@@ -797,7 +866,6 @@ onUnmounted(() => {
                             border
                             border-slate-200
                             bg-white
-
                             dark:border-gray-800
                             dark:bg-gray-950
                         ">
@@ -807,7 +875,6 @@ onUnmounted(() => {
                                 w-2
                                 rounded-full
                                 bg-slate-300
-
                                 dark:bg-gray-600
                             "></span>
 
@@ -818,7 +885,6 @@ onUnmounted(() => {
                             text-sm
                             font-semibold
                             text-slate-600
-
                             dark:text-gray-300
                         ">
                         No projects yet
@@ -837,7 +903,6 @@ onUnmounted(() => {
                         <span class="
                                 font-semibold
                                 text-slate-500
-
                                 dark:text-gray-300
                             ">
                             {{ selectedCategory }}
@@ -856,7 +921,6 @@ onUnmounted(() => {
                     mt-8
                     grid
                     gap-5
-
                     md:grid-cols-2
                     lg:grid-cols-3
                 ">
@@ -874,12 +938,10 @@ onUnmounted(() => {
                         backdrop-blur-sm
                         transition-all
                         duration-300
-
                         hover:-translate-y-1
                         hover:border-indigo-200
                         hover:shadow-lg
                         hover:shadow-indigo-100/40
-
                         dark:border-gray-800
                         dark:bg-gray-900/70
                         dark:hover:border-indigo-800
@@ -896,7 +958,6 @@ onUnmounted(() => {
                             border
                             border-slate-200
                             bg-slate-950
-
                             dark:border-gray-800
                         ">
 
@@ -933,7 +994,6 @@ onUnmounted(() => {
                                 font-semibold
                                 leading-6
                                 text-slate-900
-
                                 dark:text-white
                             ">
                             {{ video.title }}
@@ -951,7 +1011,6 @@ onUnmounted(() => {
                             border-t
                             border-slate-200
                             pt-4
-
                             dark:border-gray-800
                         ">
 
@@ -959,7 +1018,6 @@ onUnmounted(() => {
                                 font-mono
                                 text-[10px]
                                 text-slate-400
-
                                 dark:text-gray-500
                             ">
                             VIDEO
@@ -995,7 +1053,6 @@ onUnmounted(() => {
                         bg-white/50
                         py-16
                         text-center
-
                         dark:border-gray-800
                         dark:bg-gray-900/50
                     ">
@@ -1011,7 +1068,6 @@ onUnmounted(() => {
                             border
                             border-slate-200
                             bg-white
-
                             dark:border-gray-800
                             dark:bg-gray-950
                         ">
@@ -1021,7 +1077,6 @@ onUnmounted(() => {
                                 w-2
                                 rounded-full
                                 bg-slate-300
-
                                 dark:bg-gray-600
                             "></span>
 
@@ -1032,7 +1087,6 @@ onUnmounted(() => {
                             text-sm
                             font-semibold
                             text-slate-600
-
                             dark:text-gray-300
                         ">
                         No videos yet
@@ -1068,9 +1122,7 @@ onUnmounted(() => {
                     font-mono
                     text-[10px]
                     text-slate-500
-
                     dark:text-gray-400
-
                     sm:text-xs
                 ">
 
@@ -1110,7 +1162,6 @@ onUnmounted(() => {
                     bg-slate-950/70
                     p-4
                     backdrop-blur-sm
-
                     sm:p-6
                 " @click.self="closeProject">
 
@@ -1136,7 +1187,6 @@ onUnmounted(() => {
                             border-slate-200
                             bg-white
                             shadow-2xl
-
                             dark:border-gray-800
                             dark:bg-gray-950
                         ">
@@ -1164,11 +1214,9 @@ onUnmounted(() => {
                                 backdrop-blur
                                 transition-all
                                 duration-300
-
                                 hover:border-indigo-200
                                 hover:bg-indigo-50
                                 hover:text-indigo-600
-
                                 dark:border-gray-700
                                 dark:bg-gray-900/90
                                 dark:text-gray-400
@@ -1181,7 +1229,6 @@ onUnmounted(() => {
 
                         </button>
 
-
                         <!-- ======================================== -->
                         <!-- Modal Image -->
                         <!-- ======================================== -->
@@ -1192,9 +1239,7 @@ onUnmounted(() => {
                                 border-b
                                 border-slate-200
                                 bg-slate-50
-
                                 sm:h-72
-
                                 dark:border-gray-800
                                 dark:bg-gray-900
                             ">
@@ -1207,14 +1252,13 @@ onUnmounted(() => {
 
                         </div>
 
-
                         <!-- ======================================== -->
                         <!-- Modal Content -->
                         <!-- ======================================== -->
 
                         <div class="p-6 sm:p-8">
 
-                            <!-- Type + Status -->
+                            <!-- Type + Online + Status -->
 
                             <div class="
                                     flex
@@ -1222,6 +1266,8 @@ onUnmounted(() => {
                                     items-center
                                     gap-2
                                 ">
+
+                                <!-- Type -->
 
                                 <span class="
                                         rounded-full
@@ -1235,13 +1281,63 @@ onUnmounted(() => {
                                         font-semibold
                                         tracking-[0.12em]
                                         text-violet-500
-
                                         dark:border-violet-900
                                         dark:bg-violet-950/40
                                         dark:text-violet-400
                                     ">
                                     {{ selectedProject.type }}
                                 </span>
+
+                                <!-- Online -->
+
+                                <span class="
+                                        inline-flex
+                                        items-center
+                                        gap-2
+                                        rounded-full
+                                        border
+                                        border-emerald-200
+                                        bg-emerald-50
+                                        px-2.5
+                                        py-1
+                                        font-mono
+                                        text-[10px]
+                                        font-medium
+                                        text-emerald-600
+                                        dark:border-emerald-900
+                                        dark:bg-emerald-950/40
+                                        dark:text-emerald-400
+                                    ">
+
+                                    <span class="relative flex h-2 w-2">
+
+                                        <span class="
+                                                absolute
+                                                inline-flex
+                                                h-full
+                                                w-full
+                                                animate-ping
+                                                rounded-full
+                                                bg-emerald-400
+                                                opacity-75
+                                            "></span>
+
+                                        <span class="
+                                                relative
+                                                inline-flex
+                                                h-2
+                                                w-2
+                                                rounded-full
+                                                bg-emerald-500
+                                            "></span>
+
+                                    </span>
+
+                                    ONLINE
+
+                                </span>
+
+                                <!-- Under Development -->
 
                                 <span v-if="selectedProject.status === 'Under Development'" class="
                                         inline-flex
@@ -1256,7 +1352,6 @@ onUnmounted(() => {
                                         font-mono
                                         text-[10px]
                                         text-amber-600
-
                                         dark:border-amber-900
                                         dark:bg-amber-950/40
                                         dark:text-amber-400
@@ -1272,6 +1367,8 @@ onUnmounted(() => {
 
                                 </span>
 
+                                <!-- Completed -->
+
                                 <span v-else class="
                                         inline-flex
                                         items-center
@@ -1285,7 +1382,6 @@ onUnmounted(() => {
                                         font-mono
                                         text-[10px]
                                         text-indigo-600
-
                                         dark:border-indigo-900
                                         dark:bg-indigo-950/40
                                         dark:text-indigo-400
@@ -1304,7 +1400,6 @@ onUnmounted(() => {
 
                             </div>
 
-
                             <!-- Title -->
 
                             <h2 class="
@@ -1315,15 +1410,12 @@ onUnmounted(() => {
                                     font-bold
                                     leading-tight
                                     text-slate-950
-
                                     sm:text-3xl
                                     md:text-4xl
-
                                     dark:text-white
                                 ">
                                 {{ selectedProject.title }}
                             </h2>
-
 
                             <!-- Description -->
 
@@ -1334,12 +1426,10 @@ onUnmounted(() => {
                                     text-sm
                                     leading-7
                                     text-slate-600
-
                                     dark:text-gray-400
                                 ">
                                 {{ selectedProject.description }}
                             </p>
-
 
                             <!-- ======================================== -->
                             <!-- Project Information -->
@@ -1349,7 +1439,6 @@ onUnmounted(() => {
                                     mt-8
                                     grid
                                     gap-6
-
                                     sm:grid-cols-2
                                 ">
 
@@ -1363,7 +1452,6 @@ onUnmounted(() => {
                                             font-semibold
                                             tracking-[0.15em]
                                             text-slate-400
-
                                             dark:text-gray-500
                                         ">
                                         ROLE
@@ -1381,7 +1469,6 @@ onUnmounted(() => {
 
                                 </div>
 
-
                                 <!-- Category -->
 
                                 <div>
@@ -1392,7 +1479,6 @@ onUnmounted(() => {
                                             font-semibold
                                             tracking-[0.15em]
                                             text-slate-400
-
                                             dark:text-gray-500
                                         ">
                                         CATEGORY
@@ -1404,7 +1490,6 @@ onUnmounted(() => {
                                             text-sm
                                             font-semibold
                                             text-slate-700
-
                                             dark:text-gray-300
                                         ">
                                         {{ selectedProject.category }}
@@ -1414,7 +1499,6 @@ onUnmounted(() => {
 
                             </div>
 
-
                             <!-- ======================================== -->
                             <!-- Divider -->
                             <!-- ======================================== -->
@@ -1423,25 +1507,31 @@ onUnmounted(() => {
                                     my-8
                                     h-px
                                     bg-slate-200
-
                                     dark:bg-gray-800
                                 "></div>
 
-
                             <!-- ======================================== -->
-                            <!-- Features -->
+                            <!-- Features + Highlights -->
                             <!-- ======================================== -->
 
-                            <div v-if="selectedProject.features?.length" class="grid gap-8 sm:grid-cols-2">
+                            <div v-if="
+                                selectedProject.features?.length ||
+                                selectedProject.highlights?.length
+                            " class="
+                                    grid
+                                    gap-8
+                                    sm:grid-cols-2
+                                ">
 
-                                <div>
+                                <!-- Features -->
+
+                                <div v-if="selectedProject.features?.length">
 
                                     <h3 class="
                                             font-mono
                                             text-sm
                                             font-semibold
                                             text-slate-900
-
                                             dark:text-white
                                         ">
                                         Key Features
@@ -1457,7 +1547,6 @@ onUnmounted(() => {
                                                 text-xs
                                                 leading-5
                                                 text-slate-600
-
                                                 dark:text-gray-400
                                             ">
 
@@ -1478,7 +1567,6 @@ onUnmounted(() => {
 
                                 </div>
 
-
                                 <!-- Highlights -->
 
                                 <div v-if="selectedProject.highlights?.length">
@@ -1488,7 +1576,6 @@ onUnmounted(() => {
                                             text-sm
                                             font-semibold
                                             text-slate-900
-
                                             dark:text-white
                                         ">
                                         Development Highlights
@@ -1504,7 +1591,6 @@ onUnmounted(() => {
                                                 text-xs
                                                 leading-5
                                                 text-slate-600
-
                                                 dark:text-gray-400
                                             ">
 
@@ -1527,7 +1613,6 @@ onUnmounted(() => {
 
                             </div>
 
-
                             <!-- ======================================== -->
                             <!-- Technologies -->
                             <!-- ======================================== -->
@@ -1539,7 +1624,6 @@ onUnmounted(() => {
                                         text-sm
                                         font-semibold
                                         text-slate-900
-
                                         dark:text-white
                                     ">
                                     Technologies
@@ -1557,7 +1641,6 @@ onUnmounted(() => {
                                             font-mono
                                             text-[10px]
                                             text-slate-600
-
                                             dark:border-gray-700
                                             dark:bg-gray-900
                                             dark:text-gray-400
@@ -1568,7 +1651,6 @@ onUnmounted(() => {
                                 </div>
 
                             </div>
-
 
                             <!-- ======================================== -->
                             <!-- Links -->
@@ -1603,11 +1685,9 @@ onUnmounted(() => {
                                         text-slate-700
                                         transition-all
                                         duration-300
-
                                         hover:border-indigo-200
                                         hover:bg-indigo-50
                                         hover:text-indigo-600
-
                                         dark:border-gray-700
                                         dark:bg-gray-900
                                         dark:text-gray-300
@@ -1623,7 +1703,6 @@ onUnmounted(() => {
                                     <ExternalLink class="h-3.5 w-3.5" />
 
                                 </a>
-
 
                                 <!-- Live Demo -->
 
@@ -1642,11 +1721,9 @@ onUnmounted(() => {
                                         text-white
                                         transition-all
                                         duration-300
-
                                         hover:bg-indigo-600
                                         hover:shadow-lg
                                         hover:shadow-indigo-200/40
-
                                         dark:hover:bg-indigo-400
                                     ">
 
@@ -1657,7 +1734,6 @@ onUnmounted(() => {
                                 </a>
 
                             </div>
-
 
                             <!-- ======================================== -->
                             <!-- Close -->
@@ -1670,7 +1746,6 @@ onUnmounted(() => {
                                     border-t
                                     border-slate-200
                                     pt-6
-
                                     dark:border-gray-800
                                 ">
 
@@ -1686,11 +1761,9 @@ onUnmounted(() => {
                                         text-slate-600
                                         transition-all
                                         duration-300
-
                                         hover:border-indigo-200
                                         hover:bg-indigo-50
                                         hover:text-indigo-600
-
                                         dark:border-gray-700
                                         dark:text-gray-400
                                         dark:hover:border-indigo-800
