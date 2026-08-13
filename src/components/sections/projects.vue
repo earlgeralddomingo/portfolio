@@ -16,7 +16,7 @@ import hrtsImage from '../../assets/image/hrts.svg'
 import climsImage from '../../assets/image/clims.svg'
 import arcguideImage from '../../assets/image/arcguide.svg'
 import rdsAutoworkzImage from '../../assets/image/rdsLogo.jpg'
-import cssGeneratorImage from '../../assets/image/cssGenerator.gif'
+import cssGeneratorImage from '../../assets/image/cssgenerator.gif'
 
 const categories = [
     'All',
