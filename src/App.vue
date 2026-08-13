@@ -1,4 +1,5 @@
 <script setup>
+import { Analytics } from '@vercel/analytics/vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ArrowUp } from 'lucide-vue-next'
 
@@ -34,6 +35,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <Analytics />
   <!-- Navbar -->
   <Navbar />
 
