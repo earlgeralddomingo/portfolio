@@ -14,9 +14,7 @@ import profileImage from '../../assets/image/egd.png'
 </script>
 
 <template>
-<section
-    id="home"
-    class="
+    <section id="home" class="
         relative
         flex
         min-h-[calc(100svh-68px)]
@@ -26,8 +24,8 @@ import profileImage from '../../assets/image/egd.png'
         overflow-hidden
         bg-[#F7F7F5]
         px-5
-        pt-20
-        pb-8
+        pt-[92px]
+        pb-10
         text-zinc-900
         transition-colors
         duration-500
@@ -36,15 +34,17 @@ import profileImage from '../../assets/image/egd.png'
         dark:text-white
 
         sm:px-8
-        sm:pt-20
+        sm:pt-[96px]
+        sm:pb-12
 
         lg:items-center
         lg:px-10
         lg:py-6
+        lg:pt-6
+        lg:pb-6
 
         xl:px-14
-    "
->
+    ">
         <!-- Background -->
         <div class="
                 pointer-events-none
