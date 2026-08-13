@@ -14,43 +14,42 @@ import profileImage from '../../assets/image/egd.png'
 </script>
 
 <template>
-    <section
-        id="home"
-        class="
-            relative
-            flex
-            min-h-[calc(100svh-68px)]
-            scroll-mt-[68px]
-            items-center
-            justify-center
-            overflow-hidden
-            bg-[#F7F7F5]
-            px-5
-            py-6
-            text-zinc-900
-            transition-colors
-            duration-500
+    <section id="home" class="
+        relative
+        flex
+        min-h-[calc(100svh-68px)]
+        scroll-mt-[68px]
+        items-start
+        justify-center
+        overflow-hidden
+        bg-[#F7F7F5]
+        px-5
+        pt-12
+        pb-8
+        text-zinc-900
+        transition-colors
+        duration-500
 
-            dark:bg-[#0D1210]
-            dark:text-white
+        dark:bg-[#0D1210]
+        dark:text-white
 
-            sm:px-8
-            lg:px-10
-            xl:px-14
-        "
-    >
+        sm:px-8
+        sm:pt-14
+
+        lg:items-center
+        lg:px-10
+        lg:py-6
+
+        xl:px-14
+    ">
         <!-- Background -->
-        <div
-            class="
+        <div class="
                 pointer-events-none
                 absolute
                 inset-0
                 overflow-hidden
-            "
-            aria-hidden="true"
-        >
-            <div
-                class="
+            " aria-hidden="true">
+            <div class="
                     absolute
                     -right-32
                     -top-28
@@ -61,11 +60,9 @@ import profileImage from '../../assets/image/egd.png'
                     blur-[90px]
 
                     dark:bg-teal-900/15
-                "
-            ></div>
+                "></div>
 
-            <div
-                class="
+            <div class="
                     absolute
                     -bottom-32
                     left-1/4
@@ -76,18 +73,15 @@ import profileImage from '../../assets/image/egd.png'
                     blur-[90px]
 
                     dark:bg-amber-900/10
-                "
-            ></div>
+                "></div>
 
-            <div
-                class="
+            <div class="
                     absolute
                     inset-0
                     opacity-[0.03]
 
                     dark:opacity-[0.04]
-                "
-                style="
+                " style="
                     background-image:
                         linear-gradient(
                             to right,
@@ -100,13 +94,11 @@ import profileImage from '../../assets/image/egd.png'
                             transparent 1px
                         );
                     background-size: 46px 46px;
-                "
-            ></div>
+                "></div>
         </div>
 
         <!-- Main -->
-        <div
-            class="
+        <div class="
                 relative
                 z-10
                 mx-auto
@@ -115,10 +107,8 @@ import profileImage from '../../assets/image/egd.png'
                 max-w-[1120px]
                 items-center
                 justify-center
-            "
-        >
-            <div
-                class="
+            ">
+            <div class="
                     grid
                     w-full
                     items-center
@@ -129,11 +119,9 @@ import profileImage from '../../assets/image/egd.png'
 
                     xl:grid-cols-[52px_minmax(0,1fr)_400px]
                     xl:gap-8
-                "
-            >
+                ">
                 <!-- Identity Rail -->
-                <aside
-                    class="
+                <aside class="
                         hidden
                         h-[350px]
                         flex-col
@@ -146,10 +134,8 @@ import profileImage from '../../assets/image/egd.png'
                         dark:border-zinc-800
 
                         lg:flex
-                    "
-                >
-                    <div
-                        class="
+                    ">
+                    <div class="
                             flex
                             h-8
                             w-8
@@ -167,13 +153,11 @@ import profileImage from '../../assets/image/egd.png'
                             dark:border-zinc-800
                             dark:bg-zinc-900
                             dark:text-teal-400
-                        "
-                    >
+                        ">
                         EGD
                     </div>
 
-                    <div
-                        class="
+                    <div class="
                             flex
                             rotate-[-90deg]
                             items-center
@@ -184,73 +168,59 @@ import profileImage from '../../assets/image/egd.png'
                             uppercase
                             tracking-[0.28em]
                             text-zinc-400
-                        "
-                    >
-                        <span
-                            class="
+                        ">
+                        <span class="
                                 h-px
                                 w-6
                                 bg-zinc-300
 
                                 dark:bg-zinc-700
-                            "
-                        ></span>
+                            "></span>
 
                         IT / WEB / SYSTEMS
                     </div>
 
-                    <div
-                        class="
+                    <div class="
                             flex
                             flex-col
                             items-center
                             gap-2
-                        "
-                    >
-                        <span
-                            class="
+                        ">
+                        <span class="
                                 h-1.5
                                 w-1.5
                                 rounded-full
                                 bg-teal-500
                                 shadow-[0_0_0_4px_rgba(20,184,166,0.08)]
-                            "
-                        ></span>
+                            "></span>
 
-                        <span
-                            class="
+                        <span class="
                                 h-10
                                 w-px
                                 bg-gradient-to-b
                                 from-teal-500
                                 to-transparent
-                            "
-                        ></span>
+                            "></span>
                     </div>
                 </aside>
 
                 <!-- Main Content -->
-                <div
-                    class="
+                <div class="
                         order-2
                         min-w-0
                         text-center
 
                         lg:order-1
                         lg:text-left
-                    "
-                >
-                    <div
-                        class="
+                    ">
+                    <div class="
                             mb-3
                             flex
                             justify-center
 
                             lg:justify-start
-                        "
-                    >
-                        <span
-                            class="
+                        ">
+                        <span class="
                                 inline-flex
                                 items-center
                                 gap-2
@@ -270,23 +240,19 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:border-teal-900
                                 dark:bg-teal-950/40
                                 dark:text-teal-400
-                            "
-                        >
-                            <span
-                                class="
+                            ">
+                            <span class="
                                     h-1.5
                                     w-1.5
                                     rounded-full
                                     bg-teal-500
-                                "
-                            ></span>
+                                "></span>
 
                             Available for opportunities
                         </span>
                     </div>
 
-                    <p
-                        class="
+                    <p class="
                             mb-2
                             font-mono
                             text-[9px]
@@ -296,26 +262,22 @@ import profileImage from '../../assets/image/egd.png'
                             text-teal-700
 
                             dark:text-teal-400
-                        "
-                    >
+                        ">
                         IT Support
 
-                        <span
-                            class="
+                        <span class="
                                 mx-1.5
                                 text-zinc-300
 
                                 dark:text-zinc-700
-                            "
-                        >
+                            ">
                             /
                         </span>
 
                         Web Development
                     </p>
 
-                    <h1
-                        class="
+                    <h1 class="
                             text-[3.1rem]
                             font-black
                             leading-[0.86]
@@ -326,50 +288,40 @@ import profileImage from '../../assets/image/egd.png'
                             lg:text-[4.3rem]
 
                             xl:text-[4.8rem]
-                        "
-                    >
-                        <span
-                            class="
+                        ">
+                        <span class="
                                 block
                                 text-zinc-950
 
                                 dark:text-white
-                            "
-                        >
+                            ">
                             Hi, I'm
                         </span>
 
-                        <span
-                            class="
+                        <span class="
                                 block
                                 text-teal-700
 
                                 dark:text-teal-400
-                            "
-                        >
+                            ">
                             Earl Gerald
                         </span>
 
-                        <span
-                            class="
+                        <span class="
                                 block
                                 text-zinc-800
 
                                 dark:text-zinc-300
-                            "
-                        >
+                            ">
                             Domingo<span class="text-amber-500">.</span>
                         </span>
                     </h1>
 
-                    <div
-                        class="
+                    <div class="
                             mt-4
                             max-w-xl
-                        "
-                    >
-                        <p
-                            class="
+                        ">
+                        <p class="
                                 text-sm
                                 font-medium
                                 leading-5
@@ -378,23 +330,19 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:text-zinc-300
 
                                 sm:text-base
-                            "
-                        >
+                            ">
                             I keep systems working
-                            <span
-                                class="
+                            <span class="
                                     text-teal-700
 
                                     dark:text-teal-400
-                                "
-                            >
+                                ">
                                 &amp;
                             </span>
                             build the tools that make them better.
                         </p>
 
-                        <p
-                            class="
+                        <p class="
                                 mx-auto
                                 mt-1.5
                                 max-w-lg
@@ -407,8 +355,7 @@ import profileImage from '../../assets/image/egd.png'
                                 lg:mx-0
 
                                 sm:text-xs
-                            "
-                        >
+                            ">
                             From troubleshooting hardware and networks to
                             developing practical business applications, I
                             combine hands-on IT support with web development.
@@ -416,8 +363,7 @@ import profileImage from '../../assets/image/egd.png'
                     </div>
 
                     <!-- Skill Cards -->
-                    <div
-                        class="
+                    <div class="
                             mx-auto
                             mt-4
                             grid
@@ -426,10 +372,8 @@ import profileImage from '../../assets/image/egd.png'
                             gap-1.5
 
                             lg:mx-0
-                        "
-                    >
-                        <div
-                            class="
+                        ">
+                        <div class="
                                 rounded-lg
                                 border
                                 border-zinc-200
@@ -447,45 +391,37 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:bg-zinc-900/50
 
                                 dark:hover:border-teal-900
-                            "
-                        >
-                            <MonitorCog
-                                class="
+                            ">
+                            <MonitorCog class="
                                     mb-1.5
                                     h-3.5
                                     w-3.5
                                     text-teal-700
 
                                     dark:text-teal-400
-                                "
-                            />
+                                " />
 
-                            <p
-                                class="
+                            <p class="
                                     text-[9px]
                                     font-semibold
                                     text-zinc-800
 
                                     dark:text-zinc-200
-                                "
-                            >
+                                ">
                                 IT Support
                             </p>
 
-                            <p
-                                class="
+                            <p class="
                                     mt-0.5
                                     font-mono
                                     text-[7px]
                                     text-zinc-400
-                                "
-                            >
+                                ">
                                 HARDWARE
                             </p>
                         </div>
 
-                        <div
-                            class="
+                        <div class="
                                 rounded-lg
                                 border
                                 border-zinc-200
@@ -503,45 +439,37 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:bg-zinc-900/50
 
                                 dark:hover:border-teal-900
-                            "
-                        >
-                            <Network
-                                class="
+                            ">
+                            <Network class="
                                     mb-1.5
                                     h-3.5
                                     w-3.5
                                     text-teal-700
 
                                     dark:text-teal-400
-                                "
-                            />
+                                " />
 
-                            <p
-                                class="
+                            <p class="
                                     text-[9px]
                                     font-semibold
                                     text-zinc-800
 
                                     dark:text-zinc-200
-                                "
-                            >
+                                ">
                                 Networking
                             </p>
 
-                            <p
-                                class="
+                            <p class="
                                     mt-0.5
                                     font-mono
                                     text-[7px]
                                     text-zinc-400
-                                "
-                            >
+                                ">
                                 SYSTEMS
                             </p>
                         </div>
 
-                        <div
-                            class="
+                        <div class="
                                 rounded-lg
                                 border
                                 border-zinc-200
@@ -559,47 +487,39 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:bg-zinc-900/50
 
                                 dark:hover:border-amber-900
-                            "
-                        >
-                            <Code2
-                                class="
+                            ">
+                            <Code2 class="
                                     mb-1.5
                                     h-3.5
                                     w-3.5
                                     text-amber-600
 
                                     dark:text-amber-400
-                                "
-                            />
+                                " />
 
-                            <p
-                                class="
+                            <p class="
                                     text-[9px]
                                     font-semibold
                                     text-zinc-800
 
                                     dark:text-zinc-200
-                                "
-                            >
+                                ">
                                 Development
                             </p>
 
-                            <p
-                                class="
+                            <p class="
                                     mt-0.5
                                     font-mono
                                     text-[7px]
                                     text-zinc-400
-                                "
-                            >
+                                ">
                                 WEB APPS
                             </p>
                         </div>
                     </div>
 
                     <!-- Actions -->
-                    <div
-                        class="
+                    <div class="
                             mt-4
                             flex
                             flex-wrap
@@ -608,11 +528,8 @@ import profileImage from '../../assets/image/egd.png'
                             gap-2.5
 
                             lg:justify-start
-                        "
-                    >
-                        <a
-                            href="#projects"
-                            class="
+                        ">
+                        <a href="#projects" class="
                                 group
                                 inline-flex
                                 items-center
@@ -636,12 +553,10 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:text-zinc-950
 
                                 dark:hover:bg-teal-400
-                            "
-                        >
+                            ">
                             Explore My Work
 
-                            <ArrowUpRight
-                                class="
+                            <ArrowUpRight class="
                                     h-3
                                     w-3
                                     transition-transform
@@ -649,15 +564,10 @@ import profileImage from '../../assets/image/egd.png'
 
                                     group-hover:-translate-y-0.5
                                     group-hover:translate-x-0.5
-                                "
-                            />
+                                " />
                         </a>
 
-                        <a
-                            href="/Earl_Gerald_Domingo_IT_Staff.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="
+                        <a href="/Earl_Gerald_Domingo_IT_Staff.pdf" target="_blank" rel="noopener noreferrer" class="
                                 inline-flex
                                 items-center
                                 gap-1.5
@@ -682,16 +592,13 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:text-zinc-300
 
                                 dark:hover:bg-zinc-900
-                            "
-                        >
+                            ">
                             <FileText class="h-3 w-3" />
 
                             Resume
                         </a>
 
-                        <a
-                            href="#contact"
-                            class="
+                        <a href="#contact" class="
                                 text-[11px]
                                 font-semibold
                                 text-zinc-500
@@ -701,25 +608,21 @@ import profileImage from '../../assets/image/egd.png'
 
                                 dark:text-zinc-500
                                 dark:hover:text-teal-400
-                            "
-                        >
+                            ">
                             Let's talk →
                         </a>
                     </div>
                 </div>
 
                 <!-- Profile -->
-                <div
-                    class="
+                <div class="
                         order-1
                         flex
                         justify-center
 
                         lg:order-2
-                    "
-                >
-                    <div
-                        class="
+                    ">
+                    <div class="
                             relative
                             h-[230px]
                             w-[230px]
@@ -732,11 +635,9 @@ import profileImage from '../../assets/image/egd.png'
 
                             xl:h-[350px]
                             xl:w-[350px]
-                        "
-                    >
+                        ">
                         <!-- Rings -->
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 inset-[-14px]
                                 rounded-full
@@ -744,11 +645,9 @@ import profileImage from '../../assets/image/egd.png'
                                 border-teal-700/10
 
                                 dark:border-teal-400/10
-                            "
-                        ></div>
+                            "></div>
 
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 inset-[-27px]
                                 rounded-full
@@ -758,11 +657,9 @@ import profileImage from '../../assets/image/egd.png'
                                 animate-[spin_40s_linear_infinite]
 
                                 dark:border-amber-400/10
-                            "
-                        ></div>
+                            "></div>
 
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 inset-[-43px]
                                 rounded-full
@@ -770,11 +667,9 @@ import profileImage from '../../assets/image/egd.png'
                                 border-teal-500/5
 
                                 dark:border-teal-400/5
-                            "
-                        ></div>
+                            "></div>
 
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 inset-0
                                 rounded-full
@@ -782,12 +677,10 @@ import profileImage from '../../assets/image/egd.png'
                                 blur-[55px]
 
                                 dark:bg-teal-700/15
-                            "
-                        ></div>
+                            "></div>
 
                         <!-- Image -->
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 inset-0
                                 overflow-hidden
@@ -800,20 +693,14 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:border-zinc-900
                                 dark:bg-zinc-900
                                 dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)]
-                            "
-                        >
-                            <img
-                                :src="profileImage"
-                                alt="Earl Gerald Domingo"
-                                class="
+                            ">
+                            <img :src="profileImage" alt="Earl Gerald Domingo" class="
                                     h-full
                                     w-full
                                     object-cover
-                                "
-                            />
+                                " />
 
-                            <div
-                                class="
+                            <div class="
                                     absolute
                                     inset-0
                                     bg-gradient-to-t
@@ -822,13 +709,11 @@ import profileImage from '../../assets/image/egd.png'
                                     to-white/5
 
                                     dark:from-black/25
-                                "
-                            ></div>
+                                "></div>
                         </div>
 
                         <!-- IT Support Badge -->
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 -left-5
                                 top-5
@@ -848,10 +733,8 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:bg-zinc-900/90
 
                                 sm:-left-7
-                            "
-                        >
-                            <div
-                                class="
+                            ">
+                            <div class="
                                     flex
                                     h-6
                                     w-6
@@ -863,41 +746,35 @@ import profileImage from '../../assets/image/egd.png'
 
                                     dark:bg-teal-950
                                     dark:text-teal-400
-                                "
-                            >
+                                ">
                                 <Wrench class="h-3 w-3" />
                             </div>
 
                             <div>
-                                <p
-                                    class="
+                                <p class="
                                         font-mono
                                         text-[6px]
                                         uppercase
                                         tracking-[0.12em]
                                         text-zinc-400
-                                    "
-                                >
+                                    ">
                                     Primary
                                 </p>
 
-                                <p
-                                    class="
+                                <p class="
                                         text-[9px]
                                         font-bold
                                         text-zinc-800
 
                                         dark:text-zinc-200
-                                    "
-                                >
+                                    ">
                                     IT Support
                                 </p>
                             </div>
                         </div>
 
                         <!-- Web Development Badge -->
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 -right-5
                                 bottom-7
@@ -917,10 +794,8 @@ import profileImage from '../../assets/image/egd.png'
                                 dark:bg-zinc-900/90
 
                                 sm:-right-7
-                            "
-                        >
-                            <div
-                                class="
+                            ">
+                            <div class="
                                     flex
                                     h-6
                                     w-6
@@ -932,41 +807,35 @@ import profileImage from '../../assets/image/egd.png'
 
                                     dark:bg-amber-950
                                     dark:text-amber-400
-                                "
-                            >
+                                ">
                                 <Globe2 class="h-3 w-3" />
                             </div>
 
                             <div>
-                                <p
-                                    class="
+                                <p class="
                                         font-mono
                                         text-[6px]
                                         uppercase
                                         tracking-[0.12em]
                                         text-zinc-400
-                                    "
-                                >
+                                    ">
                                     Secondary
                                 </p>
 
-                                <p
-                                    class="
+                                <p class="
                                         text-[9px]
                                         font-bold
                                         text-zinc-800
 
                                         dark:text-zinc-200
-                                    "
-                                >
+                                    ">
                                     Web Development
                                 </p>
                             </div>
                         </div>
 
                         <!-- Bottom Label -->
-                        <div
-                            class="
+                        <div class="
                                 absolute
                                 -bottom-6
                                 left-1/2
@@ -987,8 +856,7 @@ import profileImage from '../../assets/image/egd.png'
 
                                 dark:border-zinc-800
                                 dark:bg-zinc-900/80
-                            "
-                        >
+                            ">
                             BUILD • SUPPORT • SOLVE
                         </div>
                     </div>
@@ -997,8 +865,7 @@ import profileImage from '../../assets/image/egd.png'
         </div>
 
         <!-- Scroll Indicator -->
-        <div
-            class="
+        <div class="
                 absolute
                 bottom-4
                 left-1/2
@@ -1013,16 +880,14 @@ import profileImage from '../../assets/image/egd.png'
                 text-zinc-400
 
                 lg:flex
-            "
-        >
+            ">
             <ArrowDown class="h-2.5 w-2.5 animate-bounce" />
 
             Scroll to explore
         </div>
 
         <!-- Side Label -->
-        <div
-            class="
+        <div class="
                 absolute
                 right-5
                 top-1/2
@@ -1038,8 +903,7 @@ import profileImage from '../../assets/image/egd.png'
                 dark:text-zinc-700
 
                 xl:block
-            "
-        >
+            ">
             EGD / PORTFOLIO / 2026
         </div>
     </section>
