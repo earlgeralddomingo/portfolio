@@ -38,7 +38,8 @@ const projects = [
         type: 'ACADEMIC PROJECT',
         category: 'Academic',
         status: 'Completed',
-        availability: 'ONLINE',
+        availability: 'PRIVATE',
+        privacy: 'NDA / PRIVATE USE',
         appType: 'WEB APP',
         image: hrtsImage,
         description:
@@ -75,7 +76,8 @@ const projects = [
         type: 'ACADEMIC PROJECT',
         category: 'Academic',
         status: 'Completed',
-        availability: 'ONLINE',
+        availability: 'PRIVATE',
+        privacy: 'NDA / PRIVATE USE',
         appType: 'WEB APP',
         image: climsImage,
         description:
@@ -216,7 +218,7 @@ const projects = [
             'Built multiple CSS utility generators into one developer toolkit',
         ],
         github: '',
-        liveDemo: '',
+        liveDemo: 'https://csscraft.vercel.app/',
     },
 ]
 
@@ -709,16 +711,25 @@ onUnmounted(() => {
                                                 dark:bg-emerald-950/40
                                                 dark:text-emerald-400
                                             `
-                                        : `
-                                                bg-zinc-100
-                                                text-zinc-500
-                                                dark:bg-zinc-800
-                                                dark:text-zinc-400
-                                            `
+                                        : project.availability === 'PRIVATE'
+                                            ? `
+                                                    bg-amber-50
+                                                    text-amber-600
+                                                    dark:bg-amber-950/40
+                                                    dark:text-amber-400
+                                                `
+                                            : `
+                                                    bg-zinc-100
+                                                    text-zinc-500
+                                                    dark:bg-zinc-800
+                                                    dark:text-zinc-400
+                                                `
                                         ">
                                     <span class="h-1.5 w-1.5 rounded-full" :class="project.availability === 'ONLINE'
                                         ? 'bg-emerald-500'
-                                        : 'bg-zinc-400'
+                                        : project.availability === 'PRIVATE'
+                                            ? 'bg-amber-500'
+                                            : 'bg-zinc-400'
                                         "></span>
 
                                     {{ project.availability }}
@@ -1533,20 +1544,96 @@ onUnmounted(() => {
                                                             dark:bg-emerald-950/40
                                                             dark:text-emerald-400
                                                         `
-                                                    : `
-                                                            bg-zinc-100
-                                                            text-zinc-500
-                                                            dark:bg-zinc-800
-                                                            dark:text-zinc-400
-                                                        `
+                                                    : selectedProject.availability ===
+                                                        'PRIVATE'
+                                                        ? `
+                                                                bg-amber-50
+                                                                text-amber-600
+                                                                dark:bg-amber-950/40
+                                                                dark:text-amber-400
+                                                            `
+                                                        : `
+                                                                bg-zinc-100
+                                                                text-zinc-500
+                                                                dark:bg-zinc-800
+                                                                dark:text-zinc-400
+                                                            `
                                                     ">
                                                 <span class="h-1.5 w-1.5 rounded-full" :class="selectedProject.availability ===
                                                     'ONLINE'
                                                     ? 'bg-emerald-500'
-                                                    : 'bg-zinc-400'
+                                                    : selectedProject.availability ===
+                                                        'PRIVATE'
+                                                        ? 'bg-amber-500'
+                                                        : 'bg-zinc-400'
                                                     "></span>
 
-                                                {{ selectedProject.availability }}
+                                                {{
+                                                    selectedProject.availability
+                                                }}
+                                            </div>
+                                        </div>
+
+                                        <div v-if="selectedProject.privacy" class="
+                                                my-5
+                                                rounded-xl
+                                                border
+                                                border-amber-200
+                                                bg-amber-50
+                                                p-4
+                                                dark:border-amber-900/50
+                                                dark:bg-amber-950/20
+                                            ">
+                                            <div class="
+                                                    flex
+                                                    items-start
+                                                    gap-3
+                                                ">
+                                                <div class="
+                                                        mt-0.5
+                                                        flex
+                                                        h-7
+                                                        w-7
+                                                        shrink-0
+                                                        items-center
+                                                        justify-center
+                                                        rounded-lg
+                                                        bg-amber-500/10
+                                                        text-amber-600
+                                                        dark:text-amber-400
+                                                    ">
+                                                    <Construction class="h-3.5 w-3.5" />
+                                                </div>
+
+                                                <div>
+                                                    <span class="
+                                                            block
+                                                            font-mono
+                                                            text-[8px]
+                                                            font-semibold
+                                                            uppercase
+                                                            tracking-[0.15em]
+                                                            text-amber-700
+                                                            dark:text-amber-400
+                                                        ">
+                                                        {{
+                                                            selectedProject.privacy
+                                                        }}
+                                                    </span>
+
+                                                    <p class="
+                                                            mt-2
+                                                            text-[10px]
+                                                            leading-5
+                                                            text-amber-700/80
+                                                            dark:text-amber-400/70
+                                                        ">
+                                                        This project is not
+                                                        publicly accessible
+                                                        due to privacy and
+                                                        usage restrictions.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -1689,9 +1776,11 @@ onUnmounted(() => {
                                                 dark:text-zinc-950
                                                 dark:hover:bg-teal-400
                                             ">
-                                            Live Demo
+                                            <ExternalLink class="h-4 w-4" />
 
-                                            <ExternalLink class="h-3 w-3" />
+                                            Visit Project
+
+                                            <ArrowUpRight class="h-3 w-3" />
                                         </a>
                                     </div>
                                 </aside>
