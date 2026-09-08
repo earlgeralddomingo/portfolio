@@ -117,10 +117,6 @@ const techCategories: TechCategory[] = [
                 name: "Router Configuration",
                 brandColor: "#8B5CF6",
             },
-            {
-                name: "Connectivity Diagnostics",
-                brandColor: "#10B981",
-            },
         ],
     },
 
@@ -210,10 +206,6 @@ const techCategories: TechCategory[] = [
             {
                 name: "phpMyAdmin",
                 brandColor: "#6C78AF",
-            },
-            {
-                name: "REST APIs",
-                brandColor: "#F97316",
             },
         ],
     },
