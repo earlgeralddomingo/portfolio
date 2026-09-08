@@ -93,16 +93,18 @@ const experiences: Experience[] = [
         type: "Internship",
         location: "On-site",
         description:
-            "Supported daily IT operations while developing an internal Human Resources Ticketing System using PHP and MySQL.",
+            "Supported daily IT operations while developing an internal Human Resources Ticketing System using PHP and MySQL, and assisted in functional testing of updated BizBox modules before deployment.",
         responsibilities: [
             "Installed and configured desktop computers and printers.",
             "Troubleshot hardware, software, and LAN connectivity issues.",
             "Assisted with CCTV and wireless access point configuration.",
             "Provided technical support to hospital personnel.",
+            "Performed basic functional testing of updated BizBox modules before deployment to hospital users.",
             "Created technical documentation and a user manual for the ticketing system.",
         ],
         achievements: [
             "Developed the Human Resources Ticketing System using PHP and MySQL.",
+            "Performed functional QA testing of updated BizBox modules to verify system functionality before deployment.",
             "Completed hands-on IT support and infrastructure tasks in a hospital environment.",
             "Created technical documentation to support system users.",
         ],
@@ -111,9 +113,13 @@ const experiences: Experience[] = [
             "MySQL",
             "HTML",
             "Bootstrap",
+            "VS Code",
+            "BizBox",
             "Windows",
             "Networking",
+            "Printers",
             "CCTV",
+            "TeamViewer",
         ],
     },
 ];
