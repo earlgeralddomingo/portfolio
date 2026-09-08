@@ -19,7 +19,6 @@ import bootstrap from "@/assets/icons/bootstrap.svg";
 import canva from "@/assets/icons/canva.svg";
 import capcut from "@/assets/icons/capcut.svg";
 import chartdotjs from "@/assets/icons/chartdotjs.svg";
-import chatgpt from "@/assets/icons/chatgpt.svg";
 import css from "@/assets/icons/css.svg";
 import figma from "@/assets/icons/figma.svg";
 import git from "@/assets/icons/git.svg";
@@ -33,7 +32,6 @@ import reactquery from "@/assets/icons/reactquery.svg";
 import tailwindcss from "@/assets/icons/tailwindcss.svg";
 import teamviewer from "@/assets/icons/teamviewer.svg";
 import typescript from "@/assets/icons/typescript.svg";
-import vite from "@/assets/icons/vite.svg";
 import vscode from "@/assets/icons/vscode.svg";
 import vuedotjs from "@/assets/icons/vuedotjs.svg";
 import xampp from "@/assets/icons/xampp.svg";
@@ -237,11 +235,6 @@ const techCategories: TechCategory[] = [
                 brandColor: "#FB7A24",
             },
             {
-                name: "Vite",
-                icon: vite.src,
-                brandColor: "#646CFF",
-            },
-            {
                 name: "Composer",
                 brandColor: "#885630",
             },
@@ -262,11 +255,6 @@ const techCategories: TechCategory[] = [
             {
                 name: "CapCut",
                 icon: capcut.src,
-                brandColor: "#000000",
-            },
-            {
-                name: "ChatGPT",
-                icon: chatgpt.src,
                 brandColor: "#000000",
             },
             {
@@ -302,23 +290,62 @@ const coreFocus = [
     },
 ];
 
+/**
+ * Renders the technology icon.
+ *
+ * SVG logos are used as CSS masks so we can dynamically
+ * control their color while keeping the original logo shape.
+ */
 function TechnologyIcon({ technology }: { technology: TechItem }) {
     const isThemeAwareIcon =
         technology.name === "Next.js" ||
         technology.name === "ChatGPT";
 
     /*
-     * Technologies with an actual SVG logo.
+     * Theme-aware logos
      *
-     * The SVG is used as a CSS mask so we can apply the exact
-     * brand color on hover without changing the shape of the logo.
+     * Next.js and ChatGPT are intentionally monochrome:
+     *
+     * Light mode -> black
+     * Dark mode  -> white
      */
-    if (technology.icon && !isThemeAwareIcon) {
+    if (technology.icon && isThemeAwareIcon) {
         return (
             <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-zinc-100 dark:bg-zinc-800">
                 <span
                     aria-hidden="true"
-                    className="h-4 w-4 bg-zinc-400 opacity-60 transition-all duration-300 group-hover/tech:bg-[var(--brand-color)] group-hover/tech:opacity-100 dark:bg-zinc-500 dark:group-hover/tech:bg-[var(--brand-color)]"
+                    className="h-4 w-4 bg-zinc-950 transition-colors duration-300 dark:bg-white"
+                    style={{
+                        maskImage: `url(${technology.icon})`,
+                        WebkitMaskImage: `url(${technology.icon})`,
+                        maskRepeat: "no-repeat",
+                        WebkitMaskRepeat: "no-repeat",
+                        maskPosition: "center",
+                        WebkitMaskPosition: "center",
+                        maskSize: "contain",
+                        WebkitMaskSize: "contain",
+                    }}
+                />
+            </div>
+        );
+    }
+
+    /*
+     * SVG brand logos
+     *
+     * Default:
+     * - muted gray
+     * - slightly transparent
+     *
+     * Hover:
+     * - switches to the assigned brand color
+     */
+    if (technology.icon) {
+        return (
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-zinc-100 dark:bg-zinc-800">
+                <span
+                    aria-hidden="true"
+                    className="h-4 w-4 bg-zinc-400 opacity-60 transition-all duration-300 group-hover/tech:bg-[var(--brand-color)] group-hover/tech:opacity-100 dark:bg-zinc-500"
                     style={
                         {
                             "--brand-color":
@@ -340,43 +367,14 @@ function TechnologyIcon({ technology }: { technology: TechItem }) {
     }
 
     /*
-     * Next.js and ChatGPT:
+     * Technologies without a dedicated SVG logo.
      *
-     * Light mode = black
-     * Dark mode = white
-     *
-     * These two intentionally remain monochrome.
-     */
-    if (technology.icon && isThemeAwareIcon) {
-        return (
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-zinc-100 dark:bg-zinc-800">
-                <span
-                    aria-hidden="true"
-                    className="h-4 w-4 bg-black dark:bg-white"
-                    style={{
-                        maskImage: `url(${technology.icon})`,
-                        WebkitMaskImage: `url(${technology.icon})`,
-                        maskRepeat: "no-repeat",
-                        WebkitMaskRepeat: "no-repeat",
-                        maskPosition: "center",
-                        WebkitMaskPosition: "center",
-                        maskSize: "contain",
-                        WebkitMaskSize: "contain",
-                    }}
-                />
-            </div>
-        );
-    }
-
-    /*
-     * Technologies without an actual logo.
-     *
-     * These use a generic Code2 icon and change to their
-     * assigned color when the technology item is hovered.
+     * These use Lucide's Code2 icon and change
+     * to the assigned brand color on hover.
      */
     return (
         <div
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-zinc-400 transition-colors duration-300 group-hover/tech:text-[var(--brand-color)] dark:bg-zinc-800 dark:text-zinc-500 dark:group-hover/tech:text-[var(--brand-color)]"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-zinc-400 transition-colors duration-300 group-hover/tech:text-[var(--brand-color)] dark:bg-zinc-800 dark:text-zinc-500"
             style={
                 {
                     "--brand-color":
@@ -540,3 +538,4 @@ export default function TechStack() {
         </section>
     );
 }
+
