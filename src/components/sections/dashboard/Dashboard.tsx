@@ -83,7 +83,7 @@ export default function Dashboard() {
         useState<(typeof stats)[number] | null>(null);
 
     return (
-        <section id="dashboard" className="space-y-6 scroll-mt-24">
+        <section id="dashboard" className="space-y-6">
             {/* Hero */}
             <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-white transition-colors duration-300 dark:border-zinc-800 dark:bg-zinc-950">
                 {/* Grid background */}

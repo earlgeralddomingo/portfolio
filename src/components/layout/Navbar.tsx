@@ -73,10 +73,14 @@ const navigation: NavigationItem[] = [
     },
 ];
 
+const NAVIGATION_LOCK_TIME = 900;
+
 export default function Navbar() {
     const [darkMode, setDarkMode] = useState(true);
+
     const [mobileMenuOpen, setMobileMenuOpen] =
         useState(false);
+
     const [activeSection, setActiveSection] =
         useState("dashboard");
 
@@ -86,8 +90,35 @@ export default function Navbar() {
      */
     const isNavigatingRef = useRef(false);
 
+    const navigationTimeoutRef =
+        useRef<number | null>(null);
+
+    const mobileNavigationTimeoutRef =
+        useRef<number | null>(null);
+
     /*
-     * Apply theme whenever the state changes.
+     * Apply saved theme.
+     *
+     * We intentionally do not call setState()
+     * inside this effect because React 19 warns
+     * about synchronous state updates inside effects.
+     */
+    useEffect(() => {
+        const savedTheme =
+            window.localStorage.getItem("theme");
+
+        const shouldUseDark =
+            savedTheme !== "light";
+
+        document.documentElement.classList.toggle(
+            "dark",
+            shouldUseDark
+        );
+    }, []);
+
+    /*
+     * Apply theme whenever the user manually
+     * toggles dark/light mode.
      */
     useEffect(() => {
         document.documentElement.classList.toggle(
@@ -95,35 +126,67 @@ export default function Navbar() {
             darkMode
         );
 
-        localStorage.setItem(
+        window.localStorage.setItem(
             "theme",
             darkMode ? "dark" : "light"
         );
     }, [darkMode]);
 
     /*
-     * Detect active section while scrolling,
-     * update the navigation state,
-     * and synchronize the URL hash.
+     * Cleanup navigation timers.
+     */
+    useEffect(() => {
+        return () => {
+            if (
+                navigationTimeoutRef.current !==
+                null
+            ) {
+                window.clearTimeout(
+                    navigationTimeoutRef.current
+                );
+
+                navigationTimeoutRef.current =
+                    null;
+            }
+
+            if (
+                mobileNavigationTimeoutRef.current !==
+                null
+            ) {
+                window.clearTimeout(
+                    mobileNavigationTimeoutRef.current
+                );
+
+                mobileNavigationTimeoutRef.current =
+                    null;
+            }
+        };
+    }, []);
+
+    /*
+     * Scroll spy.
+     *
+     * CSS handles the actual navbar offset through
+     * scroll-margin-top, so we don't manually subtract
+     * navbar height here.
      */
     useEffect(() => {
         const updateActiveSection = () => {
-            /*
-             * Don't allow the scroll spy to interfere
-             * with programmatic smooth scrolling.
-             */
-            if (isNavigatingRef.current) return;
+            if (isNavigatingRef.current) {
+                return;
+            }
 
             let currentSection = "dashboard";
 
             /*
-             * Dashboard at the very top.
+             * At the very top.
              */
             if (window.scrollY < 100) {
                 currentSection = "dashboard";
             } else {
                 /*
-                 * Contact at the bottom of the page.
+                 * Contact is always active at the
+                 * bottom of the page.
                  */
                 const scrollPosition =
                     window.scrollY +
@@ -140,12 +203,12 @@ export default function Navbar() {
                     currentSection = "contact";
                 } else {
                     /*
-                     * Normal section detection.
+                     * Find the last section that has
+                     * reached the navigation area.
+                     *
+                     * 92px = 68px navbar + 24px spacing.
                      */
-                    const offset = 140;
-
-                    let closestDistance =
-                        Number.POSITIVE_INFINITY;
+                    const activationPoint = 92;
 
                     navigation.forEach((item) => {
                         const sectionId =
@@ -159,76 +222,73 @@ export default function Navbar() {
                                 sectionId
                             );
 
-                        if (!section) return;
+                        if (!section) {
+                            return;
+                        }
 
                         const sectionTop =
                             section.getBoundingClientRect()
                                 .top;
 
-                        /*
-                         * Only consider sections that
-                         * have passed the navbar offset.
-                         */
-                        if (sectionTop <= offset) {
-                            const distance =
-                                Math.abs(
-                                    sectionTop -
-                                        offset
-                                );
-
-                            if (
-                                distance <
-                                closestDistance
-                            ) {
-                                closestDistance =
-                                    distance;
-
-                                currentSection =
-                                    sectionId;
-                            }
+                        if (
+                            sectionTop <=
+                            activationPoint
+                        ) {
+                            currentSection =
+                                sectionId;
                         }
                     });
                 }
             }
 
             /*
-             * Update active navigation item.
+             * Only update React state when the
+             * active section actually changed.
              */
-            setActiveSection(currentSection);
+            setActiveSection((previous) => {
+                if (
+                    previous ===
+                    currentSection
+                ) {
+                    return previous;
+                }
+
+                return currentSection;
+            });
 
             /*
-             * Update browser URL without
-             * reloading the page.
-             *
-             * Dashboard uses the clean homepage URL.
+             * Synchronize URL.
              */
-            const newUrl =
+            const newHash =
                 currentSection === "dashboard"
-                    ? window.location.pathname
+                    ? ""
                     : `#${currentSection}`;
 
-            const currentUrl =
-                currentSection === "dashboard"
-                    ? window.location.pathname
-                    : `#${currentSection}`;
+            const currentHash =
+                window.location.hash;
 
-            /*
-             * Only update the URL when necessary.
-             */
-            if (
-                window.location.pathname +
-                    window.location.hash !==
-                currentUrl
-            ) {
+            if (currentHash !== newHash) {
                 window.history.replaceState(
                     null,
                     "",
-                    newUrl
+                    newHash
+                        ? newHash
+                        : window.location.pathname
                 );
             }
         };
 
-        updateActiveSection();
+        /*
+         * Initial check.
+         *
+         * This happens inside the event-style callback,
+         * rather than directly calling setState from the
+         * effect body.
+         */
+        const initialCheck =
+            window.requestAnimationFrame(() => {
+                updateActiveSection();
+            });
 
         window.addEventListener(
             "scroll",
@@ -244,6 +304,10 @@ export default function Navbar() {
         );
 
         return () => {
+            window.cancelAnimationFrame(
+                initialCheck
+            );
+
             window.removeEventListener(
                 "scroll",
                 updateActiveSection
@@ -257,82 +321,255 @@ export default function Navbar() {
     }, []);
 
     /*
-     * Handle direct URL hashes.
+     * Scroll to a section.
      *
-     * Example:
-     * /#projects
+     * scrollIntoView() works together with:
      *
-     * When the page loads, automatically scroll
-     * to the requested section.
+     * section[id] {
+     *     scroll-margin-top: 92px;
+     * }
+     *
+     * This removes the old manual
+     * navbar-height calculations.
      */
-    useEffect(() => {
-        const handleInitialHash = () => {
-            const hash =
-                window.location.hash.replace(
-                    "#",
-                    ""
-                );
+    const scrollToSection = (
+        sectionId: string
+    ) => {
+        const target =
+            document.getElementById(sectionId);
 
-            if (!hash) {
-                setActiveSection("dashboard");
-                return;
-            }
-
-            const target =
-                document.getElementById(hash);
-
-            if (!target) return;
-
-            /*
-             * Prevent the normal scroll spy from
-             * interfering while moving to the section.
-             */
-            isNavigatingRef.current = true;
-
-            /*
-             * Wait until the page has fully rendered.
-             */
-            requestAnimationFrame(() => {
-                const navbarHeight = 68;
-                const extraSpacing = 12;
-
-                const targetPosition =
-                    target.getBoundingClientRect()
-                        .top +
-                    window.scrollY -
-                    navbarHeight -
-                    extraSpacing;
-
-                window.scrollTo({
-                    top: Math.max(
-                        0,
-                        targetPosition
-                    ),
-                    behavior: "smooth",
-                });
-
-                setActiveSection(hash);
-
-                /*
-                 * Release the navigation lock after
-                 * smooth scrolling has had time to finish.
-                 */
-                setTimeout(() => {
-                    isNavigatingRef.current = false;
-                }, 900);
-            });
-        };
+        if (!target) {
+            return;
+        }
 
         /*
-         * Give Next.js time to render the sections.
+         * Prevent scroll spy from changing the
+         * active navigation while scrolling.
          */
-        const timer = setTimeout(
-            handleInitialHash,
-            100
+        isNavigatingRef.current = true;
+
+        /*
+         * Immediately highlight the clicked section.
+         */
+        setActiveSection(sectionId);
+
+        /*
+         * Scroll using the browser's native
+         * smooth scrolling.
+         */
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+
+        /*
+         * Update URL without triggering hashchange.
+         */
+        const newUrl =
+            sectionId === "dashboard"
+                ? window.location.pathname
+                : `#${sectionId}`;
+
+        window.history.replaceState(
+            null,
+            "",
+            newUrl
         );
 
+        /*
+         * Release navigation lock after
+         * smooth scrolling finishes.
+         */
+        if (
+            navigationTimeoutRef.current !==
+            null
+        ) {
+            window.clearTimeout(
+                navigationTimeoutRef.current
+            );
+        }
+
+        navigationTimeoutRef.current =
+            window.setTimeout(() => {
+                isNavigatingRef.current = false;
+
+                navigationTimeoutRef.current =
+                    null;
+
+                /*
+                 * Run the scroll spy once more so
+                 * the final state is correct.
+                 */
+                window.dispatchEvent(
+                    new Event("resize")
+                );
+            }, NAVIGATION_LOCK_TIME);
+    };
+
+    /*
+     * Handle mobile navigation.
+     */
+    const handleMobileNavigation = (
+        href: string
+    ) => {
+        const targetId =
+            href.replace("#", "");
+
+        /*
+         * Activate immediately.
+         */
+        setActiveSection(targetId);
+
+        /*
+         * Lock scroll spy.
+         */
+        isNavigatingRef.current = true;
+
+        /*
+         * Close mobile menu.
+         */
+        setMobileMenuOpen(false);
+
+        /*
+         * Clear previous mobile timer.
+         */
+        if (
+            mobileNavigationTimeoutRef.current !==
+            null
+        ) {
+            window.clearTimeout(
+                mobileNavigationTimeoutRef.current
+            );
+        }
+
+        /*
+         * Give the mobile menu time to close.
+         */
+        mobileNavigationTimeoutRef.current =
+            window.setTimeout(() => {
+                const target =
+                    document.getElementById(
+                        targetId
+                    );
+
+                if (!target) {
+                    isNavigatingRef.current =
+                        false;
+
+                    return;
+                }
+
+                /*
+                 * Native smooth scrolling.
+                 *
+                 * scroll-margin-top handles the
+                 * 92px navbar spacing.
+                 */
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+
+                /*
+                 * Update URL.
+                 */
+                window.history.replaceState(
+                    null,
+                    "",
+                    href
+                );
+
+                /*
+                 * Release navigation lock.
+                 */
+                navigationTimeoutRef.current =
+                    window.setTimeout(() => {
+                        isNavigatingRef.current =
+                            false;
+
+                        navigationTimeoutRef.current =
+                            null;
+
+                        setActiveSection(
+                            targetId
+                        );
+                    }, NAVIGATION_LOCK_TIME);
+
+                mobileNavigationTimeoutRef.current =
+                    null;
+            }, 320);
+    };
+
+    /*
+     * Handle direct URLs such as:
+     *
+     * /#projects
+     * /#about
+     * /#contact
+     */
+    useEffect(() => {
+        const initialHash =
+            window.location.hash.replace(
+                "#",
+                ""
+            );
+
+        if (!initialHash) {
+            return;
+        }
+
+        /*
+         * Wait until all sections have rendered.
+         */
+        const timer =
+            window.setTimeout(() => {
+                const target =
+                    document.getElementById(
+                        initialHash
+                    );
+
+                if (!target) {
+                    return;
+                }
+
+                /*
+                 * Lock scroll spy.
+                 */
+                isNavigatingRef.current = true;
+
+                /*
+                 * Activate section from the URL.
+                 *
+                 * This is inside a timeout callback,
+                 * not synchronously inside the effect.
+                 */
+                setActiveSection(
+                    initialHash
+                );
+
+                /*
+                 * Scroll using CSS scroll-margin-top.
+                 */
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+
+                /*
+                 * Release lock.
+                 */
+                navigationTimeoutRef.current =
+                    window.setTimeout(() => {
+                        isNavigatingRef.current =
+                            false;
+
+                        navigationTimeoutRef.current =
+                            null;
+                    }, NAVIGATION_LOCK_TIME);
+            }, 150);
+
         return () => {
-            clearTimeout(timer);
+            window.clearTimeout(timer);
         };
     }, []);
 
@@ -348,7 +585,12 @@ export default function Navbar() {
                     ""
                 );
 
+            /*
+             * No hash = Dashboard.
+             */
             if (!hash) {
+                isNavigatingRef.current = true;
+
                 setActiveSection("dashboard");
 
                 window.scrollTo({
@@ -356,39 +598,66 @@ export default function Navbar() {
                     behavior: "smooth",
                 });
 
+                if (
+                    navigationTimeoutRef.current !==
+                    null
+                ) {
+                    window.clearTimeout(
+                        navigationTimeoutRef.current
+                    );
+                }
+
+                navigationTimeoutRef.current =
+                    window.setTimeout(() => {
+                        isNavigatingRef.current =
+                            false;
+
+                        navigationTimeoutRef.current =
+                            null;
+                    }, NAVIGATION_LOCK_TIME);
+
                 return;
             }
 
             const target =
                 document.getElementById(hash);
 
-            if (!target) return;
+            if (!target) {
+                return;
+            }
 
             isNavigatingRef.current = true;
 
-            const navbarHeight = 68;
-            const extraSpacing = 12;
-
-            const targetPosition =
-                target.getBoundingClientRect()
-                    .top +
-                window.scrollY -
-                navbarHeight -
-                extraSpacing;
-
+            /*
+             * Activate requested section.
+             */
             setActiveSection(hash);
 
-            window.scrollTo({
-                top: Math.max(
-                    0,
-                    targetPosition
-                ),
+            /*
+             * Native smooth scrolling.
+             */
+            target.scrollIntoView({
                 behavior: "smooth",
+                block: "start",
             });
 
-            setTimeout(() => {
-                isNavigatingRef.current = false;
-            }, 900);
+            if (
+                navigationTimeoutRef.current !==
+                null
+            ) {
+                window.clearTimeout(
+                    navigationTimeoutRef.current
+                );
+            }
+
+            navigationTimeoutRef.current =
+                window.setTimeout(() => {
+                    isNavigatingRef.current =
+                        false;
+
+                    navigationTimeoutRef.current =
+                        null;
+                }, NAVIGATION_LOCK_TIME);
         };
 
         window.addEventListener(
@@ -416,106 +685,6 @@ export default function Navbar() {
      */
     const closeMobileMenu = () => {
         setMobileMenuOpen(false);
-    };
-
-    /*
-     * Navigation handler.
-     */
-    const handleMobileNavigation = (
-        href: string
-    ) => {
-        const targetId = href.replace("#", "");
-
-        /*
-         * Immediately activate the clicked section.
-         */
-        setActiveSection(targetId);
-
-        /*
-         * Lock scroll spy.
-         */
-        isNavigatingRef.current = true;
-
-        /*
-         * Close mobile menu.
-         */
-        setMobileMenuOpen(false);
-
-        /*
-         * Wait for the mobile menu closing animation.
-         */
-        setTimeout(() => {
-            const target =
-                document.getElementById(targetId);
-
-            if (!target) {
-                isNavigatingRef.current = false;
-                return;
-            }
-
-            /*
-             * Mobile navbar height.
-             */
-            const navbarHeight = 68;
-
-            /*
-             * Additional spacing.
-             */
-            const extraSpacing = 12;
-
-            const targetPosition =
-                target.getBoundingClientRect()
-                    .top +
-                window.scrollY -
-                navbarHeight -
-                extraSpacing;
-
-            /*
-             * Smooth scroll to target.
-             */
-            window.scrollTo({
-                top: Math.max(
-                    0,
-                    targetPosition
-                ),
-                behavior: "smooth",
-            });
-
-            /*
-             * Update URL without triggering
-             * the browser's default anchor jump.
-             */
-            window.history.replaceState(
-                null,
-                "",
-                href
-            );
-
-            /*
-             * Keep clicked navigation item active
-             * while smooth scrolling happens.
-             */
-            setTimeout(() => {
-                isNavigatingRef.current = false;
-
-                const scrollPosition =
-                    window.scrollY +
-                    window.innerHeight;
-
-                const pageHeight =
-                    document.documentElement
-                        .scrollHeight;
-
-                if (
-                    scrollPosition >=
-                    pageHeight - 20
-                ) {
-                    setActiveSection("contact");
-                } else {
-                    setActiveSection(targetId);
-                }
-            }, 900);
-        }, 320);
     };
 
     return (
@@ -895,7 +1064,7 @@ export default function Navbar() {
                                     }}
                                     aria-label="Email"
                                     title="Email"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 hover:bg-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-cyan-400"
+                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-zinc-500 transition-all duration-300 hover:border-cyan-500/30 hover:bg-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-cyan-400"
                                 >
                                     <Mail size={16} />
                                 </Link>

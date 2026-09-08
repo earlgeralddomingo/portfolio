@@ -17,7 +17,7 @@ export default function Home() {
             <div className="lg:pl-72">
                 <Navbar />
 
-                <main className="px-4 py-6 sm:px-6 lg:px-8">
+                <main className="px-4 pb-6 pt-[92px] sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-7xl space-y-10">
                         <Dashboard />
                         <About />

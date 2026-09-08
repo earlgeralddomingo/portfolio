@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     LayoutDashboard,
     User,
@@ -23,12 +23,12 @@ type NavigationItem = {
     name: string;
     href: string;
     icon:
-    | "github"
-    | React.ComponentType<{
-        size?: number;
-        strokeWidth?: number;
-        className?: string;
-    }>;
+        | "github"
+        | React.ComponentType<{
+              size?: number;
+              strokeWidth?: number;
+              className?: string;
+          }>;
 };
 
 const navigation: NavigationItem[] = [
@@ -69,12 +69,20 @@ const navigation: NavigationItem[] = [
     },
 ];
 
+const SCROLL_OFFSET = 92;
+const NAVIGATION_LOCK_TIME = 900;
+
 export default function Sidebar() {
     const [activeSection, setActiveSection] =
         useState("dashboard");
 
-    const [isNavigating, setIsNavigating] =
-        useState(false);
+    const isNavigatingRef =
+        useRef(false);
+
+    const navigationTimeoutRef =
+        useRef<ReturnType<typeof setTimeout> | null>(
+            null
+        );
 
     /*
      * Scroll spy
@@ -91,40 +99,131 @@ export default function Sidebar() {
         ];
 
         const handleScroll = () => {
-            const scrollPosition = window.scrollY + 140;
+            /*
+             * Ignore scroll-spy updates while
+             * programmatic navigation is running.
+             */
+            if (isNavigatingRef.current) {
+                return;
+            }
 
-            let currentSection = "dashboard";
+            /*
+             * Dashboard is active when near the top.
+             */
+            if (window.scrollY < 100) {
+                setActiveSection("dashboard");
+
+                window.history.replaceState(
+                    null,
+                    "",
+                    window.location.pathname
+                );
+
+                return;
+            }
+
+            /*
+             * Contact becomes active at the
+             * bottom of the page.
+             */
+            const scrollPosition =
+                window.scrollY +
+                window.innerHeight;
+
+            const pageHeight =
+                document.documentElement
+                    .scrollHeight;
+
+            if (
+                scrollPosition >=
+                pageHeight - 10
+            ) {
+                setActiveSection("contact");
+
+                window.history.replaceState(
+                    null,
+                    "",
+                    "#contact"
+                );
+
+                return;
+            }
+
+            /*
+             * Determine the section closest
+             * to the fixed navbar.
+             */
+            const activationPoint =
+                window.scrollY +
+                SCROLL_OFFSET +
+                20;
+
+            let currentSection =
+                "dashboard";
 
             for (const id of sectionIds) {
-                const section = document.getElementById(id);
+                const section =
+                    document.getElementById(id);
 
-                if (!section) continue;
+                if (!section) {
+                    continue;
+                }
 
-                if (section.offsetTop <= scrollPosition) {
+                const sectionTop =
+                    section.getBoundingClientRect()
+                        .top +
+                    window.scrollY;
+
+                if (
+                    sectionTop <=
+                    activationPoint
+                ) {
                     currentSection = id;
                 }
             }
 
-            setActiveSection(currentSection);
+            setActiveSection(
+                currentSection
+            );
 
-            // Update URL automatically while scrolling
+            /*
+             * Update URL only during
+             * natural scrolling.
+             */
             window.history.replaceState(
                 null,
                 "",
-                currentSection === "dashboard"
+                currentSection ===
+                    "dashboard"
                     ? window.location.pathname
                     : `#${currentSection}`
             );
         };
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
+        window.addEventListener(
+            "scroll",
+            handleScroll,
+            { passive: true }
+        );
 
         handleScroll();
 
         return () => {
-            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener(
+                "scroll",
+                handleScroll
+            );
+
+            if (
+                navigationTimeoutRef.current
+            ) {
+                clearTimeout(
+                    navigationTimeoutRef.current
+                );
+            }
         };
     }, []);
+
     /*
      * Smooth navigation
      */
@@ -138,68 +237,93 @@ export default function Sidebar() {
             href.replace("#", "");
 
         const section =
-            document.getElementById(sectionId);
+            document.getElementById(
+                sectionId
+            );
 
-        if (!section) return;
-
-        /*
-         * Immediately activate clicked section.
-         */
-        setActiveSection(sectionId);
-
-        /*
-         * Disable scroll spy while scrolling.
-         */
-        setIsNavigating(true);
+        if (!section) {
+            return;
+        }
 
         /*
-         * Navbar offset.
+         * Immediately activate the
+         * selected navigation item.
          */
-        const navbarOffset = 80;
+        setActiveSection(
+            sectionId
+        );
 
+        /*
+         * Lock the scroll spy.
+         */
+        isNavigatingRef.current =
+            true;
+
+        if (
+            navigationTimeoutRef.current
+        ) {
+            clearTimeout(
+                navigationTimeoutRef.current
+            );
+        }
+
+        /*
+         * Calculate the exact document
+         * position below the fixed navbar.
+         */
         const targetPosition =
-            section.getBoundingClientRect().top +
+            section.getBoundingClientRect()
+                .top +
             window.scrollY -
-            navbarOffset;
+            SCROLL_OFFSET;
 
         /*
          * Smooth scroll.
          */
         window.scrollTo({
-            top: Math.max(targetPosition, 0),
+            top: Math.max(
+                targetPosition,
+                0
+            ),
             behavior: "smooth",
         });
 
         /*
-         * Update URL without causing
-         * browser default anchor jump.
+         * Update URL without allowing
+         * the browser to perform its own
+         * anchor jump.
          */
         window.history.replaceState(
             null,
             "",
-            href
+            sectionId === "dashboard"
+                ? window.location.pathname
+                : href
         );
 
         /*
-         * Re-enable scroll spy after
-         * smooth scrolling finishes.
+         * Unlock scroll spy after
+         * the smooth scroll finishes.
          */
-        window.setTimeout(() => {
-            setIsNavigating(false);
-            setActiveSection(sectionId);
-        }, 900);
+        navigationTimeoutRef.current =
+            setTimeout(() => {
+                isNavigatingRef.current =
+                    false;
+
+                setActiveSection(
+                    sectionId
+                );
+            }, NAVIGATION_LOCK_TIME);
     };
 
     return (
         <aside className="fixed inset-y-0 left-0 z-50 hidden w-72 border-r border-zinc-200 bg-white transition-colors duration-300 dark:border-zinc-800 dark:bg-zinc-950 lg:flex lg:flex-col">
-
             {/* Profile */}
             <div className="border-b border-zinc-200 px-6 py-5 transition-colors duration-300 dark:border-zinc-800">
                 <Link
                     href="/"
                     className="group flex items-center gap-4"
                 >
-                    {/* Profile Image */}
                     <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 shadow-lg shadow-zinc-200/40 transition-all duration-300 group-hover:border-cyan-500/30 group-hover:shadow-cyan-500/10 dark:border-cyan-400/40 dark:bg-zinc-900 dark:shadow-cyan-950/20 dark:group-hover:border-cyan-400/60">
                         <Image
                             src={profileImage}
@@ -211,7 +335,6 @@ export default function Sidebar() {
                         />
                     </div>
 
-                    {/* Profile Information */}
                     <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-semibold text-zinc-950 transition-colors duration-300 group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400">
                             Earl Gerald Domingo
@@ -229,115 +352,118 @@ export default function Sidebar() {
                 </p>
 
                 <div className="space-y-1">
-                    {navigation.map((item) => {
-                        const sectionId =
-                            item.href.replace(
-                                "#",
-                                ""
-                            );
+                    {navigation.map(
+                        (item) => {
+                            const sectionId =
+                                item.href.replace(
+                                    "#",
+                                    ""
+                                );
 
-                        const isActive =
-                            activeSection ===
-                            sectionId;
+                            const isActive =
+                                activeSection ===
+                                sectionId;
 
-                        return (
-                            <Link
-                                key={item.name}
-                                href={item.href}
-                                onClick={(event) =>
-                                    handleNavigation(
-                                        event,
+                            return (
+                                <Link
+                                    key={
+                                        item.name
+                                    }
+                                    href={
                                         item.href
-                                    )
-                                }
-                                aria-current={
-                                    isActive
-                                        ? "page"
-                                        : undefined
-                                }
-                                className={`group flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors duration-200 ${isActive
-                                        ? "bg-cyan-500/10 text-zinc-950 dark:bg-cyan-400/10 dark:text-white"
-                                        : "text-zinc-600 dark:text-zinc-400"
+                                    }
+                                    onClick={(
+                                        event
+                                    ) =>
+                                        handleNavigation(
+                                            event,
+                                            item.href
+                                        )
+                                    }
+                                    aria-current={
+                                        isActive
+                                            ? "page"
+                                            : undefined
+                                    }
+                                    className={`group flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors duration-200 ${
+                                        isActive
+                                            ? "bg-cyan-500/10 text-zinc-950 dark:bg-cyan-400/10 dark:text-white"
+                                            : "text-zinc-600 dark:text-zinc-400"
                                     }`}
-                            >
-                                {/* Navigation Icon */}
-                                {item.icon ===
-                                    "github" ? (
-                                    /*
-                                     * Custom GitHub SVG
-                                     *
-                                     * Light mode:
-                                     * dark icon
-                                     *
-                                     * Dark mode:
-                                     * semi-light icon
-                                     */
-                                    <span
-                                        aria-hidden="true"
-                                        className={`h-[18px] w-[18px] shrink-0 bg-zinc-700 transition-all duration-200 dark:bg-zinc-400 ${isActive
-                                                ? "bg-zinc-950 dark:bg-zinc-100"
-                                                : "group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100"
-                                            }`}
-                                        style={{
-                                            maskImage: `url(${githubIcon.src})`,
-                                            WebkitMaskImage: `url(${githubIcon.src})`,
-                                            maskRepeat:
-                                                "no-repeat",
-                                            WebkitMaskRepeat:
-                                                "no-repeat",
-                                            maskPosition:
-                                                "center",
-                                            WebkitMaskPosition:
-                                                "center",
-                                            maskSize:
-                                                "contain",
-                                            WebkitMaskSize:
-                                                "contain",
-                                        }}
-                                    />
-                                ) : (
-                                    (() => {
-                                        const Icon =
-                                            item.icon;
-
-                                        return (
-                                            <Icon
-                                                size={18}
-                                                strokeWidth={
-                                                    1.8
-                                                }
-                                                className={`transition-colors duration-200 ${isActive
-                                                        ? "text-cyan-500 dark:text-cyan-400"
-                                                        : "text-zinc-400 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
-                                                    }`}
-                                            />
-                                        );
-                                    })()
-                                )}
-
-                                {/* Navigation Label */}
-                                <span
-                                    className={`transition-colors duration-200 ${isActive
-                                            ? "text-zinc-950 dark:text-white"
-                                            : "group-hover:text-zinc-950 dark:group-hover:text-white"
-                                        }`}
                                 >
-                                    {item.name}
-                                </span>
+                                    {item.icon ===
+                                    "github" ? (
+                                        <span
+                                            aria-hidden="true"
+                                            className={`h-[18px] w-[18px] shrink-0 bg-zinc-700 transition-all duration-200 dark:bg-zinc-400 ${
+                                                isActive
+                                                    ? "bg-zinc-950 dark:bg-zinc-100"
+                                                    : "group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100"
+                                            }`}
+                                            style={{
+                                                maskImage: `url(${githubIcon.src})`,
+                                                WebkitMaskImage: `url(${githubIcon.src})`,
+                                                maskRepeat:
+                                                    "no-repeat",
+                                                WebkitMaskRepeat:
+                                                    "no-repeat",
+                                                maskPosition:
+                                                    "center",
+                                                WebkitMaskPosition:
+                                                    "center",
+                                                maskSize:
+                                                    "contain",
+                                                WebkitMaskSize:
+                                                    "contain",
+                                            }}
+                                        />
+                                    ) : (
+                                        (() => {
+                                            const Icon =
+                                                item.icon;
 
-                                {/* Active Indicator */}
-                                {isActive && (
-                                    <span className="ml-auto h-1.5 w-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400" />
-                                )}
-                            </Link>
-                        );
-                    })}
+                                            return (
+                                                <Icon
+                                                    size={
+                                                        18
+                                                    }
+                                                    strokeWidth={
+                                                        1.8
+                                                    }
+                                                    className={`transition-colors duration-200 ${
+                                                        isActive
+                                                            ? "text-cyan-500 dark:text-cyan-400"
+                                                            : "text-zinc-400 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
+                                                    }`}
+                                                />
+                                            );
+                                        })()
+                                    )}
+
+                                    <span
+                                        className={`transition-colors duration-200 ${
+                                            isActive
+                                                ? "text-zinc-950 dark:text-white"
+                                                : "group-hover:text-zinc-950 dark:group-hover:text-white"
+                                        }`}
+                                    >
+                                        {
+                                            item.name
+                                        }
+                                    </span>
+
+                                    {isActive && (
+                                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                                    )}
+                                </Link>
+                            );
+                        }
+                    )}
                 </div>
             </nav>
 
             {/* Bottom Actions */}
             <div className="border-t border-zinc-200 p-4 transition-colors duration-300 dark:border-zinc-800">
-
                 {/* Resume */}
                 <a
                     href="/resume/Earl_Gerald_Domingo_IT_Staff.pdf"
@@ -359,8 +485,6 @@ export default function Sidebar() {
 
                 {/* Quick Contact */}
                 <div className="flex items-center justify-center gap-2">
-
-                    {/* Location */}
                     <Link
                         href="#contact"
                         aria-label="Location"
@@ -379,7 +503,6 @@ export default function Sidebar() {
                         />
                     </Link>
 
-                    {/* Email */}
                     <Link
                         href="#contact"
                         aria-label="Email"
@@ -398,7 +521,6 @@ export default function Sidebar() {
                         />
                     </Link>
 
-                    {/* Phone */}
                     <Link
                         href="#contact"
                         aria-label="Phone"
