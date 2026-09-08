@@ -9,15 +9,9 @@ export async function GET() {
     } catch (error) {
         console.error("GitHub API error:", error);
 
-        const details =
-            error instanceof Error
-                ? error.message
-                : "Unknown error";
-
         return NextResponse.json(
             {
                 error: "Failed to fetch GitHub data",
-                details,
             },
             {
                 status: 500,
