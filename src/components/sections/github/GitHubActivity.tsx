@@ -76,12 +76,19 @@ export default function GitHubActivity() {
                 className="rounded-2xl border border-zinc-200 bg-white p-6 transition-colors duration-300 dark:border-zinc-800 dark:bg-zinc-900/60"
             >
                 <div className="flex items-center gap-3">
-                    <Image
-                        src={githubIcon}
-                        alt="GitHub"
-                        width={20}
-                        height={20}
-                        className="object-contain"
+                    <span
+                        aria-hidden="true"
+                        className="h-5 w-5 shrink-0 bg-zinc-700 dark:bg-zinc-400"
+                        style={{
+                            maskImage: `url(${githubIcon.src})`,
+                            WebkitMaskImage: `url(${githubIcon.src})`,
+                            maskRepeat: "no-repeat",
+                            WebkitMaskRepeat: "no-repeat",
+                            maskPosition: "center",
+                            WebkitMaskPosition: "center",
+                            maskSize: "contain",
+                            WebkitMaskSize: "contain",
+                        }}
                     />
 
                     <div>
@@ -105,12 +112,19 @@ export default function GitHubActivity() {
                 className="rounded-2xl border border-zinc-200 bg-white p-6 transition-colors duration-300 dark:border-zinc-800 dark:bg-zinc-900/60"
             >
                 <div className="flex items-center gap-3">
-                    <Image
-                        src={githubIcon}
-                        alt="GitHub"
-                        width={20}
-                        height={20}
-                        className="object-contain"
+                    <span
+                        aria-hidden="true"
+                        className="h-5 w-5 shrink-0 bg-zinc-700 dark:bg-zinc-400"
+                        style={{
+                            maskImage: `url(${githubIcon.src})`,
+                            WebkitMaskImage: `url(${githubIcon.src})`,
+                            maskRepeat: "no-repeat",
+                            WebkitMaskRepeat: "no-repeat",
+                            maskPosition: "center",
+                            WebkitMaskPosition: "center",
+                            maskSize: "contain",
+                            WebkitMaskSize: "contain",
+                        }}
                     />
 
                     <div>
@@ -138,14 +152,21 @@ export default function GitHubActivity() {
             {/* Header */}
             <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-950">
-                        <Image
-                            src={githubIcon}
-                            alt="GitHub"
-                            width={22}
-                            height={22}
-                            className="object-contain"
-                            priority
+                    {/* GitHub Icon */}
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-200 bg-zinc-100 transition-colors duration-300 dark:border-zinc-800 dark:bg-zinc-950">
+                        <span
+                            aria-hidden="true"
+                            className="h-[22px] w-[22px] shrink-0 bg-zinc-700 transition-all duration-300 hover:bg-zinc-950 dark:bg-zinc-400 dark:hover:bg-zinc-100"
+                            style={{
+                                maskImage: `url(${githubIcon.src})`,
+                                WebkitMaskImage: `url(${githubIcon.src})`,
+                                maskRepeat: "no-repeat",
+                                WebkitMaskRepeat: "no-repeat",
+                                maskPosition: "center",
+                                WebkitMaskPosition: "center",
+                                maskSize: "contain",
+                                WebkitMaskSize: "contain",
+                            }}
                         />
                     </div>
 

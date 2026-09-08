@@ -406,10 +406,7 @@ export default function TechStack() {
     return (
         <section id="techstack" className="scroll-mt-20 space-y-6">
             {/* Section Header */}
-            <div
-                data-aos="fade-up"
-                className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
-            >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <div className="mb-2 flex items-center gap-2">
                         <span className="h-px w-6 bg-cyan-500" />
@@ -431,11 +428,7 @@ export default function TechStack() {
                 </div>
 
                 {/* Technology Count */}
-                <div
-                    data-aos="fade-left"
-                    data-aos-delay="100"
-                    className="flex w-fit items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900/60"
-                >
+                <div className="flex w-fit items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900/60">
                     <Code2 size={15} className="text-cyan-500" />
 
                     <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
@@ -511,11 +504,7 @@ export default function TechStack() {
             </div>
 
             {/* Core Focus */}
-            <div
-                data-aos="fade-up"
-                data-aos-delay="150"
-                className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900/60 sm:p-6"
-            >
+            <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900/60 sm:p-6">
                 <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 translate-x-16 -translate-y-16 rounded-full bg-cyan-500/10 blur-3xl" />
 
                 <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">

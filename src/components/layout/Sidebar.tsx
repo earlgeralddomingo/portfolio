@@ -23,12 +23,12 @@ type NavigationItem = {
     name: string;
     href: string;
     icon:
-        | "github"
-        | React.ComponentType<{
-              size?: number;
-              strokeWidth?: number;
-              className?: string;
-          }>;
+    | "github"
+    | React.ComponentType<{
+        size?: number;
+        strokeWidth?: number;
+        className?: string;
+    }>;
 };
 
 const navigation: NavigationItem[] = [
@@ -80,100 +80,51 @@ export default function Sidebar() {
      * Scroll spy
      */
     useEffect(() => {
-        const updateActiveSection = () => {
-            /*
-             * Don't allow scroll spy to interfere
-             * with programmatic smooth scrolling.
-             */
-            if (isNavigating) return;
+        const sectionIds = [
+            "dashboard",
+            "about",
+            "experience",
+            "projects",
+            "github",
+            "techstack",
+            "contact",
+        ];
 
-            /*
-             * Dashboard at the very top.
-             */
-            if (window.scrollY < 100) {
-                setActiveSection("dashboard");
-                return;
-            }
-
-            /*
-             * Contact at the bottom of the page.
-             */
-            const scrollPosition =
-                window.scrollY + window.innerHeight;
-
-            const pageHeight =
-                document.documentElement.scrollHeight;
-
-            if (scrollPosition >= pageHeight - 20) {
-                setActiveSection("contact");
-                return;
-            }
-
-            /*
-             * Find the section closest to the navbar.
-             */
-            const offset = 120;
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY + 140;
 
             let currentSection = "dashboard";
 
-            let closestDistance =
-                Number.POSITIVE_INFINITY;
+            for (const id of sectionIds) {
+                const section = document.getElementById(id);
 
-            navigation.forEach((item) => {
-                const sectionId =
-                    item.href.replace("#", "");
+                if (!section) continue;
 
-                const section =
-                    document.getElementById(sectionId);
-
-                if (!section) return;
-
-                const sectionTop =
-                    section.getBoundingClientRect().top;
-
-                if (sectionTop <= offset) {
-                    const distance = Math.abs(
-                        sectionTop - offset
-                    );
-
-                    if (distance < closestDistance) {
-                        closestDistance = distance;
-                        currentSection = sectionId;
-                    }
+                if (section.offsetTop <= scrollPosition) {
+                    currentSection = id;
                 }
-            });
+            }
 
             setActiveSection(currentSection);
+
+            // Update URL automatically while scrolling
+            window.history.replaceState(
+                null,
+                "",
+                currentSection === "dashboard"
+                    ? window.location.pathname
+                    : `#${currentSection}`
+            );
         };
 
-        updateActiveSection();
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
-        window.addEventListener(
-            "scroll",
-            updateActiveSection,
-            {
-                passive: true,
-            }
-        );
-
-        window.addEventListener(
-            "resize",
-            updateActiveSection
-        );
+        handleScroll();
 
         return () => {
-            window.removeEventListener(
-                "scroll",
-                updateActiveSection
-            );
-
-            window.removeEventListener(
-                "resize",
-                updateActiveSection
-            );
+            window.removeEventListener("scroll", handleScroll);
         };
-    }, [isNavigating]);
-
+    }, []);
     /*
      * Smooth navigation
      */
@@ -304,15 +255,14 @@ export default function Sidebar() {
                                         ? "page"
                                         : undefined
                                 }
-                                className={`group flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors duration-200 ${
-                                    isActive
+                                className={`group flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors duration-200 ${isActive
                                         ? "bg-cyan-500/10 text-zinc-950 dark:bg-cyan-400/10 dark:text-white"
                                         : "text-zinc-600 dark:text-zinc-400"
-                                }`}
+                                    }`}
                             >
                                 {/* Navigation Icon */}
                                 {item.icon ===
-                                "github" ? (
+                                    "github" ? (
                                     /*
                                      * Custom GitHub SVG
                                      *
@@ -324,11 +274,10 @@ export default function Sidebar() {
                                      */
                                     <span
                                         aria-hidden="true"
-                                        className={`h-[18px] w-[18px] shrink-0 bg-zinc-700 transition-all duration-200 dark:bg-zinc-400 ${
-                                            isActive
+                                        className={`h-[18px] w-[18px] shrink-0 bg-zinc-700 transition-all duration-200 dark:bg-zinc-400 ${isActive
                                                 ? "bg-zinc-950 dark:bg-zinc-100"
                                                 : "group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100"
-                                        }`}
+                                            }`}
                                         style={{
                                             maskImage: `url(${githubIcon.src})`,
                                             WebkitMaskImage: `url(${githubIcon.src})`,
@@ -357,11 +306,10 @@ export default function Sidebar() {
                                                 strokeWidth={
                                                     1.8
                                                 }
-                                                className={`transition-colors duration-200 ${
-                                                    isActive
+                                                className={`transition-colors duration-200 ${isActive
                                                         ? "text-cyan-500 dark:text-cyan-400"
                                                         : "text-zinc-400 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
-                                                }`}
+                                                    }`}
                                             />
                                         );
                                     })()
@@ -369,11 +317,10 @@ export default function Sidebar() {
 
                                 {/* Navigation Label */}
                                 <span
-                                    className={`transition-colors duration-200 ${
-                                        isActive
+                                    className={`transition-colors duration-200 ${isActive
                                             ? "text-zinc-950 dark:text-white"
                                             : "group-hover:text-zinc-950 dark:group-hover:text-white"
-                                    }`}
+                                        }`}
                                 >
                                     {item.name}
                                 </span>
