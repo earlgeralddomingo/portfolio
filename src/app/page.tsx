@@ -4,6 +4,7 @@ import Dashboard from "@/components/sections/dashboard/Dashboard";
 import About from "@/components/sections/about/About";
 import Experience from "@/components/sections/experience/Experience";
 import Projects from "@/components/sections/projects/Projects";
+import GitHubActivity from "@/components/sections/github/GitHubActivity";
 import TechStack from "@/components/sections/techstack/Techstack";
 import Contact from "@/components/sections/contact/Contact";
 import Footer from "@/components/layout/Footer";
@@ -22,6 +23,7 @@ export default function Home() {
                         <About />
                         <Experience />
                         <Projects />
+                        <GitHubActivity />
                         <TechStack />
                         <Contact />
                     </div>

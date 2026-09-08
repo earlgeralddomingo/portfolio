@@ -21,8 +21,21 @@ import { useEffect, useRef, useState } from "react";
 
 import profileImage from "@/assets/image/egd.png";
 import logoIcon from "@/assets/icons/egdIcon.png";
+import githubIcon from "@/assets/icons/github.svg";
 
-const navigation = [
+type NavigationItem = {
+    name: string;
+    href: string;
+    icon:
+        | "github"
+        | React.ComponentType<{
+              size?: number;
+              strokeWidth?: number;
+              className?: string;
+          }>;
+};
+
+const navigation: NavigationItem[] = [
     {
         name: "Dashboard",
         href: "#dashboard",
@@ -44,6 +57,11 @@ const navigation = [
         icon: FolderKanban,
     },
     {
+        name: "GitHub Activity",
+        href: "#github",
+        icon: "github",
+    },
+    {
         name: "Tech Stack",
         href: "#techstack",
         icon: Code2,
@@ -57,17 +75,20 @@ const navigation = [
 
 export default function Navbar() {
     const [darkMode, setDarkMode] = useState(true);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] =
+        useState(false);
     const [activeSection, setActiveSection] =
         useState("dashboard");
 
     /*
-     * Prevent the scroll spy from fighting against
-     * programmatic smooth scrolling.
+     * Prevent the scroll spy from fighting
+     * against programmatic smooth scrolling.
      */
     const isNavigatingRef = useRef(false);
 
-    /* Apply theme whenever the state changes */
+    /*
+     * Apply theme whenever the state changes.
+     */
     useEffect(() => {
         document.documentElement.classList.toggle(
             "dark",
@@ -86,11 +107,8 @@ export default function Navbar() {
     useEffect(() => {
         const updateActiveSection = () => {
             /*
-             * IMPORTANT:
-             *
-             * While a navigation click is performing a
-             * smooth scroll, don't let the scroll spy change
-             * the active navigation item.
+             * Don't allow the scroll spy to interfere
+             * with smooth navigation.
              */
             if (isNavigatingRef.current) return;
 
@@ -104,10 +122,6 @@ export default function Navbar() {
 
             /*
              * Contact at the bottom of the page.
-             *
-             * Contact may not be able to physically reach
-             * the normal navbar offset because there may not
-             * be enough content below it.
              */
             const scrollPosition =
                 window.scrollY + window.innerHeight;
@@ -126,6 +140,7 @@ export default function Navbar() {
             const offset = 140;
 
             let currentSection = "dashboard";
+
             let closestDistance =
                 Number.POSITIVE_INFINITY;
 
@@ -142,8 +157,8 @@ export default function Navbar() {
                     section.getBoundingClientRect().top;
 
                 /*
-                 * Only consider sections that have passed
-                 * the navbar offset.
+                 * Only consider sections that have
+                 * passed the navbar offset.
                  */
                 if (sectionTop <= offset) {
                     const distance = Math.abs(
@@ -204,11 +219,6 @@ export default function Navbar() {
 
     /*
      * Mobile anchor navigation.
-     *
-     * The active section is changed immediately.
-     * The scroll spy is then locked so it cannot temporarily
-     * change Contact to Tech Stack or another section while
-     * smooth scrolling is happening.
      */
     const handleMobileNavigation = (href: string) => {
         const targetId = href.replace("#", "");
@@ -224,7 +234,7 @@ export default function Navbar() {
         isNavigatingRef.current = true;
 
         /*
-         * Close the mobile menu.
+         * Close mobile menu.
          */
         setMobileMenuOpen(false);
 
@@ -246,8 +256,7 @@ export default function Navbar() {
             const navbarHeight = 68;
 
             /*
-             * Small additional spacing so the section
-             * doesn't sit directly against the navbar.
+             * Additional spacing.
              */
             const extraSpacing = 12;
 
@@ -266,8 +275,8 @@ export default function Navbar() {
             });
 
             /*
-             * Update URL without triggering the browser's
-             * default anchor jump.
+             * Update URL without triggering
+             * browser default anchor jump.
              */
             window.history.replaceState(
                 null,
@@ -276,16 +285,12 @@ export default function Navbar() {
             );
 
             /*
-             * Keep the clicked navigation item active
-             * while smooth scrolling is happening.
+             * Keep clicked navigation item active
+             * while smooth scrolling happens.
              */
             setTimeout(() => {
                 isNavigatingRef.current = false;
 
-                /*
-                 * If we reached the bottom of the page,
-                 * Contact should definitely remain active.
-                 */
                 const scrollPosition =
                     window.scrollY +
                     window.innerHeight;
@@ -307,11 +312,14 @@ export default function Navbar() {
     };
 
     return (
-        <header className="sticky top-0 z-40 border-b border-zinc-200/80 bg-white/95 backdrop-blur-md transition-colors duration-300 dark:border-zinc-800/80 dark:bg-zinc-950/95">
+      <header className="fixed left-0 right-0 top-0 z-50 w-full border-b border-zinc-200/80 bg-white/95 backdrop-blur-md transition-colors duration-300 dark:border-zinc-800/80 dark:bg-zinc-950/95 lg:left-72 lg:w-[calc(100%-18rem)]">
+
             {/* Main Navbar */}
             <div className="flex h-[68px] items-center justify-between px-4 sm:px-6">
+
                 {/* Left Side */}
                 <div className="flex min-w-0 items-center gap-3">
+
                     {/* Profile Photo - Mobile */}
                     <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full lg:hidden">
                         <Image
@@ -348,6 +356,7 @@ export default function Navbar() {
 
                 {/* Right Side */}
                 <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+
                     {/* Availability */}
                     <div className="hidden items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 md:flex">
                         <span className="relative flex h-2 w-2">
@@ -485,6 +494,7 @@ export default function Navbar() {
             >
                 <div className="min-h-0">
                     <nav className="px-4 py-4 sm:px-6">
+
                         {/* Navigation Header */}
                         <div className="mb-3 flex items-center justify-between px-2">
                             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
@@ -499,8 +509,6 @@ export default function Navbar() {
                         {/* Navigation Links */}
                         <div className="space-y-1">
                             {navigation.map((item) => {
-                                const Icon = item.icon;
-
                                 const sectionId =
                                     item.href.replace(
                                         "#",
@@ -528,6 +536,7 @@ export default function Navbar() {
                                                 : "border-transparent text-zinc-600 hover:translate-x-1 hover:border-cyan-500/20 hover:bg-cyan-500/5 hover:text-zinc-950 dark:text-zinc-400 dark:hover:border-cyan-500/20 dark:hover:bg-cyan-500/5 dark:hover:text-white"
                                         }`}
                                     >
+
                                         {/* Sliding Active Indicator */}
                                         <span
                                             className={`absolute left-0 top-1/2 w-0.5 -translate-y-1/2 rounded-full bg-cyan-500 transition-all duration-500 ease-out ${
@@ -547,19 +556,66 @@ export default function Navbar() {
                                         />
 
                                         {/* Icon */}
-                                        <Icon
-                                            size={17}
-                                            strokeWidth={
-                                                isActive
-                                                    ? 2
-                                                    : 1.8
-                                            }
-                                            className={`relative z-10 shrink-0 transition-all duration-300 ${
-                                                isActive
-                                                    ? "translate-x-0.5 text-cyan-500 dark:text-cyan-400"
-                                                    : "text-zinc-400 group-hover:translate-x-0.5 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
-                                            }`}
-                                        />
+                                        {item.icon ===
+                                        "github" ? (
+                                            /*
+                                             * Theme-aware GitHub icon.
+                                             *
+                                             * Light mode:
+                                             * dark gray
+                                             *
+                                             * Dark mode:
+                                             * semi-light gray
+                                             *
+                                             * Active:
+                                             * stronger/brighter
+                                             */
+                                            <span
+                                                aria-hidden="true"
+                                                className={`relative z-10 h-[17px] w-[17px] shrink-0 bg-zinc-700 transition-all duration-300 dark:bg-zinc-400 ${
+                                                    isActive
+                                                        ? "translate-x-0.5 bg-zinc-950 dark:bg-zinc-100"
+                                                        : "group-hover:translate-x-0.5 group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100"
+                                                }`}
+                                                style={{
+                                                    maskImage: `url(${githubIcon.src})`,
+                                                    WebkitMaskImage: `url(${githubIcon.src})`,
+                                                    maskRepeat:
+                                                        "no-repeat",
+                                                    WebkitMaskRepeat:
+                                                        "no-repeat",
+                                                    maskPosition:
+                                                        "center",
+                                                    WebkitMaskPosition:
+                                                        "center",
+                                                    maskSize:
+                                                        "contain",
+                                                    WebkitMaskSize:
+                                                        "contain",
+                                                }}
+                                            />
+                                        ) : (
+                                            (() => {
+                                                const Icon =
+                                                    item.icon;
+
+                                                return (
+                                                    <Icon
+                                                        size={17}
+                                                        strokeWidth={
+                                                            isActive
+                                                                ? 2
+                                                                : 1.8
+                                                        }
+                                                        className={`relative z-10 shrink-0 transition-all duration-300 ${
+                                                            isActive
+                                                                ? "translate-x-0.5 text-cyan-500 dark:text-cyan-400"
+                                                                : "text-zinc-400 group-hover:translate-x-0.5 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
+                                                        }`}
+                                                    />
+                                                );
+                                            })()
+                                        )}
 
                                         {/* Label */}
                                         <span
@@ -614,6 +670,7 @@ export default function Navbar() {
                             </p>
 
                             <div className="flex items-center justify-center gap-2">
+
                                 {/* Location */}
                                 <Link
                                     href="#contact"
@@ -643,7 +700,7 @@ export default function Navbar() {
                                     }}
                                     aria-label="Email"
                                     title="Email"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 hover:bg-zinc-200 hover:text-cyan-500 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-cyan-400"
+                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 hover:bg-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-cyan-400"
                                 >
                                     <Mail size={16} />
                                 </Link>
@@ -660,7 +717,7 @@ export default function Navbar() {
                                     }}
                                     aria-label="Phone"
                                     title="Phone"
-                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 hover:bg-zinc-200 hover:text-cyan-400"
+                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-100 text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-500/30 hover:bg-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-cyan-400"
                                 >
                                     <Phone size={16} />
                                 </Link>

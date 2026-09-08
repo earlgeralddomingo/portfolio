@@ -16,9 +16,22 @@ import {
 } from "lucide-react";
 
 import profileImage from "@/assets/image/egd.png";
+import githubIcon from "@/assets/icons/github.svg";
 import AnimatedRole from "./AnimatedRole";
 
-const navigation = [
+type NavigationItem = {
+    name: string;
+    href: string;
+    icon:
+        | "github"
+        | React.ComponentType<{
+              size?: number;
+              strokeWidth?: number;
+              className?: string;
+          }>;
+};
+
+const navigation: NavigationItem[] = [
     {
         name: "Dashboard",
         href: "#dashboard",
@@ -40,6 +53,11 @@ const navigation = [
         icon: FolderKanban,
     },
     {
+        name: "GitHub Activity",
+        href: "#github",
+        icon: "github",
+    },
+    {
         name: "Tech Stack",
         href: "#techstack",
         icon: Code2,
@@ -52,21 +70,25 @@ const navigation = [
 ];
 
 export default function Sidebar() {
-    const [activeSection, setActiveSection] = useState("dashboard");
-    const [isNavigating, setIsNavigating] = useState(false);
+    const [activeSection, setActiveSection] =
+        useState("dashboard");
+
+    const [isNavigating, setIsNavigating] =
+        useState(false);
 
     /*
-     * Scroll spy.
-     *
-     * Only updates the active navigation while the user
-     * is manually scrolling.
+     * Scroll spy
      */
     useEffect(() => {
         const updateActiveSection = () => {
+            /*
+             * Don't allow scroll spy to interfere
+             * with programmatic smooth scrolling.
+             */
             if (isNavigating) return;
 
             /*
-             * Dashboard at the top.
+             * Dashboard at the very top.
              */
             if (window.scrollY < 100) {
                 setActiveSection("dashboard");
@@ -74,11 +96,13 @@ export default function Sidebar() {
             }
 
             /*
-             * Contact at the bottom.
+             * Contact at the bottom of the page.
              */
-            const scrollPosition = window.scrollY + window.innerHeight;
+            const scrollPosition =
+                window.scrollY + window.innerHeight;
 
-            const pageHeight = document.documentElement.scrollHeight;
+            const pageHeight =
+                document.documentElement.scrollHeight;
 
             if (scrollPosition >= pageHeight - 20) {
                 setActiveSection("contact");
@@ -86,23 +110,31 @@ export default function Sidebar() {
             }
 
             /*
-             * Find the section closest to the top.
+             * Find the section closest to the navbar.
              */
             const offset = 120;
 
             let currentSection = "dashboard";
-            let closestDistance = Number.POSITIVE_INFINITY;
+
+            let closestDistance =
+                Number.POSITIVE_INFINITY;
 
             navigation.forEach((item) => {
-                const sectionId = item.href.replace("#", "");
-                const section = document.getElementById(sectionId);
+                const sectionId =
+                    item.href.replace("#", "");
+
+                const section =
+                    document.getElementById(sectionId);
 
                 if (!section) return;
 
-                const sectionTop = section.getBoundingClientRect().top;
+                const sectionTop =
+                    section.getBoundingClientRect().top;
 
                 if (sectionTop <= offset) {
-                    const distance = Math.abs(sectionTop - offset);
+                    const distance = Math.abs(
+                        sectionTop - offset
+                    );
 
                     if (distance < closestDistance) {
                         closestDistance = distance;
@@ -116,55 +148,71 @@ export default function Sidebar() {
 
         updateActiveSection();
 
-        window.addEventListener("scroll", updateActiveSection, { passive: true });
+        window.addEventListener(
+            "scroll",
+            updateActiveSection,
+            {
+                passive: true,
+            }
+        );
 
-        window.addEventListener("resize", updateActiveSection);
+        window.addEventListener(
+            "resize",
+            updateActiveSection
+        );
 
         return () => {
-            window.removeEventListener("scroll", updateActiveSection);
+            window.removeEventListener(
+                "scroll",
+                updateActiveSection
+            );
 
-            window.removeEventListener("resize", updateActiveSection);
+            window.removeEventListener(
+                "resize",
+                updateActiveSection
+            );
         };
     }, [isNavigating]);
 
     /*
-     * Smooth navigation.
-     *
-     * During the animation, the scroll spy is completely
-     * disabled so it cannot change the active navigation.
+     * Smooth navigation
      */
     const handleNavigation = (
         event: React.MouseEvent<HTMLAnchorElement>,
-        href: string,
+        href: string
     ) => {
         event.preventDefault();
 
-        const sectionId = href.replace("#", "");
+        const sectionId =
+            href.replace("#", "");
 
-        const section = document.getElementById(sectionId);
+        const section =
+            document.getElementById(sectionId);
 
         if (!section) return;
 
         /*
-         * Immediately activate the clicked item.
+         * Immediately activate clicked section.
          */
         setActiveSection(sectionId);
 
         /*
-         * Lock the scroll spy.
+         * Disable scroll spy while scrolling.
          */
         setIsNavigating(true);
 
         /*
-         * Calculate target position.
+         * Navbar offset.
          */
         const navbarOffset = 80;
 
         const targetPosition =
-            section.getBoundingClientRect().top + window.scrollY - navbarOffset;
+            section.getBoundingClientRect().top +
+            window.scrollY -
+            navbarOffset;
 
         /*
-         * Scroll smoothly.
+         * Smooth scroll.
          */
         window.scrollTo({
             top: Math.max(targetPosition, 0),
@@ -172,13 +220,18 @@ export default function Sidebar() {
         });
 
         /*
-         * Update URL without browser jump.
+         * Update URL without causing
+         * browser default anchor jump.
          */
-        window.history.replaceState(null, "", href);
+        window.history.replaceState(
+            null,
+            "",
+            href
+        );
 
         /*
-         * Keep the clicked item active while the browser
-         * finishes the smooth scrolling animation.
+         * Re-enable scroll spy after
+         * smooth scrolling finishes.
          */
         window.setTimeout(() => {
             setIsNavigating(false);
@@ -209,17 +262,14 @@ export default function Sidebar() {
 
                     {/* Profile Information */}
                     <div className="min-w-0 flex-1">
-                        {/* Name */}
                         <p className="truncate text-sm font-semibold text-zinc-950 transition-colors duration-300 group-hover:text-cyan-600 dark:text-white dark:group-hover:text-cyan-400">
                             Earl Gerald Domingo
                         </p>
 
-                        {/* Animated Role */}
                         <AnimatedRole />
                     </div>
                 </Link>
             </div>
-
 
             {/* Navigation */}
             <nav className="flex-1 px-4 py-6">
@@ -229,41 +279,106 @@ export default function Sidebar() {
 
                 <div className="space-y-1">
                     {navigation.map((item) => {
-                        const Icon = item.icon;
+                        const sectionId =
+                            item.href.replace(
+                                "#",
+                                ""
+                            );
 
-                        const sectionId = item.href.replace("#", "");
-
-                        const isActive = activeSection === sectionId;
+                        const isActive =
+                            activeSection ===
+                            sectionId;
 
                         return (
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                onClick={(event) => handleNavigation(event, item.href)}
-                                aria-current={isActive ? "page" : undefined}
-                                className={`group flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors duration-200 ${isActive
-                                    ? "bg-cyan-500/10 text-zinc-950 dark:bg-cyan-400/10 dark:text-white"
-                                    : "text-zinc-600 dark:text-zinc-400"
-                                    }`}
+                                onClick={(event) =>
+                                    handleNavigation(
+                                        event,
+                                        item.href
+                                    )
+                                }
+                                aria-current={
+                                    isActive
+                                        ? "page"
+                                        : undefined
+                                }
+                                className={`group flex h-10 items-center gap-3 rounded-xl px-3 text-sm transition-colors duration-200 ${
+                                    isActive
+                                        ? "bg-cyan-500/10 text-zinc-950 dark:bg-cyan-400/10 dark:text-white"
+                                        : "text-zinc-600 dark:text-zinc-400"
+                                }`}
                             >
-                                <Icon
-                                    size={18}
-                                    strokeWidth={1.8}
-                                    className={`transition-colors duration-200 ${isActive
-                                        ? "text-cyan-500 dark:text-cyan-400"
-                                        : "text-zinc-400 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
+                                {/* Navigation Icon */}
+                                {item.icon ===
+                                "github" ? (
+                                    /*
+                                     * Custom GitHub SVG
+                                     *
+                                     * Light mode:
+                                     * dark icon
+                                     *
+                                     * Dark mode:
+                                     * semi-light icon
+                                     */
+                                    <span
+                                        aria-hidden="true"
+                                        className={`h-[18px] w-[18px] shrink-0 bg-zinc-700 transition-all duration-200 dark:bg-zinc-400 ${
+                                            isActive
+                                                ? "bg-zinc-950 dark:bg-zinc-100"
+                                                : "group-hover:bg-zinc-950 dark:group-hover:bg-zinc-100"
                                         }`}
-                                />
+                                        style={{
+                                            maskImage: `url(${githubIcon.src})`,
+                                            WebkitMaskImage: `url(${githubIcon.src})`,
+                                            maskRepeat:
+                                                "no-repeat",
+                                            WebkitMaskRepeat:
+                                                "no-repeat",
+                                            maskPosition:
+                                                "center",
+                                            WebkitMaskPosition:
+                                                "center",
+                                            maskSize:
+                                                "contain",
+                                            WebkitMaskSize:
+                                                "contain",
+                                        }}
+                                    />
+                                ) : (
+                                    (() => {
+                                        const Icon =
+                                            item.icon;
 
+                                        return (
+                                            <Icon
+                                                size={18}
+                                                strokeWidth={
+                                                    1.8
+                                                }
+                                                className={`transition-colors duration-200 ${
+                                                    isActive
+                                                        ? "text-cyan-500 dark:text-cyan-400"
+                                                        : "text-zinc-400 group-hover:text-cyan-500 dark:text-zinc-500 dark:group-hover:text-cyan-400"
+                                                }`}
+                                            />
+                                        );
+                                    })()
+                                )}
+
+                                {/* Navigation Label */}
                                 <span
-                                    className={`transition-colors duration-200 ${isActive
-                                        ? "text-zinc-950 dark:text-white"
-                                        : "group-hover:text-zinc-950 dark:group-hover:text-white"
-                                        }`}
+                                    className={`transition-colors duration-200 ${
+                                        isActive
+                                            ? "text-zinc-950 dark:text-white"
+                                            : "group-hover:text-zinc-950 dark:group-hover:text-white"
+                                    }`}
                                 >
                                     {item.name}
                                 </span>
 
+                                {/* Active Indicator */}
                                 {isActive && (
                                     <span className="ml-auto h-1.5 w-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400" />
                                 )}
@@ -275,6 +390,7 @@ export default function Sidebar() {
 
             {/* Bottom Actions */}
             <div className="border-t border-zinc-200 p-4 transition-colors duration-300 dark:border-zinc-800">
+
                 {/* Resume */}
                 <a
                     href="/resume/Earl_Gerald_Domingo_IT_Staff.pdf"
@@ -289,39 +405,69 @@ export default function Sidebar() {
                         className="transition-transform duration-300 group-hover:-translate-y-0.5"
                     />
 
-                    <span>Download Resume</span>
+                    <span>
+                        Download Resume
+                    </span>
                 </a>
 
                 {/* Quick Contact */}
                 <div className="flex items-center justify-center gap-2">
+
+                    {/* Location */}
                     <Link
                         href="#contact"
                         aria-label="Location"
                         title="Location"
-                        onClick={(event) => handleNavigation(event, "#contact")}
+                        onClick={(event) =>
+                            handleNavigation(
+                                event,
+                                "#contact"
+                            )
+                        }
                         className="rounded-lg p-2 text-zinc-400 transition-all duration-200 hover:bg-zinc-100 hover:text-cyan-500 dark:text-zinc-500 dark:hover:bg-zinc-900 dark:hover:text-cyan-400"
                     >
-                        <MapPin size={17} strokeWidth={1.8} />
+                        <MapPin
+                            size={17}
+                            strokeWidth={1.8}
+                        />
                     </Link>
 
+                    {/* Email */}
                     <Link
                         href="#contact"
                         aria-label="Email"
                         title="Email"
-                        onClick={(event) => handleNavigation(event, "#contact")}
+                        onClick={(event) =>
+                            handleNavigation(
+                                event,
+                                "#contact"
+                            )
+                        }
                         className="rounded-lg p-2 text-zinc-400 transition-all duration-200 hover:bg-zinc-100 hover:text-cyan-500 dark:text-zinc-500 dark:hover:bg-zinc-900 dark:hover:text-cyan-400"
                     >
-                        <Mail size={17} strokeWidth={1.8} />
+                        <Mail
+                            size={17}
+                            strokeWidth={1.8}
+                        />
                     </Link>
 
+                    {/* Phone */}
                     <Link
                         href="#contact"
                         aria-label="Phone"
                         title="Phone"
-                        onClick={(event) => handleNavigation(event, "#contact")}
+                        onClick={(event) =>
+                            handleNavigation(
+                                event,
+                                "#contact"
+                            )
+                        }
                         className="rounded-lg p-2 text-zinc-400 transition-all duration-200 hover:bg-zinc-100 hover:text-cyan-500 dark:text-zinc-500 dark:hover:bg-zinc-900 dark:hover:text-cyan-400"
                     >
-                        <Phone size={17} strokeWidth={1.8} />
+                        <Phone
+                            size={17}
+                            strokeWidth={1.8}
+                        />
                     </Link>
                 </div>
             </div>
