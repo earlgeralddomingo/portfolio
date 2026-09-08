@@ -49,6 +49,7 @@ const experiences: Experience[] = [
         technologies: [
             "Windows",
             "AnyDesk",
+            "TeamViewer",
             "Hardware",
             "Networking",
             "Software Troubleshooting",
