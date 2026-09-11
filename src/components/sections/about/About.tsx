@@ -39,7 +39,7 @@ const technicalAreas = [
     "Web Development",
     "PHP & MySQL",
     "Vue.js",
-    "Next.js",
+    // "Next.js",
     "Tailwind CSS",
 ];
 

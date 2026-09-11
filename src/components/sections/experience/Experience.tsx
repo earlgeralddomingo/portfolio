@@ -93,17 +93,19 @@ const experiences: Experience[] = [
         type: "Internship",
         location: "On-site",
         description:
-            "Supported daily IT operations while developing an internal Human Resources Ticketing System using PHP and MySQL, and assisted in functional testing of updated BizBox modules before deployment.",
+            "Supported daily IT operations while developing an internal Human Resources Ticketing System using PHP and MySQL, assisting in functional testing of updated BizBox modules, and conducting computer inventory and hardware assessment across the hospital.",
         responsibilities: [
             "Installed and configured desktop computers and printers.",
             "Troubleshot hardware, software, and LAN connectivity issues.",
             "Assisted with CCTV and wireless access point configuration.",
             "Provided technical support to hospital personnel.",
+            "Conducted an inventory of computers across the hospital and recorded hardware specifications in Google Sheets to identify systems that required upgrades or replacement.",
             "Performed basic functional testing of updated BizBox modules before deployment to hospital users.",
             "Created technical documentation and a user manual for the ticketing system.",
         ],
         achievements: [
             "Developed the Human Resources Ticketing System using PHP and MySQL.",
+            "Created a centralized computer inventory in Google Sheets that helped identify hardware requiring upgrades or replacement.",
             "Performed functional QA testing of updated BizBox modules to verify system functionality before deployment.",
             "Completed hands-on IT support and infrastructure tasks in a hospital environment.",
             "Created technical documentation to support system users.",
@@ -115,6 +117,7 @@ const experiences: Experience[] = [
             "Bootstrap",
             "VS Code",
             "BizBox",
+            "Google Sheets",
             "Windows",
             "Networking",
             "Printers",
@@ -157,6 +160,10 @@ export default function Experience() {
 
     return (
         <>
+            {/* =========================================
+                Experience Section
+            ========================================= */}
+
             <section id="experience" className="scroll-mt-20 space-y-6">
                 {/* Section Header */}
                 <div
@@ -188,7 +195,10 @@ export default function Experience() {
                         data-aos-delay="100"
                         className="flex w-fit items-center gap-2 rounded-xl border border-zinc-200 bg-white px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900/60"
                     >
-                        <Briefcase size={15} className="text-cyan-500" />
+                        <Briefcase
+                            size={15}
+                            className="text-cyan-500"
+                        />
 
                         <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
                             {experiences.length} Experiences
@@ -307,21 +317,28 @@ export default function Experience() {
                 </div>
             </section>
 
-            {/* Experience Modal */}
+            {/* =========================================
+                Experience Modal
+            ========================================= */}
+
             {selectedExperience && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
+                    className="fixed inset-0 z-[100] flex h-screen w-screen items-center justify-center overflow-hidden bg-black/60 p-3 backdrop-blur-sm sm:p-5"
                     onMouseDown={(event) => {
                         if (event.target === event.currentTarget) {
                             closeModal();
                         }
                     }}
                 >
-                    <div className="relative flex max-h-[94vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
+                    {/* Modal */}
+                    <div className="relative flex max-h-[calc(100vh-2rem)] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950 sm:max-h-[calc(100vh-3rem)]">
                         {/* Top Accent */}
                         <div className="absolute left-0 right-0 top-0 z-20 h-0.5 bg-cyan-500" />
 
-                        {/* Modal Header */}
+                        {/* =========================================
+                            Modal Header
+                        ========================================= */}
+
                         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-zinc-200 p-5 dark:border-zinc-800 sm:p-6">
                             <div className="min-w-0">
                                 <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -361,8 +378,11 @@ export default function Experience() {
                             </button>
                         </div>
 
-                        {/* Scrollable Modal Content */}
-                        <div className="min-h-0 flex-1 overflow-y-auto p-5 sm:p-6">
+                        {/* =========================================
+                            Scrollable Modal Content
+                        ========================================= */}
+
+                        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6">
                             {/* Overview */}
                             <div>
                                 <div className="mb-3 flex items-center gap-2">
@@ -483,10 +503,14 @@ export default function Experience() {
                                 </div>
                             </div>
 
+                            {/* Bottom Spacing */}
                             <div className="h-2" />
                         </div>
 
-                        {/* Modal Footer */}
+                        {/* =========================================
+                            Modal Footer
+                        ========================================= */}
+
                         <div className="flex shrink-0 items-center justify-between border-t border-zinc-200 bg-zinc-50/80 px-5 py-3 dark:border-zinc-800 dark:bg-zinc-900/40 sm:px-6">
                             <span className="text-[10px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
                                 Experience Details

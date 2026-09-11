@@ -26,7 +26,7 @@ import github from "@/assets/icons/github.svg";
 import html5 from "@/assets/icons/html5.svg";
 import javascript from "@/assets/icons/javascript.svg";
 import mysql from "@/assets/icons/mysql.svg";
-import nextdotjs from "@/assets/icons/nextdotjs.svg";
+// import nextdotjs from "@/assets/icons/nextdotjs.svg";
 import php from "@/assets/icons/php.svg";
 import reactquery from "@/assets/icons/reactquery.svg";
 import tailwindcss from "@/assets/icons/tailwindcss.svg";
@@ -149,11 +149,11 @@ const techCategories: TechCategory[] = [
                 icon: reactquery.src,
                 brandColor: "#61DAFB",
             },
-            {
-                name: "Next.js",
-                icon: nextdotjs.src,
-                brandColor: "#000000",
-            },
+            // {
+            //     name: "Next.js",
+            //     icon: nextdotjs.src,
+            //     brandColor: "#000000",
+            // },
             {
                 name: "Tailwind CSS",
                 icon: tailwindcss.src,
@@ -192,10 +192,6 @@ const techCategories: TechCategory[] = [
                 name: "MySQL",
                 icon: mysql.src,
                 brandColor: "#4479A1",
-            },
-            {
-                name: "SQL",
-                brandColor: "#336791",
             },
             {
                 name: "Database Design",
@@ -298,7 +294,7 @@ const coreFocus = [
  */
 function TechnologyIcon({ technology }: { technology: TechItem }) {
     const isThemeAwareIcon =
-        technology.name === "Next.js" ||
+        // technology.name === "Next.js" ||
         technology.name === "ChatGPT";
 
     /*

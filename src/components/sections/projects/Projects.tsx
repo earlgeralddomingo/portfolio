@@ -2,6 +2,7 @@
 
 import Image, { StaticImageData } from "next/image";
 import { useEffect, useState } from "react";
+
 import {
     ArrowUpRight,
     CheckCircle2,
@@ -29,6 +30,7 @@ type Project = {
     title: string;
     category: Exclude<ProjectCategory, "All">;
     status: "Completed" | "In Progress";
+    availability?: "Online" | "Private";
     description: string;
     details: string;
     technologies: string[];
@@ -38,37 +40,38 @@ type Project = {
 };
 
 const projects: Project[] = [
-    {
-        id: 1,
-        title: "ArcGuide Tourism Hub",
-        category: "Web Application",
-        status: "In Progress",
-        description:
-            "A tourism-focused web platform designed to help users discover destinations, attractions, and travel-related information.",
-        details:
-            "ArcGuide Tourism Hub is a tourism web application focused on presenting destinations and travel information through a clean and user-friendly interface. The project is currently under development, with additional features and improvements being implemented.",
-        technologies: [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "PHP",
-            "MySQL",
-            "Bootstrap",
-            "JQuery"
-        ],
-        features: [
-            "Tourism destination discovery",
-            "Travel information",
-            "Responsive interface",
-            "Modern user interface",
-        ],
-        image: arcguideImage,
-    },
+{
+    id: 1,
+    title: "ArcGuide Tourism Hub",
+    category: "Web Application",
+    status: "In Progress",
+    description:
+        "A tourism-focused web platform designed to help users discover destinations, attractions, and travel-related information.",
+    details:
+        "ArcGuide Tourism Hub is a tourism web application focused on presenting destinations and travel information through a clean and user-friendly interface. The project is currently under development, with additional features and improvements being implemented.",
+    technologies: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "PHP",
+        "MySQL",
+        "Bootstrap",
+        "JQuery",
+    ],
+    features: [
+        "Tourism destination discovery",
+        "Travel information",
+        "Responsive interface",
+        "Modern user interface",
+    ],
+    image: arcguideImage,
+},
     {
         id: 2,
         title: "Human Resources Ticketing System",
         category: "System",
         status: "Completed",
+        availability: "Online",
         description:
             "An internal ticketing system developed to help the Human Resources department manage and track employee concerns and technical requests.",
         details:
@@ -81,7 +84,7 @@ const projects: Project[] = [
             "MySQL",
             "Bootstrap",
             "JQuery",
-            "AJAX"
+            "AJAX",
         ],
         features: [
             "Ticket creation and management",
@@ -97,6 +100,7 @@ const projects: Project[] = [
         title: "CLiMS",
         category: "System",
         status: "Completed",
+        availability: "Online",
         description:
             "A Cooperative Loan Management System designed to help manage member information, loan records, and related cooperative operations.",
         details:
@@ -110,8 +114,7 @@ const projects: Project[] = [
             "Bootstrap",
             "JQuery",
             "AJAX",
-            "Chart.js"
-
+            "Chart.js",
         ],
         features: [
             "Member management",
@@ -127,6 +130,7 @@ const projects: Project[] = [
         title: "RDS Autoworkz",
         category: "Business Website",
         status: "Completed",
+        availability: "Online",
         description:
             "A modern automotive service website created for RDS Autoworkz, showcasing automotive services and business information.",
         details:
@@ -152,6 +156,7 @@ const projects: Project[] = [
         title: "CSS Generator",
         category: "Utility",
         status: "Completed",
+        availability: "Online",
         description:
             "A browser-based CSS utility project designed to generate and experiment with CSS styling through an interactive interface.",
         details:
@@ -222,7 +227,10 @@ export default function Projects() {
 
         return () => {
             document.body.style.overflow = "";
-            window.removeEventListener("keydown", handleEscape);
+            window.removeEventListener(
+                "keydown",
+                handleEscape
+            );
         };
     }, [selectedProject]);
 
@@ -350,26 +358,50 @@ export default function Projects() {
                                     )}
                                 </div>
 
-                                {/* Status */}
-                                <span
-                                    className={`absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold backdrop-blur-md ${
-                                        project.status ===
-                                        "Completed"
-                                            ? "border-emerald-400/30 bg-emerald-500/20 text-emerald-100"
-                                            : "border-amber-400/30 bg-amber-500/20 text-amber-100"
-                                    }`}
-                                >
+                                {/* Status + Availability */}
+                                <div className="absolute right-4 top-4 flex items-center gap-1.5">
+                                    {/* Project Status */}
                                     <span
-                                        className={`h-1.5 w-1.5 rounded-full ${
+                                        className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold backdrop-blur-md ${
                                             project.status ===
                                             "Completed"
-                                                ? "bg-emerald-400"
-                                                : "bg-amber-400"
+                                                ? "border-emerald-400/30 bg-emerald-500/20 text-emerald-100"
+                                                : "border-amber-400/30 bg-amber-500/20 text-amber-100"
                                         }`}
-                                    />
+                                    >
+                                        <span
+                                            className={`h-1.5 w-1.5 rounded-full ${
+                                                project.status ===
+                                                "Completed"
+                                                    ? "bg-emerald-400"
+                                                    : "bg-amber-400"
+                                            }`}
+                                        />
 
-                                    {project.status}
-                                </span>
+                                        {project.status}
+                                    </span>
+
+                                    {/* Online / Offline */}
+                                    <span
+                                        className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold backdrop-blur-md ${
+                                            project.availability ===
+                                            "Online"
+                                                ? "border-cyan-400/30 bg-cyan-500/20 text-cyan-100"
+                                                : "border-zinc-400/30 bg-zinc-500/20 text-zinc-100"
+                                        }`}
+                                    >
+                                        <span
+                                            className={`h-1.5 w-1.5 rounded-full ${
+                                                project.availability ===
+                                                "Online"
+                                                    ? "bg-cyan-400"
+                                                    : "bg-zinc-400"
+                                            }`}
+                                        />
+
+                                        {project.availability}
+                                    </span>
+                                </div>
                             </div>
 
                             {/* Content */}
@@ -466,7 +498,7 @@ export default function Projects() {
             {/* Project Modal */}
             {selectedProject && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
+                    className="fixed inset-0 z-[9999] flex h-screen w-screen items-center justify-center overflow-y-auto bg-black/60 p-4 backdrop-blur-sm sm:p-6"
                     onMouseDown={(event) => {
                         if (
                             event.target ===
@@ -476,7 +508,7 @@ export default function Projects() {
                         }
                     }}
                 >
-                    <div className="relative flex max-h-[94vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
+                    <div className="relative my-auto flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950">
                         {/* Top Accent */}
                         <div className="absolute left-0 right-0 top-0 z-20 h-0.5 bg-cyan-500" />
 
@@ -484,12 +516,14 @@ export default function Projects() {
                         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-zinc-200 p-5 dark:border-zinc-800 sm:p-6">
                             <div className="min-w-0">
                                 <div className="mb-2 flex flex-wrap items-center gap-2">
+                                    {/* Category */}
                                     <span className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
                                         {
                                             selectedProject.category
                                         }
                                     </span>
 
+                                    {/* Status */}
                                     <span
                                         className={`rounded-full border px-2 py-1 text-[10px] font-semibold ${
                                             selectedProject.status ===
@@ -502,12 +536,24 @@ export default function Projects() {
                                             selectedProject.status
                                         }
                                     </span>
+
+                                    {/* Availability */}
+                                    <span
+                                        className={`rounded-full border px-2 py-1 text-[10px] font-semibold ${
+                                            selectedProject.availability ===
+                                            "Online"
+                                                ? "border-cyan-500/20 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400"
+                                                : "border-zinc-500/20 bg-zinc-500/10 text-zinc-600 dark:text-zinc-400"
+                                        }`}
+                                    >
+                                        {
+                                            selectedProject.availability
+                                        }
+                                    </span>
                                 </div>
 
                                 <h3 className="text-xl font-bold tracking-tight text-zinc-950 dark:text-white sm:text-2xl">
-                                    {
-                                        selectedProject.title
-                                    }
+                                    {selectedProject.title}
                                 </h3>
 
                                 <p className="mt-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">
@@ -531,32 +577,99 @@ export default function Projects() {
                         {/* Modal Content */}
                         <div className="min-h-0 flex-1 overflow-y-auto p-5 sm:p-6">
                             {/* Project Preview */}
-                            <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
-                                {/* Browser Bar */}
-                                <div className="relative z-10 flex h-10 items-center gap-1.5 border-b border-zinc-200 bg-white/90 px-4 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/90">
-                                    <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                                    <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                                    <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                            <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+                                {/* Browser Chrome */}
+                                <div className="relative z-10 border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+                                    {/* Top Browser Bar */}
+                                    <div className="flex h-11 items-center gap-2 px-3">
+                                        {/* Window Controls */}
+                                        <div className="flex items-center gap-1.5">
+                                            <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+                                            <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
+                                            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+                                        </div>
 
-                                    <div className="ml-3 flex h-5 flex-1 items-center rounded-md border border-zinc-200 bg-zinc-50 px-2 text-[9px] text-zinc-400 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-600">
-                                        {selectedProject.title}
+                                        {/* Navigation Controls */}
+                                        <div className="ml-2 hidden items-center gap-1 text-zinc-300 sm:flex dark:text-zinc-700">
+                                            <span className="flex h-6 w-6 items-center justify-center rounded-md text-sm">
+                                                ‹
+                                            </span>
+
+                                            <span className="flex h-6 w-6 items-center justify-center rounded-md text-sm">
+                                                ›
+                                            </span>
+
+                                            <span className="flex h-6 w-6 items-center justify-center rounded-md text-xs">
+                                                ↻
+                                            </span>
+                                        </div>
+
+                                        {/* Address Bar */}
+                                        <div className="ml-1 flex h-7 min-w-0 flex-1 items-center rounded-lg border border-zinc-200 bg-zinc-50 px-3 dark:border-zinc-800 dark:bg-zinc-900">
+                                            <Globe
+                                                size={11}
+                                                className="mr-2 shrink-0 text-zinc-400"
+                                            />
+
+                                            <span className="truncate text-[10px] text-zinc-400 dark:text-zinc-500">
+                                                {selectedProject.live
+                                                    ? selectedProject.live.replace(
+                                                          /^https?:\/\//,
+                                                          ""
+                                                      )
+                                                    : `${selectedProject.title
+                                                          .toLowerCase()
+                                                          .replace(
+                                                              /\s+/g,
+                                                              "-"
+                                                          )}.local`}
+                                            </span>
+                                        </div>
+
+                                        {/* Browser Menu */}
+                                        <div className="hidden items-center gap-1 sm:flex">
+                                            <span className="flex h-6 w-6 items-center justify-center rounded-md text-xs text-zinc-400">
+                                                ⋮
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Browser Tab */}
+                                    <div className="hidden h-8 items-end border-t border-zinc-100 px-3 dark:border-zinc-900 sm:flex">
+                                        <div className="flex h-7 max-w-[220px] items-center gap-2 rounded-t-lg border border-b-0 border-zinc-200 bg-zinc-50 px-3 dark:border-zinc-800 dark:bg-zinc-900">
+                                            <div className="h-2 w-2 shrink-0 rounded-full bg-cyan-500" />
+
+                                            <span className="truncate text-[9px] font-medium text-zinc-500 dark:text-zinc-400">
+                                                {
+                                                    selectedProject.title
+                                                }
+                                            </span>
+
+                                            <X
+                                                size={10}
+                                                className="ml-auto shrink-0 text-zinc-400"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Image */}
-                                <div className="relative min-h-60 bg-zinc-100 dark:bg-zinc-900 sm:min-h-72">
-                                    <Image
-                                        src={
-                                            selectedProject.image
-                                        }
-                                        alt={`${selectedProject.title} preview`}
-                                        fill
-                                        unoptimized
-                                        className="object-contain object-center"
-                                    />
+                                {/* Website Viewport */}
+                                <div className="relative bg-zinc-100 dark:bg-zinc-900">
+                                    <div className="relative w-full overflow-hidden bg-white dark:bg-zinc-950">
+                                        <Image
+                                            src={
+                                                selectedProject.image
+                                            }
+                                            alt={`${selectedProject.title} website preview`}
+                                            width={1600}
+                                            height={1000}
+                                            unoptimized
+                                            className="block h-auto w-full object-cover object-top"
+                                        />
+                                    </div>
 
-                                    {/* Bottom Gradient */}
-                                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/30 to-transparent" />
+                                    {/* Subtle Browser Reflection */}
+                                    <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/10 to-transparent" />
                                 </div>
                             </div>
 
@@ -576,9 +689,7 @@ export default function Projects() {
                                 </div>
 
                                 <p className="text-sm leading-6 text-zinc-500 dark:text-zinc-400">
-                                    {
-                                        selectedProject.details
-                                    }
+                                    {selectedProject.details}
                                 </p>
                             </div>
 
@@ -656,19 +767,21 @@ export default function Projects() {
 
                             <div className="flex flex-wrap items-center gap-2">
                                 {/* Live Demo */}
-                                {selectedProject.live && (
-                                    <a
-                                        href={
-                                            selectedProject.live
-                                        }
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/20 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-600 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-500/15 dark:text-cyan-400"
-                                    >
-                                        <Globe size={13} />
-                                        Live Demo
-                                    </a>
-                                )}
+                                {selectedProject.live &&
+                                    selectedProject.availability ===
+                                        "Online" && (
+                                        <a
+                                            href={
+                                                selectedProject.live
+                                            }
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/20 bg-cyan-500/10 px-3 py-2 text-xs font-semibold text-cyan-600 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-500/15 dark:text-cyan-400"
+                                        >
+                                            <Globe size={13} />
+                                            Live Demo
+                                        </a>
+                                    )}
 
                                 {/* Close */}
                                 <button

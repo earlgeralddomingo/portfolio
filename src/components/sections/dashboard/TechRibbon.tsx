@@ -9,7 +9,7 @@ import githubIcon from "@/assets/icons/github.svg";
 import html5Icon from "@/assets/icons/html5.svg";
 import javascriptIcon from "@/assets/icons/javascript.svg";
 import mysqlIcon from "@/assets/icons/mysql.svg";
-import nextjsIcon from "@/assets/icons/nextdotjs.svg";
+// import nextjsIcon from "@/assets/icons/nextdotjs.svg";
 import phpIcon from "@/assets/icons/php.svg";
 import reactIcon from "@/assets/icons/reactquery.svg";
 import tailwindIcon from "@/assets/icons/tailwindcss.svg";
@@ -44,12 +44,12 @@ const technologies = [
         icon: reactIcon,
         color: "#61DAFB",
     },
-    {
-        name: "Next.js",
-        icon: nextjsIcon,
-        color: "#000000",
-        darkColor: "#FFFFFF",
-    },
+    // {
+    //     name: "Next.js",
+    //     icon: nextjsIcon,
+    //     color: "#000000",
+    //     darkColor: "#FFFFFF",
+    // },
     {
         name: "Vue.js",
         icon: vueIcon,
