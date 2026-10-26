@@ -16,6 +16,10 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
     metadataBase: new URL("https://egdomingodev.vercel.app"),
 
+    verification: {
+        google: "zSZVAD4y8ODemB81_CEAwXy9vbFvSqSyDFgsubdI7Zc",
+    },
+
     title: {
         default: "Earl Gerald Domingo | IT Support Specialist & Web Developer",
         template: "%s | Earl Gerald Domingo",
